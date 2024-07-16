@@ -1,0 +1,25 @@
+name: tofu
+
+on:
+  push:
+    branches:
+    - "main"
+
+jobs:
+  lke:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: opentofu/setup-opentofu@v1
+    - env:
+        PG_CONN_STR: "${{ secrets.PG_CONN_STR }}"
+      run: |
+        tofu -chdir=./terraform/lke init -upgrade
+    - env:
+        PG_CONN_STR: "${{ secrets.PG_CONN_STR }}"
+        LINODE_TOKEN: "${{ secrets.LINODE_TOKEN }}"
+      run: |
+        tofu -chdir=./terraform/lke \
+          apply -auto-approve -input=false -lock=true -no-color \
+            -var=k8s_cluster_name=lke \
+            -var=kubeconfig=lke.yaml
