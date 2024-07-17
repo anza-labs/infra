@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+spec:
+  chart:
+    spec:
+      chart: cilium
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+      version: "1.15.6"
+  interval: 1m0s
+  timeout: 15m
+  releaseName: cilium
+  targetNamespace: kube-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    operator:
+      replicas: 1
+    nodePort:
+      enabled: true
+    # ingressController:
+    #   enabled: true
+    #   loadbalancerMode: shared
+    hubble:
+      enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true

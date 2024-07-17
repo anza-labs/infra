@@ -1,0 +1,4 @@
+apiVersion:
+kind: Namespace
+metadata:
+  name: cert-manager
