@@ -1,0 +1,10 @@
+piVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: apps
+  namespace: kube-system
+spec:
+  interval: 5m0s
+  url: https://github.com/anza-labs/manifests
+  ref:
+    branch: main
