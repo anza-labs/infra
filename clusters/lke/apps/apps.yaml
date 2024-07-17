@@ -1,0 +1,26 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: apps
+  namespace: kube-system
+spec:
+  interval: 5m0s
+  url: https://github.com/anza-labs/manifests
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: kube-system
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: kube-system
+  path: "./clusters/lke"
+  prune: true
+  timeout: 10m
