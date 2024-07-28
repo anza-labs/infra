@@ -4,4 +4,4 @@ metadata:
   name: external-secrets
 spec:
   interval: 5m0s
-  url: 
+  url: https://charts.external-secrets.io
