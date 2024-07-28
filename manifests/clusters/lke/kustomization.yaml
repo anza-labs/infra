@@ -7,4 +7,5 @@ resources:
 - ../../apps/cilium/base
 - ../../apps/cilium/tetragon
 - ../../apps/external-secrets/base
+- ../../apps/external-secrets/certificates
 - ../../apps/ingress-nginx/base
