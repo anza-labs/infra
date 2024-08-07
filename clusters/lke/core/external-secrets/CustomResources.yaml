@@ -5,7 +5,7 @@ metadata:
   name: certificates-bitwarden-tls
   namespace: external-secrets
 spec:
-  interval: 10m0s
+  interval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -20,7 +20,7 @@ metadata:
   name: secrets-bitwarden
   namespace: external-secrets
 spec:
-  interval: 10m0s
+  interval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
