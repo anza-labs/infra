@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: anza-labs
-      version: "0.1.1"
+      version: "0.2.0"
   interval: 1m0s
   releaseName: lubelogger
   targetNamespace: anza-labs
@@ -20,15 +21,15 @@ spec:
     crds: CreateReplace
   valuesFrom:
   - kind: Secret
-    name: postgres
+    name: lubelogger-postgres
     valuesKey: host
     targetPath: postgres.host
   - kind: Secret
-    name: postgres
+    name: lubelogger-postgres
     valuesKey: user
     targetPath: postgres.user
   - kind: Secret
-    name: postgres
+    name: lubelogger-postgres
     valuesKey: password
     targetPath: postgres.password
   values:
@@ -39,4 +40,4 @@ spec:
       LC_ALL: pl_PL.UTF-8
     secret:
       create: false
-      name: mail-config
+      name: lubelogger-mail-config
