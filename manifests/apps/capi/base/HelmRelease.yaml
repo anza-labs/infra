@@ -19,7 +19,3 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  values:
-    infrastructure: k0sproject-k0smotron
-    bootstrap: k0sproject-k0smotron
-    controlPlane: k0sproject-k0smotron
