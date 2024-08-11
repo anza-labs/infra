@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - ../../apps/anza-labs/base
 - ../../apps/anza-labs/lubelogger
+- ../../apps/capi/base
 - ../../apps/cert-manager/issuers/cloudflare
 - ../../apps/cilium/base
 - ../../apps/cilium/tetragon
