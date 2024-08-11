@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k0sproject-k0smotron-control-plane-system
+---
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: ControlPlaneProvider
+metadata:
+  name: k0sproject-k0smotron
+  namespace: k0sproject-k0smotron-control-plane-system
