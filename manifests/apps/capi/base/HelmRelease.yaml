@@ -1,0 +1,25 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: capi-operator
+spec:
+  chart:
+    spec:
+      chart: cluster-api-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: capi-operator
+      version: "0.12.0"
+  interval: 1m0s
+  releaseName: capi-operator
+  targetNamespace: capi-operator-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    infrastructure: k0sproject-k0smotron
+    bootstrap: k0sproject-k0smotron
+    controlPlane: k0sproject-k0smotron
