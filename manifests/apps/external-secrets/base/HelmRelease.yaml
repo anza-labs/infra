@@ -13,6 +13,7 @@ spec:
         name: external-secrets
       version: "0.9.20"
   interval: 1m0s
+  timeout: 10m
   releaseName: external-secrets
   targetNamespace: external-secrets
   install:
