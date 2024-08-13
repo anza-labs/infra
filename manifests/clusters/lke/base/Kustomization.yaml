@@ -79,6 +79,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: cert-manager-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/cert-manager/base"
+  prune: true
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: cert-manager-issuers-cloudflare
 spec:
   interval: 10m0s
@@ -89,6 +103,8 @@ spec:
   path: "./apps/cert-manager/issuers/cloudflare"
   prune: true
   timeout: 10m
+  dependsOn:
+  - name: cert-manager-base
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -119,3 +135,47 @@ spec:
   timeout: 10m
   dependsOn:
   - name: cilium-base
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-secrets-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/external-secrets/base"
+  prune: true
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-secrets-bitwarden
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/external-secrets/bitwarden"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: external-secrets-base
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-nginx-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/ingress-nginx/base"
+  prune: true
+  timeout: 10m
