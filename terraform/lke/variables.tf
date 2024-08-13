@@ -1,6 +1,6 @@
 variable "k8s_version" {
   type    = string
-  default = "1.29"
+  default = "1.30"
 }
 
 variable "k8s_cluster_name" {
