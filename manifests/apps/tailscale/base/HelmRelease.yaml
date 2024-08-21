@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tailscale
+spec:
+  chart:
+    spec:
+      chart: tailscale-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: tailscale
+      version: "1.66.4"
+  interval: 1m0s
+  releaseName: tailscale-operator
+  targetNamespace: tailscale
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  valuesFrom:
+  - kind: Secret
+    name: tailscale-oauth
+    valuesKey: clientId
+    targetPath: oauth.clientId
+  - kind: Secret
+    name: tailscale-oauth
+    valuesKey: clientSecret
+    targetPath: oauth.clientSecret

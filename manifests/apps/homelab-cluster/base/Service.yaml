@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: node-4c-24g-HYysR6
+    cluster.anza-labs.dev/node-env: oci
+  name: node-4c-24g-HYysR6
+spec:
+  type: ExternalName
+  externalName: placeholder.example.com
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: node-2c-8g-1pw33T
+    cluster.anza-labs.dev/node-env: baremetal
+  name: node-2c-8g-1pw33T
+spec:
+  type: ExternalName
+  externalName: placeholder.example.com
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: node-4c-2g-Ohxv4K
+    cluster.anza-labs.dev/node-env: baremetal
+  name: node-4c-2g-Ohxv4K
+spec:
+  type: ExternalName
+  externalName: placeholder.example.com
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    tailscale.com/tailnet-fqdn: node-24c-128g-YjSfwM
+    cluster.anza-labs.dev/node-env: baremetal
+  name: node-24c-128g-YjSfwM
+spec:
+  type: ExternalName
+  externalName: placeholder.example.com

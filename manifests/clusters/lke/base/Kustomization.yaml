@@ -179,3 +179,56 @@ spec:
   path: "./apps/ingress-nginx/base"
   prune: true
   timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/tailscale/base"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: external-secrets-base
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: homelab-cluster-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/homelab-cluster/base"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: tailscale-base
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: homelab-cluster-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/homelab-cluster/cluster"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: capi-base
+  - name: capi-core
+  - name: capi-k0smotron
+  - name: cert-manager-base
+  - name: external-secrets-base
+  - name: tailscale-base
