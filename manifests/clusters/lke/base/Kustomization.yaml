@@ -179,17 +179,3 @@ spec:
   path: "./apps/ingress-nginx/base"
   prune: true
   timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: wireguard-operator-base
-spec:
-  interval: 10m0s
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
-  path: "./apps/wireguard-operator/base"
-  prune: true
-  timeout: 10m
