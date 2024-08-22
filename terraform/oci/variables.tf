@@ -22,3 +22,9 @@ variable "ssh_public_keys" {
   type        = string
   description = "Public SSH keys to be included in the ~/.ssh/authorized_keys file for the default user on the instance."
 }
+
+variable "region" {
+  type        = string
+  description = "The oci region where resources will be created."
+  default     = "eu-frankfurt-1"
+}

@@ -1,3 +1,5 @@
+provider "linode" {}
+
 module "lke" {
   source = "./modules/lke"
   root   = abspath(path.module)

@@ -1,11 +1,3 @@
-provider "oci" {
-  tenancy_ocid = var.tenancy_ocid
-  user_ocid    = var.user_ocid
-  fingerprint  = var.fingerprint
-  private_key  = var.private_key
-  region       = var.region
-}
-
 data "oci_core_instance_devices" "a1_flex_instance_devices" {
   count       = 1
   instance_id = oci_core_instance.a1_flex_instance[count.index].id

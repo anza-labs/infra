@@ -1,7 +1,3 @@
-module "linode" {
-  source = "linode/linode"
-}
-
 resource "linode_lke_cluster" "lke" {
   k8s_version = var.k8s_version
   label       = var.cluster_name

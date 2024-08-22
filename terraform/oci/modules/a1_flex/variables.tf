@@ -3,21 +3,6 @@ variable "tenancy_ocid" {
   description = "Tenancy ocid where to create the sources."
 }
 
-variable "user_ocid" {
-  type        = string
-  description = "Ocid of user that terraform will use to create the resources."
-}
-
-variable "fingerprint" {
-  type        = string
-  description = "Fingerprint of OCI API Private Key."
-}
-
-variable "private_key" {
-  type        = string
-  description = "Contents of OCI API Private Key used."
-}
-
 variable "instance_name" {
   type        = string
   description = "Name of the instance."
