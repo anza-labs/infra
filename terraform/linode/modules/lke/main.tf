@@ -1,4 +1,6 @@
-provider "linode" {}
+module "linode" {
+  source = "linode/linode"
+}
 
 resource "linode_lke_cluster" "lke" {
   k8s_version = var.k8s_version
@@ -23,10 +25,10 @@ resource "null_resource" "kubeconfig" {
   triggers = {
     kubeconfig = md5(linode_lke_cluster.lke.kubeconfig)
     output     = md5(var.kubeconfig)
-    script     = filemd5("./scripts/kubeconfig.sh")
+    script     = filemd5("${var.root}/scripts/kubeconfig.sh")
   }
 
   provisioner "local-exec" {
-    command = "./scripts/kubeconfig.sh '${pathexpand(var.kubeconfig)}' '${linode_lke_cluster.lke.id}' '${linode_lke_cluster.lke.kubeconfig}'"
+    command = "${var.root}/scripts/kubeconfig.sh '${pathexpand(var.kubeconfig)}' '${linode_lke_cluster.lke.id}' '${linode_lke_cluster.lke.kubeconfig}'"
   }
 }
