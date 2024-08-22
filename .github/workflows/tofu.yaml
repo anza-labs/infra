@@ -21,6 +21,7 @@ jobs:
         access_token: ${{ secrets.BW_ACCESS_TOKEN }}
         base_url: https://vault.bitwarden.com
         secrets: |
+          953077e4-dbec-4595-a0d7-b1d400d8adc6 > DISCORD_WEBHOOK
           1c579b93-ac50-47a9-85e1-b1c500b40dd5 > LINODE_TOKEN
           b7d22a8b-8185-4d62-8bf6-b1d400b87552 > PG_CONN_STR
     - run: |
@@ -29,6 +30,24 @@ jobs:
         tofu -chdir=./terraform/linode \
           apply -auto-approve -input=false -lock=true -no-color \
             -var=kubeconfig=lke.yaml
+    - uses: rjstone/discord-webhook-notify@v1
+      if: success()
+      with:
+        severity: info
+        details: "[linode] apply succesfull"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+    - uses: rjstone/discord-webhook-notify@v1
+      if: failure()
+      with:
+        severity: error
+        details: "[linode] apply failed"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+    - uses: rjstone/discord-webhook-notify@v1
+      if: cancelled()
+      with:
+        severity: warn
+        details: "[linode] apply cancelled"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
 
   oci:
     runs-on: ubuntu-latest
@@ -39,6 +58,7 @@ jobs:
         access_token: ${{ secrets.BW_ACCESS_TOKEN }}
         base_url: https://vault.bitwarden.com
         secrets: |
+          953077e4-dbec-4595-a0d7-b1d400d8adc6 > DISCORD_WEBHOOK
           b7d22a8b-8185-4d62-8bf6-b1d400b87552 > PG_CONN_STR
           8c29761d-9f79-44f1-97a1-b1d400b70984 > TF_VAR_private_key
           fdc9cf76-3eed-4173-9e66-b1d400b74aaf > TF_VAR_fingerprint
@@ -51,3 +71,21 @@ jobs:
     - run: |
         tofu -chdir=./terraform/oci \
           apply -auto-approve -input=false -lock=true -no-color
+    - uses: rjstone/discord-webhook-notify@v1
+      if: success()
+      with:
+        severity: info
+        details: "[oci] apply succesfull"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+    - uses: rjstone/discord-webhook-notify@v1
+      if: failure()
+      with:
+        severity: error
+        details: "[oci] apply failed"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+    - uses: rjstone/discord-webhook-notify@v1
+      if: cancelled()
+      with:
+        severity: warn
+        details: "[oci] apply cancelled"
+        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
