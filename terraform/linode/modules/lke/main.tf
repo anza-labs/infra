@@ -1,9 +1,9 @@
 provider "linode" {}
 
 resource "linode_lke_cluster" "lke" {
-  k8s_version = var.k8s_version
-  label       = var.k8s_cluster_name
-  region      = var.k8s_cluster_region
+  k8s_version = var.version
+  label       = var.cluster_name
+  region      = var.region
 
   tags = [
     "prod",
