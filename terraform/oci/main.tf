@@ -9,10 +9,6 @@ module "oci_core" {
 }
 
 module "oci_a1_flex" {
-  depends_on = [
-    module.oci_core,
-  ]
-
   source        = "./modules/a1_flex"
   instance_name = "XUjVp3"
   subnet_id     = module.oci_core.subnet_id
