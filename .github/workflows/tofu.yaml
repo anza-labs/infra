@@ -5,15 +5,13 @@ on:
     branches:
     - "main"
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}
 
 jobs:
   linode:
-    concurrency:
-      group: ${{ github.workflow }}-jobs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -33,9 +31,6 @@ jobs:
             -var=kubeconfig=lke.yaml
 
   oci:
-    needs: [ "linode" ]
-    concurrency:
-      group: ${{ github.workflow }}-jobs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
