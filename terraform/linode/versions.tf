@@ -1,5 +1,7 @@
 terraform {
-  backend "pg" {}
+  backend "pg" {
+    schema_name = "tofu_remote_state_linode"
+  }
 
   required_providers {
     linode = {

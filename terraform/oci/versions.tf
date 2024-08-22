@@ -1,5 +1,7 @@
 terraform {
-  backend "pg" {}
+  backend "pg" {
+    schema_name = "tofu_remote_state_oci"
+  }
 
   required_providers {
     oci = {
