@@ -22,6 +22,6 @@ jobs:
         LINODE_TOKEN: "${{ secrets.LINODE_TOKEN }}"
       run: |
         tofu -chdir=./terraform/lke \
-          apply -auto-approve -input=false -lock=true -no-color \
+          destroy -auto-approve -input=false -lock=true -no-color \
             -var=k8s_cluster_name=lke \
             -var=kubeconfig=lke.yaml
