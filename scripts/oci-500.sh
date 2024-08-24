@@ -17,7 +17,7 @@ while true; do
   export TF_VAR_availability_domain=$(shuf -i 1-3 -n 1)
 
   if $command_to_run ; then
-    echo "Command completed successfully."
+    echo "Command completed successfully on AD=$TF_VAR_availability_domain."
     break
   else
     echo "Command failed with exit code $exit_code. Retrying..."
