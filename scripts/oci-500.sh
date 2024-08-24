@@ -20,7 +20,7 @@ while true; do
     echo "Command completed successfully on AD=$TF_VAR_availability_domain."
     break
   else
-    echo "Command failed with exit code $exit_code. Retrying..."
+    echo "Command failed. Retrying..."
     jitter_backoff
   fi
 done
