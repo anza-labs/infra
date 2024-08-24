@@ -11,7 +11,8 @@ module "oci_core" {
 
   instance_name = "BdxPwD"
 
-  tenancy_ocid = var.tenancy_ocid
+  tenancy_ocid        = var.tenancy_ocid
+  availability_domain = var.availability_domain
 }
 
 module "oci_a1_flex" {
@@ -20,7 +21,8 @@ module "oci_a1_flex" {
   instance_name = "XUjVp3"
   subnet_id     = module.oci_core.subnet_id
 
-  tenancy_ocid    = var.tenancy_ocid
-  ssh_public_keys = var.ssh_public_keys
+  tenancy_ocid        = var.tenancy_ocid
+  ssh_public_keys     = var.ssh_public_keys
+  availability_domain = var.availability_domain
 }
 

@@ -49,43 +49,43 @@ jobs:
         details: "[linode] apply cancelled"
         webhookUrl: ${{ env.DISCORD_WEBHOOK }}
 
-  oci:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: bitwarden/sm-action@v2
-      with:
-        access_token: ${{ secrets.BW_ACCESS_TOKEN }}
-        base_url: https://vault.bitwarden.com
-        secrets: |
-          953077e4-dbec-4595-a0d7-b1d400d8adc6 > DISCORD_WEBHOOK
-          b7d22a8b-8185-4d62-8bf6-b1d400b87552 > PG_CONN_STR
-          8c29761d-9f79-44f1-97a1-b1d400b70984 > TF_VAR_private_key
-          fdc9cf76-3eed-4173-9e66-b1d400b74aaf > TF_VAR_fingerprint
-          f65d2583-7fe2-4ead-a4fa-b1d400b72191 > TF_VAR_tenancy_ocid
-          be76a461-2f01-49b8-a106-b1d400b735f4 > TF_VAR_user_ocid
-          b2b149a9-1a9c-4a45-b3c6-b1d400b48405 > TF_VAR_ssh_public_keys
-    - uses: opentofu/setup-opentofu@v1
-    - run: |
-        tofu -chdir=./terraform/oci init -upgrade
-    - run: |
-        tofu -chdir=./terraform/oci \
-          apply -auto-approve -input=false -lock=true -no-color
-    - uses: rjstone/discord-webhook-notify@v1
-      if: success()
-      with:
-        severity: info
-        details: "[oci] apply succesfull"
-        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
-    - uses: rjstone/discord-webhook-notify@v1
-      if: failure()
-      with:
-        severity: error
-        details: "[oci] apply failed"
-        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
-    - uses: rjstone/discord-webhook-notify@v1
-      if: cancelled()
-      with:
-        severity: warn
-        details: "[oci] apply cancelled"
-        webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+  # oci:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: bitwarden/sm-action@v2
+  #     with:
+  #       access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+  #       base_url: https://vault.bitwarden.com
+  #       secrets: |
+  #         953077e4-dbec-4595-a0d7-b1d400d8adc6 > DISCORD_WEBHOOK
+  #         b7d22a8b-8185-4d62-8bf6-b1d400b87552 > PG_CONN_STR
+  #         8c29761d-9f79-44f1-97a1-b1d400b70984 > TF_VAR_private_key
+  #         fdc9cf76-3eed-4173-9e66-b1d400b74aaf > TF_VAR_fingerprint
+  #         f65d2583-7fe2-4ead-a4fa-b1d400b72191 > TF_VAR_tenancy_ocid
+  #         be76a461-2f01-49b8-a106-b1d400b735f4 > TF_VAR_user_ocid
+  #         b2b149a9-1a9c-4a45-b3c6-b1d400b48405 > TF_VAR_ssh_public_keys
+  #   - uses: opentofu/setup-opentofu@v1
+  #   - run: |
+  #       tofu -chdir=./terraform/oci init -upgrade
+  #   - run: |
+  #       tofu -chdir=./terraform/oci \
+  #         apply -auto-approve -input=false -lock=true -no-color
+  #   - uses: rjstone/discord-webhook-notify@v1
+  #     if: success()
+  #     with:
+  #       severity: info
+  #       details: "[oci] apply succesfull"
+  #       webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+  #   - uses: rjstone/discord-webhook-notify@v1
+  #     if: failure()
+  #     with:
+  #       severity: error
+  #       details: "[oci] apply failed"
+  #       webhookUrl: ${{ env.DISCORD_WEBHOOK }}
+  #   - uses: rjstone/discord-webhook-notify@v1
+  #     if: cancelled()
+  #     with:
+  #       severity: warn
+  #       details: "[oci] apply cancelled"
+  #       webhookUrl: ${{ env.DISCORD_WEBHOOK }}

@@ -11,7 +11,6 @@ variable "instance_name" {
 variable "availability_domain" {
   type        = number
   description = "Availability Domain of the instance."
-  default     = 3
 }
 
 variable "region" {

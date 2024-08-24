@@ -16,7 +16,6 @@ variable "subnet_id" {
 variable "availability_domain" {
   type        = number
   description = "Availability Domain of the instance."
-  default     = 3
 }
 
 variable "region" {
