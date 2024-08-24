@@ -14,7 +14,7 @@ function jitter_backoff() {
 
 # Loop to run the command until it succeeds
 while true; do
-  export TF_VAR_availability_domain=$(shuf -i 1-3 -n 1)
+  export TF_VAR_availability_domain='3'
 
   if $command_to_run ; then
     echo "Command completed successfully on AD=$TF_VAR_availability_domain."
