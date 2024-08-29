@@ -15,9 +15,9 @@ spec:
         path: /
         backend:
           service:
-            name: myservice
+            name: lubelogger
             port:
-              number: 80
+              number: 8080
   tls:
   - hosts:
     - lubelogger.anza-labs.dev
