@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: lubelogger
+  namespace: anza-labs
+spec:
+  rules:
+  - host: lubelogger.anza-labs.dev
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: myservice
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - lubelogger.anza-labs.dev
+    secretName: lubelogger-cert
