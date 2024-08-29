@@ -1,11 +1,12 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   name: lubelogger
-  namespace: anza-labs
 spec:
+  ingressClassName: nginx
   rules:
   - host: lubelogger.anza-labs.dev
     http:
