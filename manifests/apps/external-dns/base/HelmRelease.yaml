@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  chart:
+    spec:
+      chart: external-dns
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+      version: "1.14.5"
+  interval: 1m0s
+  timeout: 10m
+  releaseName: external-dns
+  targetNamespace: external-dns
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    policy: sync
+    provider: 
+      name: cloudflare
+    env:
+    - name: CF_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-key
+          key: apiKey
+    - name: CF_API_EMAIL
+      value: mateusz.urbanek.98@gmail.com

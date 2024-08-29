@@ -199,6 +199,22 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: external-dns-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/external-dns/base"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: external-secrets-base
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: homelab-cluster-base
 spec:
   interval: 10m0s
