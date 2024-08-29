@@ -14,7 +14,7 @@ spec:
       version: "4.11.2"
   interval: 1m0s
   releaseName: ingress-nginx
-  targetNamespace: kube-system
+  targetNamespace: ingress-nginx-system
   install:
     crds: CreateReplace
   upgrade:
