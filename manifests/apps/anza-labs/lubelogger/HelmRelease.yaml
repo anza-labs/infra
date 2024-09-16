@@ -35,11 +35,11 @@ spec:
   - kind: Secret
     name: lubelogger-config
     valuesKey: user-hash
-    targetPath: config.UserNameHash
+    targetPath: config.userConfig.UserNameHash
   - kind: Secret
     name: lubelogger-config
     valuesKey: password-hash
-    targetPath: config.UserPasswordHash
+    targetPath: config.userConfig.UserPasswordHash
   values:
     postgres:
       create: true
