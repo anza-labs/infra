@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: anza-labs
-      version: "0.2.3"
+      version: "0.3.0"
   interval: 1m0s
   releaseName: lubelogger
   targetNamespace: anza-labs
@@ -32,6 +32,14 @@ spec:
     name: lubelogger-postgres
     valuesKey: password
     targetPath: postgres.password
+  - kind: Secret
+    name: lubelogger-config
+    valuesKey: user-hash
+    targetPath: config.UserNameHash
+  - kind: Secret
+    name: lubelogger-config
+    valuesKey: password-hash
+    targetPath: config.UserPasswordHash
   values:
     postgres:
       create: true
