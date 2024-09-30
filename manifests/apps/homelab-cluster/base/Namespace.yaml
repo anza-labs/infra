@@ -5,3 +5,5 @@ metadata:
   name: homelab-cluster
   annotations:
     cluster.anza-labs.dev/cluster: homelab
+    scribe.anza-labs.dev/annotations: |
+      reloader.stakater.com/auto=true

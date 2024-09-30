@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: scribe
+spec:
+  chart:
+    spec:
+      chart: scribe
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: anza-labs
+      version: "0.1.1"
+  interval: 1m0s
+  releaseName: scribe
+  targetNamespace: anza-labs
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
