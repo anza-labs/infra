@@ -276,3 +276,33 @@ spec:
   path: "./apps/prometheus/base"
   prune: true
   timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: jaegertracing-base
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/jaegertracing/base"
+  prune: true
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: jaegertracing-jaeger
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: lke-cluster-apps
+  path: "./apps/jaegertracing/jaeger"
+  prune: true
+  timeout: 10m
+  dependsOn:
+  - name: jaegertracing-base
