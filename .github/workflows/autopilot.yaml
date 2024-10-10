@@ -15,6 +15,7 @@ jobs:
             |---|---|
             | Required Label | ${{ contains(github.event.issue.labels.*.name, 'area/dependency') }} |
             | Forbidden Label | ${{ !contains(github.event.issue.labels.*.name, 'do-not-merge') }} |
+            | Labels | ${{ github.event.issue.labels }} |
             | Is correct user | ${{ github.actor == 'renovate[bot]' }} |
             | User | ${{ github.actor }} |
       - if: |
