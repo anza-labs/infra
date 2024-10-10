@@ -4,6 +4,16 @@
     "config:base"
   ],
   "automerge": true,
+  "labels": [
+    "area/dependency"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "kind/security"
+    ]
+  },
   "flux": {
     "fileMatch": [
       "clusters/.+\\.yaml$"
