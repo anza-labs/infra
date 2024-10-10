@@ -7,9 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    if: |
-      contains(github.event.issue.labels.*.name, 'area/dependency') &&
-      !contains(github.event.issue.labels.*.name, 'do-not-merge') &&
-      github.actor == 'renovate[bot]'
     steps:
-      - uses: hmarr/auto-approve-action@v4
+      - uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            | Name | Value |
+            |---|---|
+            | Required Label | ${{ contains(github.event.issue.labels.*.name, 'area/dependency' }} |
+            | Forbidden Label | ${{ !contains(github.event.issue.labels.*.name, 'do-not-merge') }} |
+            | Is correct user | ${{ github.actor == 'renovate[bot]' }} |
+            | User | ${{ github.actor }} |
+      - if: |
+          contains(github.event.issue.labels.*.name, 'area/dependency') &&
+          !contains(github.event.issue.labels.*.name, 'do-not-merge') &&
+          github.actor == 'renovate[bot]'
+        uses: hmarr/auto-approve-action@v4
