@@ -13,13 +13,13 @@ jobs:
           message: |
             | Name | Value |
             |---|---|
-            | Required Label | ${{ contains(github.event.issue.labels.*.name, 'area/dependency') }} |
-            | Forbidden Label | ${{ !contains(github.event.issue.labels.*.name, 'do-not-merge') }} |
-            | Labels | ${{ github.event.issue.labels }} |
+            | Required Label | ${{ contains(github.event.pull_request.labels.*.name, 'area/dependency') }} |
+            | Forbidden Label | ${{ !contains(github.event.pull_request.labels.*.name, 'do-not-merge') }} |
+            | Labels | ${{ github.event.pull_request.labels }} |
             | Is correct user | ${{ github.actor == 'renovate[bot]' }} |
             | User | ${{ github.actor }} |
       - if: |
-          contains(github.event.issue.labels.*.name, 'area/dependency') &&
-          !contains(github.event.issue.labels.*.name, 'do-not-merge') &&
+          contains(github.event.pull_request.labels.*.name, 'area/dependency') &&
+          !contains(github.event.pull_request.labels.*.name, 'do-not-merge') &&
           github.actor == 'renovate[bot]'
         uses: hmarr/auto-approve-action@v4
