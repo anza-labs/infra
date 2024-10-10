@@ -1,24 +1,15 @@
 name: autopilot
 
-on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - labeled
-      - edited
-  pull_request_review:
-    types:
-      - dismissed
-
-permissions:
-  contents: read
-  pull-requests: write
+on: pull_request_target
 
 jobs:
-  autoapproval:
+  auto-approve:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: |
+      contains(github.event.issue.labels.*.name, 'area/dependency') &&
+      !contains(github.event.issue.labels.*.name, 'do-not-merge') &&
+      github.actor == 'renovate[bot]'
     steps:
-      - uses: dkhmelenko/autoapproval@v1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: hmarr/auto-approve-action@v4

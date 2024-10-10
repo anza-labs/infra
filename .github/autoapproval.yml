@@ -1,8 +1,0 @@
-from_owner:
-  - "renovate[bot]"
-
-required_labels:
-  - "area/dependency"
-
-blacklisted_labels:
-  - "do-not-merge"
