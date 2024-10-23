@@ -22,7 +22,7 @@ jobs:
         base_url: https://vault.bitwarden.com
         secrets: |
           953077e4-dbec-4595-a0d7-b1d400d8adc6 > DISCORD_WEBHOOK
-          1c579b93-ac50-47a9-85e1-b1c500b40dd5 > LINODE_TOKEN
+          a288b2ae-a336-4425-9b07-b1f100cd05ec > LINODE_TOKEN
           b7d22a8b-8185-4d62-8bf6-b1d400b87552 > PG_CONN_STR
     - run: |
         tofu -chdir=./terraform/linode init -upgrade
