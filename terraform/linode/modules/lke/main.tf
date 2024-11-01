@@ -1,5 +1,11 @@
+data "linode_lke_versions" "lke" {}
+
+locals {
+  latest_version = sort(data.linode_lke_versions.lke.versions)[-1]
+}
+
 resource "linode_lke_cluster" "lke" {
-  k8s_version = var.k8s_version
+  k8s_version = var.k8s_version == "latest" ? local.latest_version : var.k8s_version
   label       = var.cluster_name
   region      = var.region
 
