@@ -1,7 +1,8 @@
 data "linode_lke_versions" "lke" {}
 
 locals {
-  latest_version = sort([for version in data.linode_lke_versions.lke.versions : version.id])[-1]
+  versions       = sort([for version in data.linode_lke_versions.lke.versions : version.id])
+  latest_version = element(local.versions, length(local.versions) - 1)
 }
 
 resource "linode_lke_cluster" "lke" {
