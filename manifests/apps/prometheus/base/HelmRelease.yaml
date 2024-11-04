@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
-      version: "25.28.0"
+      version: "25.29.0"
   interval: 1m0s
   releaseName: prometheus
   targetNamespace: prometheus-system
