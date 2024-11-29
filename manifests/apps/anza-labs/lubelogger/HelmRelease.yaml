@@ -49,3 +49,18 @@ spec:
     secret:
       create: false
       name: lubelogger-mail-config
+    ingress:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+      - host: lubelogger.anza-labs.dev
+        http:
+          paths:
+          - pathType: Prefix
+            path: /
+      tls:
+      - hosts:
+        - lubelogger.anza-labs.dev
+        secretName: lubelogger-cert
