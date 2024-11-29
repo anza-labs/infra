@@ -4,4 +4,3 @@ namespace: anza-labs
 resources:
 - ./ExternalSecret.yaml
 - ./HelmRelease.yaml
-- ./Ingress.yaml
