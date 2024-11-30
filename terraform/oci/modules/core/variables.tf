@@ -13,8 +13,3 @@ variable "availability_domain" {
   description = "Availability Domain of the instance."
 }
 
-variable "region" {
-  type        = string
-  description = "The oci region where resources will be created."
-  default     = "eu-frankfurt-1"
-}

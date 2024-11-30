@@ -1,8 +1,3 @@
-data "oci_core_instance_devices" "a1_flex_instance_devices" {
-  count       = 1
-  instance_id = oci_core_instance.a1_flex_instance[count.index].id
-}
-
 data "oci_identity_availability_domain" "ad" {
   compartment_id = var.tenancy_ocid
   ad_number      = var.availability_domain
