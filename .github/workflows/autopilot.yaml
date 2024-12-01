@@ -1,7 +1,5 @@
 name: autopilot
-
 on: pull_request_target
-
 jobs:
   auto-approve:
     runs-on: ubuntu-latest

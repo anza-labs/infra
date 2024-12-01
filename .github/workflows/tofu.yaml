@@ -1,78 +1,44 @@
 name: tofu
-
 on:
   push:
     branches:
-    - "main"
+      - "main"
   schedule:
     - cron: "0 4 * * *"
-
 concurrency:
   group: ${{ github.workflow }}
-
 jobs:
   linode:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: opentofu/setup-opentofu@v1
-    - env:
-        LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
-        PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-      run: |
-        tofu -chdir=./terraform/linode init -upgrade
-    - env:
-        LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
-        PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-      run: |
-        tofu -chdir=./terraform/linode \
-          apply -auto-approve -input=false -lock=true -no-color \
-            -var=kubeconfig=lke.yaml
-    - uses: rjstone/discord-webhook-notify@v1
-      if: success()
-      with:
-        severity: info
-        details: "[linode] apply succesfull"
-        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-    - uses: rjstone/discord-webhook-notify@v1
-      if: failure()
-      with:
-        severity: error
-        details: "[linode] apply failed"
-        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-    - uses: rjstone/discord-webhook-notify@v1
-      if: cancelled()
-      with:
-        severity: warn
-        details: "[linode] apply cancelled"
-        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-  # oci:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - uses: opentofu/setup-opentofu@v1
-  # # TODO: env vars missing
-  #   - run: |
-  #       tofu -chdir=./terraform/oci init -upgrade
-  #   - run: |
-  #       tofu -chdir=./terraform/oci \
-  #         apply -auto-approve -input=false -lock=true -no-color
-  #   - uses: rjstone/discord-webhook-notify@v1
-  #     if: success()
-  #     with:
-  #       severity: info
-  #       details: "[oci] apply succesfull"
-  #       webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-  #   - uses: rjstone/discord-webhook-notify@v1
-  #     if: failure()
-  #     with:
-  #       severity: error
-  #       details: "[oci] apply failed"
-  #       webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-  #   - uses: rjstone/discord-webhook-notify@v1
-  #     if: cancelled()
-  #     with:
-  #       severity: warn
-  #       details: "[oci] apply cancelled"
-  #       webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+      - env:
+          LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+        run: |
+          tofu -chdir=./terraform/linode init -upgrade
+      - env:
+          LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+        run: |
+          tofu -chdir=./terraform/linode \
+            apply -auto-approve -input=false -lock=true -no-color \
+              -var=kubeconfig=lke.yaml
+  oci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+      - run: |
+          tofu -chdir=./terraform/oci init -upgrade
+      - env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
+          TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
+          TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
+          TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
+        run: |
+          tofu -chdir=./terraform/oci \
+            apply -auto-approve -input=false -lock=true -no-color
