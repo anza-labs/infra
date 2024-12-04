@@ -49,8 +49,8 @@ provider "flux" {
 }
 
 resource "flux_bootstrap_git" "flux" {
-  for_each   = var.flux ? [1] : []
   depends_on = [linode_lke_cluster.lke]
+  count      = var.flux ? 1 : 0
 
   path = "clusters/${var.cluster_name}"
 }
@@ -63,7 +63,7 @@ provider "kubernetes" {
 
 resource "kubernetes_secret" "bitwarden" {
   depends_on = [linode_lke_cluster.lke]
-  for_each   = var.flux ? [1] : []
+  count      = var.flux ? 1 : 0
 
   metadata {
     name      = "bitwarden"
