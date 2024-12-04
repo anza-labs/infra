@@ -78,4 +78,6 @@ resource "kubernetes_secret" "bitwarden" {
   }
 }
 
-data "kubernetes_nodes" "nodes" {}
+data "kubernetes_nodes" "nodes" {
+  depends_on = [ linode_lke_cluster.lke ]
+}
