@@ -8,7 +8,7 @@ spec:
   interval: 5m0s
   url: https://github.com/anza-labs/manifests
   ref:
-    tag: 'v2024-12-04'
+    tag: 'v2024-12-04.1'
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

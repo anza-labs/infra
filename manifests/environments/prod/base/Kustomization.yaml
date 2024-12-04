@@ -181,6 +181,7 @@ spec:
   timeout: 10m
   dependsOn:
   - name: external-secrets-base
+  - name: cert-manager-base
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

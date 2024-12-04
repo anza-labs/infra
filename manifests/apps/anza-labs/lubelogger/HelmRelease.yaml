@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: anza-labs
-      version: "0.5.1"
+      version: "0.5.2"
   interval: 1m0s
   releaseName: lubelogger
   targetNamespace: anza-labs
@@ -56,10 +56,9 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
       - host: lubelogger.anza-labs.dev
-        http:
-          paths:
-          - pathType: Prefix
-            path: /
+        paths:
+        - pathType: Prefix
+          path: /
       tls:
       - hosts:
         - lubelogger.anza-labs.dev
