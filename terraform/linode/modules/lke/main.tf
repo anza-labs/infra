@@ -14,9 +14,12 @@ resource "linode_lke_cluster" "lke" {
     "prod",
   ]
 
-  pool {
-    type  = "g6-standard-2"
-    count = 3
+  dynamic "pool" {
+    for_each = var.node_pools
+    content {
+      type  = pool.value.type
+      count = pool.value.count
+    }
   }
 }
 
