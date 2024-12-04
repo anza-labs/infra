@@ -30,16 +30,14 @@ locals {
 
   host                   = local.cluster.server
   cluster_ca_certificate = local.cluster["certificate-authority-data"]
-  client_certificate     = local.user["client-certificate-data"]
-  client_key             = local.user["client-key-data"]
+  token                  = local.user["token"]
 }
 
 provider "flux" {
   kubernetes = {
     host                   = local.host
-    client_certificate     = base64decode(local.client_certificate)
-    client_key             = base64decode(local.client_key)
     cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
+    token                  = base64decode(local.token)
   }
   git = {
     url = var.github_repo
@@ -59,8 +57,7 @@ resource "flux_bootstrap_git" "flux" {
 
 provider "kubernetes" {
   host                   = local.host
-  client_certificate     = base64decode(local.client_certificate)
-  client_key             = base64decode(local.client_key)
+  token                  = base64decode(local.token)
   cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
 }
 
