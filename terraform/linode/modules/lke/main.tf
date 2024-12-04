@@ -57,7 +57,7 @@ resource "flux_bootstrap_git" "flux" {
 
 provider "kubernetes" {
   host                   = local.host
-  token                  = base64decode(local.token)
+  token                  = local.token
   cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
 }
 
