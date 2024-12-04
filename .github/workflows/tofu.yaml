@@ -23,6 +23,8 @@ jobs:
       - env:
           LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_bitwarden_token: ${{ secrets.BITWARDEN_TOKEN }}
+          TF_VAR_github_token: ${{ secrets.PAT }}
         run: |
           tofu -chdir=./terraform/linode \
             apply -auto-approve -input=false -lock=true -no-color \
