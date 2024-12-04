@@ -27,8 +27,7 @@ jobs:
           TF_VAR_github_token: ${{ secrets.PAT }}
         run: |
           tofu -chdir=./terraform/linode \
-            apply -auto-approve -input=false -lock=true -no-color \
-              -var=kubeconfig=lke.yaml
+            apply -auto-approve -input=false -lock=true -no-color
   oci:
     runs-on: ubuntu-latest
     steps:
