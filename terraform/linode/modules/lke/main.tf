@@ -21,7 +21,7 @@ resource "linode_lke_cluster" "lke" {
 }
 
 locals {
-  kubeconfig = yamldecode(linode_lke_cluster.lke.kubeconfig)
+  kubeconfig = yamldecode(base64decode(linode_lke_cluster.lke.kubeconfig))
 }
 
 locals {
