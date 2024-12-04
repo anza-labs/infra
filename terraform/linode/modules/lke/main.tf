@@ -21,7 +21,7 @@ resource "linode_lke_cluster" "lke" {
 }
 
 locals {
-  kubeconfig = yamldecode(module.foo.kubeconfig_output)
+  kubeconfig = yamldecode(linode_lke_cluster.lke.kubeconfig)
 }
 
 locals {
@@ -51,10 +51,10 @@ provider "flux" {
 }
 
 resource "flux_bootstrap_git" "flux" {
-  for_each = var.flux ? [1] : []
-
+  for_each   = var.flux ? [1] : []
   depends_on = [linode_lke_cluster.lke]
-  path       = "clusters/${var.cluster_name}"
+
+  path = "clusters/${var.cluster_name}"
 }
 
 provider "kubernetes" {
@@ -65,7 +65,8 @@ provider "kubernetes" {
 }
 
 resource "kubernetes_secret" "bitwarden" {
-  for_each = var.flux ? [1] : []
+  depends_on = [linode_lke_cluster.lke]
+  for_each   = var.flux ? [1] : []
 
   metadata {
     name      = "bitwarden"
@@ -76,3 +77,5 @@ resource "kubernetes_secret" "bitwarden" {
     token = var.bitwarden_token
   }
 }
+
+data "kubernetes_nodes" "nodes" {}
