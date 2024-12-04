@@ -37,7 +37,7 @@ provider "flux" {
   kubernetes = {
     host                   = local.host
     cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
-    token                  = base64decode(local.token)
+    token                  = local.token
   }
   git = {
     url = var.github_repo
@@ -57,8 +57,8 @@ resource "flux_bootstrap_git" "flux" {
 
 provider "kubernetes" {
   host                   = local.host
-  token                  = local.token
   cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
+  token                  = local.token
 }
 
 resource "kubernetes_secret" "bitwarden" {
