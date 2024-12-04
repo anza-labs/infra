@@ -7,5 +7,8 @@ module "lke" {
   cluster_name = "7S23SK"
   k8s_version  = "latest"
 
-  kubeconfig = var.kubeconfig
+  flux            = false
+  github_repo     = "https://github.com/anza-labs/manifests"
+  github_token    = var.github_token
+  bitwarden_token = var.bitwarden_token
 }

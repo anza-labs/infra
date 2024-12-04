@@ -7,8 +7,13 @@ terraform {
     }
 
     # tflint-ignore: terraform_required_providers
-    null = {
-      source = "hashicorp/null"
+    flux = {
+      source = "fluxcd/flux"
+    }
+
+    # tflint-ignore: terraform_required_providers
+    kubernetes = {
+      source = "hashicorp/kubernetes"
     }
   }
 }

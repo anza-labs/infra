@@ -11,9 +11,14 @@ terraform {
       version = "2.31.1"
     }
 
-    null = {
-      source  = "hashicorp/null"
-      version = "3.2.3"
+    flux = {
+      source  = "fluxcd/flux"
+      version = "1.4.0"
+    }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.34.0"
     }
   }
 }

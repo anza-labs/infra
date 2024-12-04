@@ -11,12 +11,24 @@ variable "region" {
   default = "eu-central"
 }
 
-variable "kubeconfig" {
-  type    = string
-  default = "~/.kube/config"
-}
-
 variable "root" {
   type    = string
   default = "."
+}
+
+variable "flux" {
+  type    = bool
+  default = false
+}
+
+variable "github_repo" {
+  type = string
+}
+
+variable "github_token" {
+  type = string
+}
+
+variable "bitwarden_token" {
+  type = string
 }

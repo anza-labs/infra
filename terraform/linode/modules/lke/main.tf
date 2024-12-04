@@ -20,18 +20,59 @@ resource "linode_lke_cluster" "lke" {
   }
 }
 
-resource "null_resource" "kubeconfig" {
-  depends_on = [
-    linode_lke_cluster.lke,
-  ]
+locals {
+  kubeconfig = yamldecode(module.foo.kubeconfig_output)
+}
 
-  triggers = {
-    kubeconfig = md5(linode_lke_cluster.lke.kubeconfig)
-    output     = md5(var.kubeconfig)
-    script     = filemd5("${var.root}/scripts/kubeconfig.sh")
+locals {
+  cluster = local.kubeconfig.clusters[0].cluster
+  user    = local.kubeconfig.users[0].user
+
+  host                   = local.cluster.server
+  cluster_ca_certificate = local.cluster["certificate-authority-data"]
+  client_certificate     = local.user["client-certificate-data"]
+  client_key             = local.user["client-key-data"]
+}
+
+provider "flux" {
+  kubernetes = {
+    host                   = local.host
+    client_certificate     = base64decode(local.client_certificate)
+    client_key             = base64decode(local.client_key)
+    cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
+  }
+  git = {
+    url = var.github_repo
+    http = {
+      username = "any"
+      password = var.github_token
+    }
+  }
+}
+
+resource "flux_bootstrap_git" "flux" {
+  for_each = var.flux ? [1] : []
+
+  depends_on = [linode_lke_cluster.lke]
+  path       = "clusters/${var.cluster_name}"
+}
+
+provider "kubernetes" {
+  host                   = local.host
+  client_certificate     = base64decode(local.client_certificate)
+  client_key             = base64decode(local.client_key)
+  cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
+}
+
+resource "kubernetes_secret" "bitwarden" {
+  for_each = var.flux ? [1] : []
+
+  metadata {
+    name      = "bitwarden"
+    namespace = "kube-system"
   }
 
-  provisioner "local-exec" {
-    command = "${var.root}/scripts/kubeconfig.sh '${pathexpand(var.kubeconfig)}' '${linode_lke_cluster.lke.id}' '${linode_lke_cluster.lke.kubeconfig}'"
+  data = {
+    token = var.bitwarden_token
   }
 }
