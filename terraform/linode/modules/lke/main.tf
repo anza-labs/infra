@@ -78,6 +78,20 @@ resource "kubernetes_secret" "bitwarden" {
   }
 }
 
+resource "kubernetes_secret" "discord_webhook" {
+  depends_on = [linode_lke_cluster.lke]
+  count      = var.flux ? 1 : 0
+
+  metadata {
+    name      = "discord-webhook"
+    namespace = "flux-system"
+  }
+
+  data = {
+    address = var.discord_webhook
+  }
+}
+
 data "kubernetes_nodes" "nodes" {
   depends_on = [ linode_lke_cluster.lke ]
 }

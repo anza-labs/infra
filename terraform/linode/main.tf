@@ -11,4 +11,5 @@ module "eu-1" {
   github_repo     = "https://github.com/anza-labs/manifests"
   github_token    = var.github_token
   bitwarden_token = var.bitwarden_token
+  discord_webhook = var.discord_webhook
 }

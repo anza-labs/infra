@@ -36,6 +36,11 @@ variable "bitwarden_token" {
   nullable = false
 }
 
+variable "discord_webhook" {
+  type     = string
+  nullable = false
+}
+
 variable "node_pools" {
   type = list(object({
     type  = string
