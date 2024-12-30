@@ -7,8 +7,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/anza-labs/base"
   prune: true
   timeout: 10m
@@ -21,8 +21,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/anza-labs/lubelogger"
   prune: true
   timeout: 10m
@@ -37,8 +37,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/anza-labs/scribe"
   prune: true
   timeout: 10m
@@ -53,8 +53,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/capi/base"
   prune: true
   timeout: 10m
@@ -67,8 +67,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/capi/core"
   prune: true
   timeout: 10m
@@ -83,8 +83,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/capi/k0smotron"
   prune: true
   timeout: 10m
@@ -100,8 +100,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/cert-manager/base"
   prune: true
   timeout: 10m
@@ -114,8 +114,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/cert-manager/issuers/cloudflare"
   prune: true
   timeout: 10m
@@ -130,8 +130,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/cilium/base"
   prune: true
   timeout: 10m
@@ -144,8 +144,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/cilium/tetragon"
   prune: true
   timeout: 10m
@@ -160,8 +160,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/external-secrets/base"
   prune: true
   timeout: 10m
@@ -174,8 +174,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/external-secrets/bitwarden"
   prune: true
   timeout: 10m
@@ -191,8 +191,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/ingress-nginx/base"
   prune: true
   timeout: 10m
@@ -205,8 +205,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/tailscale/base"
   prune: true
   timeout: 10m
@@ -221,8 +221,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/external-dns/base"
   prune: true
   timeout: 10m
@@ -237,8 +237,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/homelab-cluster/base"
   prune: true
   timeout: 10m
@@ -258,8 +258,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/stakater/base"
   prune: true
   timeout: 10m
@@ -272,8 +272,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/prometheus/base"
   prune: true
   timeout: 10m
@@ -286,8 +286,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/jaegertracing/base"
   prune: true
   timeout: 10m
@@ -300,8 +300,8 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: apps
-    namespace: lke-cluster-apps
+    name: prod-apps
+    namespace: flux-system
   path: "./apps/jaegertracing/jaeger"
   prune: true
   timeout: 10m
