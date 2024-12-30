@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: apps
+  labels:
+    environment: staging
+spec:
+  interval: 5m0s
+  url: https://github.com/anza-labs/manifests
+  ref:
+    branch: main
