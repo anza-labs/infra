@@ -7,9 +7,23 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/anza-labs/base"
+  prune: true
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: anza-labs-kube-storage-version-migrator
+spec:
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-system
+  path: "./apps/anza-labs/kube-storage-version-migrator"
   prune: true
   timeout: 10m
 ---
@@ -21,7 +35,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/anza-labs/lubelogger"
   prune: true
@@ -37,7 +51,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/anza-labs/scribe"
   prune: true
@@ -53,7 +67,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/capi/base"
   prune: true
@@ -67,7 +81,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/capi/core"
   prune: true
@@ -83,7 +97,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/capi/k0smotron"
   prune: true
@@ -100,7 +114,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/cert-manager/base"
   prune: true
@@ -114,7 +128,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/cert-manager/issuers/cloudflare"
   prune: true
@@ -130,7 +144,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/cilium/base"
   prune: true
@@ -144,7 +158,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/cilium/tetragon"
   prune: true
@@ -160,7 +174,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/external-secrets/base"
   prune: true
@@ -174,7 +188,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/external-secrets/bitwarden"
   prune: true
@@ -191,7 +205,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/ingress-nginx/base"
   prune: true
@@ -205,7 +219,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/tailscale/base"
   prune: true
@@ -221,7 +235,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/external-dns/base"
   prune: true
@@ -237,7 +251,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/homelab-cluster/base"
   prune: true
@@ -258,7 +272,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/stakater/base"
   prune: true
@@ -272,7 +286,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/prometheus/base"
   prune: true
@@ -286,7 +300,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/jaegertracing/base"
   prune: true
@@ -300,7 +314,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: prod-apps
+    name: apps
     namespace: flux-system
   path: "./apps/jaegertracing/jaeger"
   prune: true
