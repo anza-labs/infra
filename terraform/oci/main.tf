@@ -15,14 +15,14 @@ module "oci_core" {
   availability_domain = var.availability_domain
 }
 
-# module "oci_amd" {
-#   source = "./modules/always_free"
+module "oci_amd" {
+  source = "./modules/always_free"
 
-#   instance_name = "amd"
-#   instance_shape = "VM.Standard.E2.1.Micro"
-#   subnet_id     = module.oci_core.subnet_id
+  instance_name  = "amd"
+  instance_shape = "VM.Standard.E2.1.Micro"
+  subnet_id      = module.oci_core.subnet_id
 
-#   tenancy_ocid        = var.tenancy_ocid
-#   ssh_public_keys     = var.ssh_public_keys
-#   availability_domain = var.availability_domain
-# }
+  tenancy_ocid        = var.tenancy_ocid
+  ssh_public_keys     = var.ssh_public_keys
+  availability_domain = var.availability_domain
+}
