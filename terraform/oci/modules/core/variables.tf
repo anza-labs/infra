@@ -3,9 +3,9 @@ variable "tenancy_ocid" {
   description = "Tenancy ocid where to create the sources."
 }
 
-variable "instance_name" {
+variable "name" {
   type        = string
-  description = "Name of the instance."
+  description = "Shared name of the resources."
 }
 
 variable "availability_domain" {

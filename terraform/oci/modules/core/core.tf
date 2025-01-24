@@ -6,14 +6,14 @@ data "oci_identity_availability_domain" "ad" {
 resource "oci_core_vcn" "vcn" {
   cidr_block     = "10.1.0.0/16"
   compartment_id = var.tenancy_ocid
-  display_name   = format("%sVCN", replace(title(var.instance_name), "/\\s/", ""))
-  dns_label      = format("%svcn", lower(replace(var.instance_name, "/\\s/", "")))
+  display_name   = format("%sVCN", replace(title(var.name), "/\\s/", ""))
+  dns_label      = format("%svcn", lower(replace(var.name, "/\\s/", "")))
 }
 
 resource "oci_core_security_list" "security_list" {
   compartment_id = var.tenancy_ocid
   vcn_id         = oci_core_vcn.vcn.id
-  display_name   = format("%sSecurityList", replace(title(var.instance_name), "/\\s/", ""))
+  display_name   = format("%sSecurityList", replace(title(var.name), "/\\s/", ""))
 
   # Allow outbound traffic on all ports for all protocols
   egress_security_rules {
@@ -44,7 +44,7 @@ resource "oci_core_security_list" "security_list" {
 
 resource "oci_core_internet_gateway" "internet_gateway" {
   compartment_id = var.tenancy_ocid
-  display_name   = format("%sIGW", replace(title(var.instance_name), "/\\s/", ""))
+  display_name   = format("%sIGW", replace(title(var.name), "/\\s/", ""))
   vcn_id         = oci_core_vcn.vcn.id
 }
 
@@ -62,8 +62,8 @@ resource "oci_core_default_route_table" "default_route_table" {
 resource "oci_core_subnet" "subnet" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   cidr_block          = "10.1.20.0/24"
-  display_name        = format("%sSubnet", replace(title(var.instance_name), "/\\s/", ""))
-  dns_label           = format("%ssubnet", lower(replace(var.instance_name, "/\\s/", "")))
+  display_name        = format("%sSubnet", replace(title(var.name), "/\\s/", ""))
+  dns_label           = format("%ssubnet", lower(replace(var.name, "/\\s/", "")))
   security_list_ids   = [oci_core_security_list.security_list.id]
   compartment_id      = var.tenancy_ocid
   vcn_id              = oci_core_vcn.vcn.id

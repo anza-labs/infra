@@ -6,14 +6,14 @@ provider "oci" {
   region       = var.region
 }
 
-# module "oci_core" {
-#   source = "./modules/core"
+module "oci_core" {
+  source = "./modules/core"
 
-#   instance_name = "BdxPwD"
+  name = "oci-core"
 
-#   tenancy_ocid        = var.tenancy_ocid
-#   availability_domain = var.availability_domain
-# }
+  tenancy_ocid        = var.tenancy_ocid
+  availability_domain = var.availability_domain
+}
 
 # module "oci_a1_flex" {
 #   source = "./modules/a1_flex"
