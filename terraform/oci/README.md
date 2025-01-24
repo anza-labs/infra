@@ -14,7 +14,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_oci_a1_flex"></a> [oci\_a1\_flex](#module\_oci\_a1\_flex) | ./modules/a1_flex | n/a |
+| <a name="module_oci_amd"></a> [oci\_amd](#module\_oci\_amd) | ./modules/always_free | n/a |
 | <a name="module_oci_core"></a> [oci\_core](#module\_oci\_core) | ./modules/core | n/a |
 
 ## Resources
