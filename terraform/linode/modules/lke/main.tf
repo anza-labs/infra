@@ -93,5 +93,5 @@ resource "kubernetes_secret" "discord_webhook" {
 }
 
 data "kubernetes_nodes" "nodes" {
-  depends_on = [ linode_lke_cluster.lke ]
+  depends_on = [linode_lke_cluster.lke]
 }
