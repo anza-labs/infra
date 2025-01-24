@@ -10,6 +10,10 @@ data "oci_core_images" "instance_images" {
   shape                    = var.instance_shape
 }
 
+output "debug" {
+  value = data.oci_core_images.instance_images.images
+}
+
 locals {
   count       = var.instance_shape == "VM.Standard.E2.1.Micro" ? 2 : 1
   ocpus       = var.instance_shape == "VM.Standard.E2.1.Micro" ? 1 : 4
