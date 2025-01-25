@@ -26,7 +26,7 @@ resource "tailscale_tailnet_key" "tailscale_key" {
   reusable            = true
   preauthorized       = true
   recreate_if_invalid = "always"
-  tags                = ["${var.instance_shape}", "OCI", "Always-Free-VM"]
+  tags                = ["tag:oci", "tag:always-free"]
 }
 
 resource "oci_core_instance" "instance" {
