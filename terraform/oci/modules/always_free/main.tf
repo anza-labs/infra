@@ -61,7 +61,7 @@ resource "oci_core_instance" "instance" {
     user_data = base64encode(templatefile(
       "./templates/user_data.tftpl",
       {
-        tailscale_key = tailscale_tailnet_key.key,
+        tailscale_key = tailscale_tailnet_key.tailscale_key.key,
       }
     ))
   }
