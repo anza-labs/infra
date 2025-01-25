@@ -44,7 +44,6 @@ jobs:
           tofu -chdir=./terraform/linode plan -input=false -no-color | tee plan.txt
           echo plan="$(cat plan.txt)" >> ${GITHUB_OUTPUT}
       - if: github.event_name == 'pull_request'
-        id: plan
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -95,7 +94,6 @@ jobs:
           tofu -chdir=./terraform/oci plan -input=false -no-color | tee plan.txt
           echo plan="$(cat plan.txt)" >> ${GITHUB_OUTPUT}
       - if: github.event_name == 'pull_request'
-        id: plan
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
