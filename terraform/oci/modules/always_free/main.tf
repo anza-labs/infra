@@ -25,7 +25,7 @@ resource "tailscale_tailnet_key" "tailscale_key" {
   expiry              = 3600
   reusable            = true
   preauthorized       = true
-  recreate_if_invalid = "always"
+  recreate_if_invalid = var.recreate
   tags                = ["tag:oci", "tag:always-free"]
 }
 

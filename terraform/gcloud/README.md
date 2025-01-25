@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | 6.14.1 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 6.17.0 |
 
 ## Providers
 

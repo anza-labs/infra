@@ -21,6 +21,7 @@ module "oci_amd" {
   instance_name  = "amd"
   instance_shape = "VM.Standard.E2.1.Micro"
   subnet_id      = module.oci_core.subnet_id
+  recreate       = "never"
 
   tenancy_ocid              = var.tenancy_ocid
   ssh_public_keys           = var.ssh_public_keys

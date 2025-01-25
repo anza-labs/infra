@@ -3,8 +3,31 @@ name: autopilot
 on: pull_request_target
 
 jobs:
+  render-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'area/dependency') &&
+      !contains(github.event.pull_request.labels.*.name, 'do-not-merge') &&
+      github.actor == 'renovate[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        uses: terraform-docs/gh-actions@v1.3.0
+        with:
+          working-dir: .
+          find-dir: terraform
+          recursive: true
+          output-method: inject
+          git-push: "true"
+          git-push-sign-off: true
+
   auto-approve:
     runs-on: ubuntu-latest
+    needs:
+      - render-docs
     permissions:
       pull-requests: write
     if: |

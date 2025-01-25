@@ -60,3 +60,9 @@ variable "tailscale_tailnet" {
   type        = string
   description = "Tailscale Tailnet name."
 }
+
+variable "recreate" {
+  type        = string
+  description = "Triggers recreating Tailnet join token, and in result, triggers recreation of the VM instance."
+  default     = "never"
+}
