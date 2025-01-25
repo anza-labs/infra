@@ -55,3 +55,8 @@ variable "tailscale_oauth_secret" {
   type        = string
   description = "OAuth Secret for Tailscale."
 }
+
+variable "tailscale_tailnet" {
+  type        = string
+  description = "Tailscale Tailnet name."
+}
