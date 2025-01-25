@@ -34,3 +34,13 @@ variable "availability_domain" {
   description = "Availability Domain of the instance."
   default     = 3
 }
+
+variable "tailscale_oauth_client_id" {
+  type        = string
+  description = "OAuth Client ID for Tailscale."
+}
+
+variable "tailscale_oauth_secret" {
+  type        = string
+  description = "OAuth Secret for Tailscale."
+}

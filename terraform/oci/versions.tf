@@ -10,5 +10,10 @@ terraform {
       source  = "oracle/oci"
       version = "6.23.0"
     }
+
+    tailscale = {
+      source  = "tailscale/tailscale"
+      version = "0.17.2"
+    }
   }
 }

@@ -20,6 +20,15 @@ locals {
   boot_volume = var.instance_shape == "VM.Standard.E2.1.Micro" ? 100 : 200
 }
 
+resource "tailscale_tailnet_key" "tailscale_key" {
+  description         = "OCI Always-Free VM key"
+  expiry              = 3600
+  reusable            = true
+  preauthorized       = true
+  recreate_if_invalid = "always"
+  tags                = ["${var.instance_shape}", "OCI", "Always-Free-VM"]
+}
+
 resource "oci_core_instance" "instance" {
   count               = local.count
   availability_domain = data.oci_identity_availability_domain.ad.name
@@ -49,6 +58,12 @@ resource "oci_core_instance" "instance" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_keys
+    user_data = base64encode(templatefile(
+      "./templates/user_data.tftpl",
+      {
+        tailscale_key = tailscale_tailnet_key.key,
+      }
+    ))
   }
 
   timeouts {

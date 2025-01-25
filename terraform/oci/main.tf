@@ -22,7 +22,9 @@ module "oci_amd" {
   instance_shape = "VM.Standard.E2.1.Micro"
   subnet_id      = module.oci_core.subnet_id
 
-  tenancy_ocid        = var.tenancy_ocid
-  ssh_public_keys     = var.ssh_public_keys
-  availability_domain = var.availability_domain
+  tenancy_ocid              = var.tenancy_ocid
+  ssh_public_keys           = var.ssh_public_keys
+  availability_domain       = var.availability_domain
+  tailscale_oauth_client_id = var.tailscale_oauth_client_id
+  tailscale_oauth_secret    = var.tailscale_oauth_secret
 }

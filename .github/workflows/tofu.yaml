@@ -1,12 +1,15 @@
 name: tofu
+
 on:
   push:
     branches:
       - "main"
   schedule:
     - cron: "0 4 * * *"
+
 concurrency:
   group: ${{ github.workflow }}
+
 jobs:
   linode:
     runs-on: ubuntu-latest
@@ -30,6 +33,7 @@ jobs:
         run: |
           tofu -chdir=./terraform/linode \
             apply -auto-approve -input=false -lock=true -no-color
+
   oci:
     runs-on: ubuntu-latest
     steps:
@@ -40,6 +44,8 @@ jobs:
           TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
           TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
           TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
+          TF_VAR_tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
+          TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
           TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
         run: |
@@ -49,8 +55,25 @@ jobs:
           TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
           TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
           TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
+          TF_VAR_tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
+          TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
           TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
         run: |
           tofu -chdir=./terraform/oci \
+            apply -auto-approve -input=false -lock=true -no-color
+
+  gcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+      - env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+        run: |
+          tofu -chdir=./terraform/gcloud init -upgrade
+      - env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+        run: |
+          tofu -chdir=./terraform/gcloud \
             apply -auto-approve -input=false -lock=true -no-color
