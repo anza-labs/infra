@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: cert-manager
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

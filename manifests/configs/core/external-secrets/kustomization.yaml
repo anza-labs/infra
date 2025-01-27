@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: external-secrets
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

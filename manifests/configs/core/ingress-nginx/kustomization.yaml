@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: ingress-nginx-system
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

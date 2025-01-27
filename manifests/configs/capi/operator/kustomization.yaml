@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: capi-operator-system
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

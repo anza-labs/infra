@@ -4,5 +4,4 @@ namespace: external-dns
 resources:
 - ./ExternalSecret.yaml
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

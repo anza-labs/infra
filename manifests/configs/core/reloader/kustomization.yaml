@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: reloader-system
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

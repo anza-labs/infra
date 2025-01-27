@@ -4,5 +4,4 @@ namespace: tailscale
 resources:
 - ./ExternalSecret.yaml
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml

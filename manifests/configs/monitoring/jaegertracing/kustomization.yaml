@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: jaeger-system
 resources:
 - ./HelmRelease.yaml
-- ./HelmRepository.yaml
 - ./Namespace.yaml
