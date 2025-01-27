@@ -18,7 +18,10 @@
     "fileMatch": [
       "apps/.+\\.yaml$",
       "clusters/.+\\.yaml$",
-      "environments/.+\\.yaml$"
+      "configs/.+\\.yaml$",
+      "environments/.+\\.yaml$",
+      "repositories/.+\\.yaml$",
+      "versioned/.+\\.yaml$"
     ]
   }
 }
