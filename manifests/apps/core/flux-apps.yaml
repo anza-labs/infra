@@ -28,6 +28,7 @@ spec:
   path: "./configs/core/cert-manager/issuers/cloudflare"
   dependsOn:
   - name: cert-manager
+  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -76,7 +77,7 @@ metadata:
 spec:
   path: "./configs/core/external-dns"
   dependsOn:
-  - name: external-secrets
+  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
