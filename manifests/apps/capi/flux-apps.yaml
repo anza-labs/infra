@@ -1,0 +1,40 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capi-operator
+spec:
+  path: "./configs/capi/operator"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capi-core
+spec:
+  path: "./configs/capi/core"
+  dependsOn:
+  - name: capi-operator
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capi-k0smotron
+spec:
+  path: "./configs/capi/k0smotron"
+  dependsOn:
+  - name: capi-operator
+  - name: capi-core
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capi-cluster-eu-2
+spec:
+  path: "./configs/capi/clusters/eu-2"
+  dependsOn:
+  - name: capi-operator
+  - name: capi-core
+  - name: capi-k0smotron
+  - name: cert-manager
+  - name: external-secrets
+  - name: tailscale

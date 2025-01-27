@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-storage-version-migrator
+spec:
+  chart:
+    spec:
+      chart: kube-storage-version-migrator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: anza-labs
+        namespace: flux-system
+      version: "0.0.5"
+  interval: 1m0s
+  releaseName: kube-storage-version-migrator
+  targetNamespace: kube-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace

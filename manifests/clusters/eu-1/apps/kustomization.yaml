@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+resources:
+- ../../../environments/prod
+- ../../../apps/core
+- ../../../apps/capi
+- ../../../apps/monitoring
+- ../../../apps/public
+patches:
+- path: ./patches/alerts-patch.yaml
+  target:
+    group: notification.toolkit.fluxcd.io
+    version: v1beta3
+    kind: Alert
