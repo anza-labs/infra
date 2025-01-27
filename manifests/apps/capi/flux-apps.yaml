@@ -5,6 +5,8 @@ metadata:
   name: capi-operator
 spec:
   path: "./configs/capi/operator"
+  dependsOn:
+  - name: cert-manager
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -13,6 +15,7 @@ metadata:
 spec:
   path: "./configs/capi/core"
   dependsOn:
+  - name: cert-manager
   - name: capi-operator
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,6 +25,7 @@ metadata:
 spec:
   path: "./configs/capi/k0smotron"
   dependsOn:
+  - name: cert-manager
   - name: capi-operator
   - name: capi-core
 ---

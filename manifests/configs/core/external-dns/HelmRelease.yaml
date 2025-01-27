@@ -19,8 +19,15 @@ spec:
   targetNamespace: external-dns
   install:
     crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
+      strategy: rollback
+      remediateLastFailure: true
   values:
     policy: sync
     provider:

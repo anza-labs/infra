@@ -18,8 +18,15 @@ spec:
   targetNamespace: prometheus-system
   install:
     crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
+      strategy: rollback
+      remediateLastFailure: true
   values:
     alertmanager:
       enabled: true
