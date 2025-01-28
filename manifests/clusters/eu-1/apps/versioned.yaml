@@ -5,7 +5,7 @@ metadata:
   name: versioned
   namespace: flux-system
 spec:
-  path: "./versioned/full"
+  path: "./versioned/eu-1"
   sourceRef:
     kind: GitRepository
     name: apps

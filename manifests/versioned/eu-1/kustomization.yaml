@@ -6,3 +6,10 @@ resources:
 - ../../apps/capi
 - ../../apps/monitoring
 - ../../apps/public
+patches:
+- path: ./patches/lubelogger-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    name: lubelogger

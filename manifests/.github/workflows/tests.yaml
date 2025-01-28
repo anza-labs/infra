@@ -15,3 +15,14 @@ jobs:
       - uses: imranismail/setup-kustomize@v2
       - run: |
           ./hack/test.sh
+
+  render-patches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: imranismail/setup-kustomize@v2
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./go.mod
+      - run: |
+          go run ./hack/patch-test
