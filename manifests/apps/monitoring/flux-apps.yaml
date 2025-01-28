@@ -19,6 +19,6 @@ kind: Kustomization
 metadata:
   name: jaegertracing-jaeger
 spec:
-  path: "./configs/jaegertracing/jaeger"
+  path: "./configs/monitoring/jaegertracing/jaeger"
   dependsOn:
   - name: jaegertracing

@@ -4,3 +4,4 @@ namespace: lubelogger-system
 resources:
 - ./ExternalSecret.yaml
 - ./HelmRelease.yaml
+- ./Namespace.yaml
