@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "0.0.5"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: kube-storage-version-migrator
-  targetNamespace: kube-system
   install:
     crds: CreateReplace
     remediation:

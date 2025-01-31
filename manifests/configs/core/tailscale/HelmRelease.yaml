@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "1.78.3"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: tailscale-operator
-  targetNamespace: tailscale
   install:
     crds: CreateReplace
     remediation:

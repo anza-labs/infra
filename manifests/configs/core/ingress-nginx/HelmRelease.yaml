@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "4.12.0"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: ingress-nginx
-  targetNamespace: ingress-nginx-system
   install:
     crds: CreateReplace
     remediation:

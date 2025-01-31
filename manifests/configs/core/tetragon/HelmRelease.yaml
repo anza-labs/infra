@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "1.3.0"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: tetragon
-  targetNamespace: kube-system
   install:
     crds: CreateReplace
     remediation:

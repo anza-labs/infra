@@ -14,9 +14,8 @@ spec:
         namespace: flux-system
       version: "0.13.0"
   interval: 1m0s
-  timeout: 10m
+  timeout: 10m0s
   releaseName: external-secrets
-  targetNamespace: external-secrets
   install:
     crds: CreateReplace
     remediation:

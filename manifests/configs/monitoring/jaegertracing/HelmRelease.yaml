@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "2.57.0"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: jaeger-operator
-  targetNamespace: jaeger-system
   install:
     crds: CreateReplace
     remediation:

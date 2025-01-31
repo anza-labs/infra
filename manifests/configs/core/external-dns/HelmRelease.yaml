@@ -14,9 +14,8 @@ spec:
         namespace: flux-system
       version: "1.15.1"
   interval: 1m0s
-  timeout: 10m
+  timeout: 10m0s
   releaseName: external-dns
-  targetNamespace: external-dns
   install:
     crds: CreateReplace
     remediation:

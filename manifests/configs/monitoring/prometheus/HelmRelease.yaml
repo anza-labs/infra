@@ -14,8 +14,8 @@ spec:
         namespace: flux-system
       version: "27.1.0"
   interval: 1m0s
+  timeout: 10m0s
   releaseName: prometheus
-  targetNamespace: prometheus-system
   install:
     crds: CreateReplace
     remediation:
