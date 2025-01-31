@@ -1,17 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
-| <a name="requirement_flux"></a> [flux](#requirement\_flux) | 1.4.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.35.1 |
-| <a name="requirement_linode"></a> [linode](#requirement\_linode) | 2.33.0 |
-
-## Providers
-
-No providers.
-
 ## Modules
 
 | Name | Source | Version |

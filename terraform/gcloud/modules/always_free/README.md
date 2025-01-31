@@ -1,23 +1,19 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-No providers.
-
 ## Modules
 
 No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [google_compute_instance.vm_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_region"></a> [region](#input\_region) | The region where the instance will be created. | `string` | `"us-west1"` | no |
 
 ## Outputs
 

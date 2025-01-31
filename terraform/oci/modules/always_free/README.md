@@ -1,15 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
-| <a name="provider_tailscale"></a> [tailscale](#provider\_tailscale) | n/a |
-
 ## Modules
 
 No modules.

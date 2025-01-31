@@ -1,16 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_flux"></a> [flux](#provider\_flux) | n/a |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
-| <a name="provider_linode"></a> [linode](#provider\_linode) | n/a |
-
 ## Modules
 
 No modules.

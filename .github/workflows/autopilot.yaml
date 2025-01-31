@@ -3,42 +3,6 @@ name: autopilot
 on: pull_request_target
 
 jobs:
-  render-docs:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    if: |
-      contains(github.event.pull_request.labels.*.name, 'area/dependency') &&
-      !contains(github.event.pull_request.labels.*.name, 'do-not-merge') &&
-      github.actor == 'renovate[bot]'
-    steps:
-      - uses: actions/checkout@v4
-      # - uses: terraform-docs/gh-actions@v1.3.0
-      #   with:
-      #     working-dir: terraform/gcloud
-      #     find-dir: terraform/gcloud
-      #     recursive: true
-      #     output-method: inject
-      #     git-push: "true"
-      #     git-push-sign-off: true
-      - uses: terraform-docs/gh-actions@v1.3.0
-        with:
-          working-dir: terraform/linode
-          find-dir: terraform/linode
-          recursive: true
-          output-method: inject
-          git-push: "true"
-          git-push-sign-off: true
-      - uses: terraform-docs/gh-actions@v1.3.0
-        with:
-          working-dir: terraform/oci
-          find-dir: terraform/oci
-          recursive: true
-          output-method: inject
-          git-push: "true"
-          git-push-sign-off: true
-
   auto-approve:
     runs-on: ubuntu-latest
     needs:
@@ -48,7 +12,7 @@ jobs:
     if: |
       contains(github.event.pull_request.labels.*.name, 'area/dependency') &&
       !contains(github.event.pull_request.labels.*.name, 'do-not-merge') &&
-      ( github.actor == 'renovate[bot]' || github.actor == 'github-actions[bot]' )
+      github.actor == 'renovate[bot]'
     steps:
       - uses: hmarr/auto-approve-action@v4
         with:
