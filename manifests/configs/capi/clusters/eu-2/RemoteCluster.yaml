@@ -4,3 +4,6 @@ kind: RemoteCluster
 metadata:
   name: homelab-cluster
 spec:
+  controlPlaneEndpoint:
+    host:
+    port:

@@ -28,17 +28,17 @@ spec:
   - name: cert-manager
   - name: capi-operator
   - name: capi-core
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: capi-cluster-eu-2
-spec:
-  path: "./configs/capi/clusters/eu-2"
-  dependsOn:
-  - name: capi-operator
-  - name: capi-core
-  - name: capi-k0smotron
-  - name: cert-manager
-  - name: external-secrets
-  - name: tailscale
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: capi-cluster-eu-2
+# spec:
+#   path: "./configs/capi/clusters/eu-2"
+#   dependsOn:
+#   - name: capi-operator
+#   - name: capi-core
+#   - name: capi-k0smotron
+#   - name: cert-manager
+#   - name: external-secrets
+#   - name: tailscale

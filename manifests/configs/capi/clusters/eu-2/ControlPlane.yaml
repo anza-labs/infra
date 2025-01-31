@@ -15,6 +15,10 @@ spec:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: K0smotronControlPlane
     name: cp-test
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: RemoteCluster
+    name: eu-2
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: K0smotronControlPlane
@@ -25,7 +29,7 @@ spec:
   persistence:
     type: emptyDir
   service:
-    type: LoadBalancer
+    type: NodePort
     apiPort: 36443
     konnectivityPort: 38132
     annotations: {}
