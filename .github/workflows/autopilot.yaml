@@ -14,14 +14,14 @@ jobs:
       github.actor == 'renovate[bot]'
     steps:
       - uses: actions/checkout@v4
-      - uses: terraform-docs/gh-actions@v1.3.0
-        with:
-          working-dir: terraform/gcloud
-          find-dir: terraform/gcloud
-          recursive: true
-          output-method: inject
-          git-push: "true"
-          git-push-sign-off: true
+      # - uses: terraform-docs/gh-actions@v1.3.0
+      #   with:
+      #     working-dir: terraform/gcloud
+      #     find-dir: terraform/gcloud
+      #     recursive: true
+      #     output-method: inject
+      #     git-push: "true"
+      #     git-push-sign-off: true
       - uses: terraform-docs/gh-actions@v1.3.0
         with:
           working-dir: terraform/linode
