@@ -22,12 +22,12 @@ spec:
   install:
     crds: CreateReplace
     remediation:
-      retries: 3
+      retries: -1
       remediateLastFailure: true
   upgrade:
     crds: CreateReplace
     remediation:
-      retries: 5
+      retries: -1
       strategy: uninstall
       remediateLastFailure: true
   values:
