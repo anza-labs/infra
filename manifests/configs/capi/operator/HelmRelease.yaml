@@ -13,7 +13,7 @@ spec:
         name: capi-operator
         namespace: flux-system
       version: "0.16.0"
-  interval: 1m0s
+  interval: 30m0s
   timeout: 10m0s
   releaseName: capi-operator
   install:
