@@ -24,8 +24,8 @@ spec:
   upgrade:
     crds: CreateReplace
     remediation:
-      retries: 3
-      strategy: rollback
+      retries: 5
+      strategy: uninstall
       remediateLastFailure: true
   valuesFrom:
   - kind: Secret
