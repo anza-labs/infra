@@ -6,7 +6,7 @@
   value: 10m
 - op: replace
   path: /spec/interval
-  value: 10m
+  value: 30m
 - op: replace
   path: /spec/sourceRef
   value:
