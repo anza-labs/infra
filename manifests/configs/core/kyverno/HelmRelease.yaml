@@ -30,3 +30,4 @@ spec:
       retries: -1
       strategy: uninstall
       remediateLastFailure: true
+  values: {}
