@@ -1,0 +1,19 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: set-reloader-annotation
+spec:
+  rules:
+    - name: set-reloader-annotation
+      match:
+        resources:
+          kinds:
+            - Deployment
+            - DaemonSet
+            - StatefulSet
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(reloader.stakater.com/auto): "true"

@@ -8,6 +8,14 @@ on:
       - "main"
 
 jobs:
+  build-repositories:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: imranismail/setup-kustomize@v2
+      - run: |
+          ./hack/repos.sh --check
+
   render-kustomize:
     runs-on: ubuntu-latest
     steps:

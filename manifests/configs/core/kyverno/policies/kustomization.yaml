@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: kyverno
 resources:
 - ./HelmRelease.yaml
+- ./annotations-policy.yaml
