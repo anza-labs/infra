@@ -13,8 +13,8 @@ spec:
         name: prometheus-community
         namespace: flux-system
       version: "27.2.0"
-  interval: 30m0s
-  timeout: 10m0s
+  interval: 60m0s
+  timeout: 30m0s
   releaseName: prometheus
   test:
     enable: true
