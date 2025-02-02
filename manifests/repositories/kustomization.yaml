@@ -9,6 +9,7 @@ resources:
 - ingress-nginx.yaml
 - jaegertracing.yaml
 - jetstack.yaml
+- kyverno.yaml
 - prometheus-community.yaml
 - stakater.yaml
 - tailscale.yaml
