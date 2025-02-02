@@ -15,7 +15,7 @@ spec:
       version: "3.3.2"
   interval: 30m0s
   timeout: 10m0s
-  releaseName: kyverno
+  releaseName: kyverno-policies
   test:
     enable: true
     ignoreFailures: true
