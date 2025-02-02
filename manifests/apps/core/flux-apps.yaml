@@ -18,7 +18,7 @@ kind: Kustomization
 metadata:
   name: kyverno-policies
 spec:
-  path: "./configs/core/kyverno-policies"
+  path: "./configs/core/kyverno/policies"
   dependsOn:
   - name: kyverno
 ---
