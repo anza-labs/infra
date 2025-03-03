@@ -3,7 +3,7 @@
 <table align="center">
   <tr>
     <td align="center" colspan="2"><a href="https://linode.com" target="_blank"><img src="./resources/linode.png" height="32px"><br>Linode</a></td>
-    <td align="center" colspan="2"><a href="oraclecloud.com" target="_blank"><img src="./resources/oraclecloud.png" height="32px"><br>Oracle Cloud</a></td>
+    <td align="center" colspan="2"><a href="https://oraclecloud.com" target="_blank"><img src="./resources/oraclecloud.png" height="32px"><br>Oracle Cloud</a></td>
     <td align="center" colspan="2"><a href="https://cloud.google.com" target="_blank"><img src="./resources/gcloud.png" height="32px"><br>Google Cloud</a></a></td>
   </tr>
   <tr>
