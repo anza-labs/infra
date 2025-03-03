@@ -1,6 +1,6 @@
 # Infra
 
-<p align="center">
+<cetner>
   <table>
     <tr>
       <td align="center" colspan="2"><a href="https://linode.com" target="_blank"><img src="./resources/linode.png" height="32px"><br>Linode</a></td>
@@ -19,7 +19,7 @@
       <td align="center"><a href="https://cluster-api.sigs.k8s.io" target="_blank"><img src="./resources/capi.svg" height="32px"><br>Cluster API</a></td>
     </tr>
   </table>
-</p>
+</cetner>
 
 ## Infrastructure as Code with GitOps using Flux, OpenTofu and Renovate
 
