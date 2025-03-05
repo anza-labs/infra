@@ -21,8 +21,8 @@ spec:
             key: api-token
       selector:
         dnsNames:
-        - 'anza-labs.com'
-        - '*.anza-labs.com'
+        - 'anza-labs.dev'
+        - '*.anza-labs.dev'
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -46,5 +46,5 @@ spec:
             key: api-token
       selector:
         dnsNames:
-        - 'dev.anza-labs.com'
-        - '*.dev.anza-labs.com'
+        - 'dev.anza-labs.dev'
+        - '*.dev.anza-labs.dev'
