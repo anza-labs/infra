@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: anza-labs
         namespace: flux-system
-      version: "0.5.11"
+      version: "0.5.12"
   interval: 30m0s
   timeout: 10m0s
   releaseName: lubelogger
