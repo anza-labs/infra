@@ -14,9 +14,16 @@
       "kind/security"
     ]
   },
-  "flux": {
-    "fileMatch": [
-      "clusters/.+\\.yaml$"
-    ]
-  }
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "main.tf$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s[a-z_]+\\s=\\s(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ]
 }
