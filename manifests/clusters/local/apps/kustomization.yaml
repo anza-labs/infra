@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: flux-system
 resources:
 - ./versioned.yaml
-- ../../../environments/release
+- ../../../environments/dev
 patches:
 - path: ./patches/alerts-patch.yaml
   target:
