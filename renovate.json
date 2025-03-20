@@ -21,7 +21,7 @@
         "main.tf$"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s[a-z_]+\\s=\\s(?<currentValue>\\S+)"
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+\\s+=\\s(?<currentValue>\\S+)"
       ],
       "datasourceTemplate": "docker"
     }
