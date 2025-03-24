@@ -46,6 +46,13 @@ variable "instance_source_type" {
   default     = "image"
 }
 
+variable "source_id" {
+  type        = string
+  description = "The source ID of the instance."
+  nullable    = true
+  default     = null
+}
+
 variable "tailscale_oauth_client_id" {
   type        = string
   description = "OAuth Client ID for Tailscale."

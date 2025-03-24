@@ -16,6 +16,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_availability_domain"></a> [availability\_domain](#input\_availability\_domain) | Availability Domain of the instance. | `number` | `3` | no |
 | <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | Fingerprint of OCI API Private Key. | `string` | n/a | yes |
+| <a name="input_instance_source_id"></a> [instance\_source\_id](#input\_instance\_source\_id) | The source ID of the instance. | `string` | `null` | no |
 | <a name="input_private_key"></a> [private\_key](#input\_private\_key) | Contents of OCI API Private Key used. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The oci region where resources will be created. | `string` | `"eu-frankfurt-1"` | no |
 | <a name="input_ssh_public_keys"></a> [ssh\_public\_keys](#input\_ssh\_public\_keys) | Public SSH keys to be included in the ~/.ssh/authorized\_keys file for the default user on the instance. | `string` | n/a | yes |

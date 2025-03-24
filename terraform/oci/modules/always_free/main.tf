@@ -18,6 +18,7 @@ locals {
   ocpus       = var.instance_shape == "VM.Standard.E2.1.Micro" ? 1 : 4
   memory      = var.instance_shape == "VM.Standard.E2.1.Micro" ? 1 : 24
   boot_volume = var.instance_shape == "VM.Standard.E2.1.Micro" ? 100 : 200
+  source_id   = var.source_id == null ? var.source_id : data.oci_core_images.instance_images.images[0].id
 }
 
 resource "tailscale_tailnet_key" "tailscale_key" {
@@ -51,7 +52,7 @@ resource "oci_core_instance" "instance" {
 
   source_details {
     source_type             = var.instance_source_type
-    source_id               = data.oci_core_images.instance_images.images[0].id
+    source_id               = local.source_id
     boot_volume_size_in_gbs = local.boot_volume
     boot_volume_vpus_per_gb = 10
   }
