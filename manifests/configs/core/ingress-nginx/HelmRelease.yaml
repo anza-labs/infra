@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-      version: "4.12.0"
+      version: "4.12.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: ingress-nginx
