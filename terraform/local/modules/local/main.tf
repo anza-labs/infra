@@ -96,6 +96,7 @@ data "kubernetes_nodes" "nodes" {
 }
 
 resource "docker_image" "cloud_provider_kind" {
+  # renovate: datasource=docker depName="ghcr.io/anza-labs/library/cloud-provider-kind
   name = "ghcr.io/anza-labs/library/cloud-provider-kind:v0.6.0"
 }
 
