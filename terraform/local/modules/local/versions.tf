@@ -2,6 +2,11 @@
 terraform {
   required_providers {
     # tflint-ignore: terraform_required_providers
+    docker = {
+      source = "kreuzwerker/docker"
+    }
+
+    # tflint-ignore: terraform_required_providers
     flux = {
       source = "fluxcd/flux"
     }

@@ -15,6 +15,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bitwarden_token"></a> [bitwarden\_token](#input\_bitwarden\_token) | n/a | `string` | n/a | yes |
 | <a name="input_discord_webhook"></a> [discord\_webhook](#input\_discord\_webhook) | n/a | `string` | n/a | yes |
+| <a name="input_docker_socket"></a> [docker\_socket](#input\_docker\_socket) | n/a | `string` | `"unix:///var/run/docker.sock"` | no |
 | <a name="input_github_token"></a> [github\_token](#input\_github\_token) | n/a | `string` | n/a | yes |
 
 ## Outputs

@@ -1,4 +1,14 @@
+provider "docker" {
+  host = var.docker_socket
+}
+
+resource "docker_network" "kind" {
+  name = "kind"
+}
+
 resource "kind_cluster" "kind" {
+  depends_on = [docker_network.kind]
+
   name = var.cluster_name
 
   node_image      = "kindest/node:${var.k8s_version}"
@@ -42,7 +52,8 @@ resource "flux_bootstrap_git" "flux" {
   depends_on = [kind_cluster.kind]
   count      = var.flux ? 1 : 0
 
-  path = "clusters/${var.cluster_name}"
+  delete_git_manifests = false
+  path                 = "clusters/${var.cluster_name}"
 }
 
 provider "kubernetes" {
@@ -82,4 +93,24 @@ resource "kubernetes_secret" "discord_webhook" {
 
 data "kubernetes_nodes" "nodes" {
   depends_on = [kind_cluster.kind]
+}
+
+resource "docker_image" "cloud_provider_kind" {
+  name = "ghcr.io/anza-labs/library/cloud-provider-kind:v0.6.0"
+}
+
+resource "docker_container" "cloud_provider_kind" {
+  depends_on = [kind_cluster.kind, docker_network.kind]
+
+  name  = "cloud-provider-kind"
+  image = docker_image.cloud_provider_kind.image_id
+
+  volumes {
+    container_path = "/var/run/docker.sock"
+    host_path      = "/var/run/docker.sock"
+  }
+
+  networks_advanced {
+    name = docker_network.kind.id
+  }
 }

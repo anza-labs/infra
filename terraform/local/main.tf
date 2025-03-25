@@ -12,6 +12,7 @@ module "local" {
 
   flux            = true
   github_repo     = "https://github.com/anza-labs/manifests"
+  docker_socket   = var.docker_socket
   github_token    = var.github_token
   bitwarden_token = var.bitwarden_token
   discord_webhook = var.discord_webhook
