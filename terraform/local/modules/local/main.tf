@@ -95,9 +95,13 @@ data "kubernetes_nodes" "nodes" {
   depends_on = [kind_cluster.kind]
 }
 
+locals {
+  # renovate: datasource=docker depName=ghcr.io/anza-labs/library/cloud-provider-kind
+  cloud_provider_kind_version = "v0.6.0"
+}
+
 resource "docker_image" "cloud_provider_kind" {
-  # renovate: datasource=docker depName="ghcr.io/anza-labs/library/cloud-provider-kind
-  name = "ghcr.io/anza-labs/library/cloud-provider-kind:v0.6.0"
+  name = "ghcr.io/anza-labs/library/cloud-provider-kind:${local.cloud_provider_kind_version}"
 }
 
 resource "docker_container" "cloud_provider_kind" {
