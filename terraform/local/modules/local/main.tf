@@ -96,12 +96,12 @@ data "kubernetes_nodes" "nodes" {
 }
 
 locals {
-  # renovate: datasource=docker depName=ghcr.io/anza-labs/library/cloud-provider-kind
+  # renovate: datasource=docker depName=registry.k8s.io/cloud-provider-kind/cloud-controller-manager
   cloud_provider_kind_version = "v0.6.0"
 }
 
 resource "docker_image" "cloud_provider_kind" {
-  name = "ghcr.io/anza-labs/library/cloud-provider-kind:${local.cloud_provider_kind_version}"
+  name = "registry.k8s.io/cloud-provider-kind/cloud-controller-manager:${local.cloud_provider_kind_version}"
 }
 
 resource "docker_container" "cloud_provider_kind" {
