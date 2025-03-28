@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: external-secrets
         namespace: flux-system
-      version: "0.15.0"
+      version: "0.15.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: external-secrets
