@@ -1,13 +1,20 @@
 resource "google_compute_instance" "vm_instance" {
-  name         = "small-vm-instance"
-  machine_type = "e2-micro"
+  name         = var.instance_name
+  machine_type = var.instance_shape
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "cos-cloud/cos-stable"
       size  = 30
       type  = "pd-standard"
     }
+  }
+
+  metadata = {
+    "user-data" = templatefile(
+      "${path.module}/templates/user_data.tftpl",
+      {}
+    )
   }
 
   network_interface {

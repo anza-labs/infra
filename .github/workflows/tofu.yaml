@@ -106,17 +106,26 @@ jobs:
       - uses: opentofu/setup-opentofu@v1
       - env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           tofu -chdir=./terraform/gcloud init -upgrade
       - if: github.event_name == 'pull_request'
         id: plan
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           tofu -chdir=./terraform/gcloud plan -input=false -no-color
       - if: github.event_name != 'pull_request'
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           tofu -chdir=./terraform/gcloud \
             apply -auto-approve -input=false -lock=true -no-color
