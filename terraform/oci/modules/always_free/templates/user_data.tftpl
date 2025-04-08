@@ -1,5 +1,14 @@
 #cloud-config
 
+ssh_pwauth: false
+
+ansible:
+  package_name: ansible-core
+  install_method: distro
+  pull:
+    url: "https://github.com/anza-labs/infra-ansible.git"
+    playbook_name: playbooks/vmboot.yaml
+
 runcmd:
   # Tailscale install
   - ['sh', '-c', 'curl -fsSL https://tailscale.com/install.sh | sh']
