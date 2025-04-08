@@ -30,6 +30,9 @@ spec:
       retries: -1
       strategy: rollback
       remediateLastFailure: true
+  values:
+    apiServerProxyConfig:
+      mode: "noauth"
   valuesFrom:
   - kind: Secret
     name: tailscale-oauth
