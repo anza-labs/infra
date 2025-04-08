@@ -20,7 +20,6 @@ No modules.
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | Name of the instance. | `string` | n/a | yes |
 | <a name="input_instance_shape"></a> [instance\_shape](#input\_instance\_shape) | Type of an instance | `string` | `"VM.Standard.E2.1.Micro"` | no |
 | <a name="input_instance_source_type"></a> [instance\_source\_type](#input\_instance\_source\_type) | The source type for the instance. | `string` | `"image"` | no |
-| <a name="input_recreate"></a> [recreate](#input\_recreate) | Triggers recreating Tailnet join token, and in result, triggers recreation of the VM instance. | `string` | `"never"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The oci region where resources will be created. | `string` | `"eu-frankfurt-1"` | no |
 | <a name="input_source_id"></a> [source\_id](#input\_source\_id) | The source ID of the instance. | `string` | `null` | no |
 | <a name="input_ssh_public_keys"></a> [ssh\_public\_keys](#input\_ssh\_public\_keys) | Public SSH keys to be included in the ~/.ssh/authorized\_keys file for the default user on the instance. | `string` | n/a | yes |
