@@ -72,7 +72,8 @@ resource "oci_core_instance" "instance" {
 
   lifecycle {
     ignore_changes = [
-      source_details[0].source_id
+      metadata["user_data"],
+      source_details[0].source_id,
     ]
   }
 }
