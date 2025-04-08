@@ -14,11 +14,6 @@ variable "instance_shape" {
   }
 }
 
-variable "ssh_public_keys" {
-  type        = string
-  description = "Public SSH keys to be included in the ~/.ssh/authorized_keys file for the default user on the instance."
-}
-
 variable "region" {
   type        = string
   description = "The region where the instance will be created."
