@@ -17,10 +17,5 @@ variable "region" {
 variable "zone" {
   description = "The zone where the zoned resources will be created."
   type        = string
-  default     = "a"
-
-  validation {
-    condition     = contains(["a", "b", "c"], var.zone)
-    error_message = "Region must be one of: a, b, c."
-  }
+  default     = "c"
 }
