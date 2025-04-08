@@ -104,25 +104,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: opentofu/setup-opentofu@v1
+      - run: |
+          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > /dev/shm/credentials.json
       - env:
+          GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
         run: |
           tofu -chdir=./terraform/gcloud init -upgrade
       - if: github.event_name == 'pull_request'
         id: plan
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
         run: |
           tofu -chdir=./terraform/gcloud plan -input=false -no-color
       - if: github.event_name != 'pull_request'
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
         run: |
           tofu -chdir=./terraform/gcloud \
             apply -auto-approve -input=false -lock=true -no-color
+      - if: always()
+        run: |
+          rm -f /dev/shm/credentials.json
