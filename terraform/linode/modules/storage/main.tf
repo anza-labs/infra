@@ -7,7 +7,7 @@ resource "linode_object_storage_key" "credentials" {
   label = var.name
 
   bucket_access {
-    bucket_name = linode_object_storage_bucket.storage.bucket_name
+    bucket_name = linode_object_storage_bucket.storage.label
     region      = var.region
     permissions = "read_write"
   }
