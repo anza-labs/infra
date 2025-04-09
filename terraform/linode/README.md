@@ -4,6 +4,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_eu-1"></a> [eu-1](#module\_eu-1) | ./modules/lke | n/a |
+| <a name="module_zot-registry"></a> [zot-registry](#module\_zot-registry) | ./modules/storage | n/a |
 
 ## Resources
 
