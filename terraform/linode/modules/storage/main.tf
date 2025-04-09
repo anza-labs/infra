@@ -20,7 +20,7 @@ resource "bitwarden_secret" "access_key" {
   note       = "Access Key for ${var.name} provisioned in ${var.region}"
 }
 
-resource "bitwarden_secret" "access_key" {
+resource "bitwarden_secret" "secret_key" {
   key        = "${var.name} @ ${var.region} (Secret Key)"
   value      = linode_object_storage_key.credentials.secret_key
   project_id = var.project_id
