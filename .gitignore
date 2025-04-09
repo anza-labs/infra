@@ -49,3 +49,6 @@ terraform.rc
 # Generated secrets
 *-kubeconfig.conf
 *.env
+
+# Ignore Bitwarden specific directories
+.bitwarden
