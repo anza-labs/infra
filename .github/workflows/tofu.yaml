@@ -27,6 +27,7 @@ jobs:
       - env:
           LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
           TF_VAR_bitwarden_token: ${{ secrets.BITWARDEN_TOKEN }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_FLUX_EU_1 }}
           TF_VAR_github_token: ${{ secrets.PAT }}
@@ -37,6 +38,7 @@ jobs:
         env:
           LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
           TF_VAR_bitwarden_token: ${{ secrets.BITWARDEN_TOKEN }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_FLUX_EU_1 }}
           TF_VAR_github_token: ${{ secrets.PAT }}
@@ -46,6 +48,7 @@ jobs:
         env:
           LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
           TF_VAR_bitwarden_token: ${{ secrets.BITWARDEN_TOKEN }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_FLUX_EU_1 }}
           TF_VAR_github_token: ${{ secrets.PAT }}
