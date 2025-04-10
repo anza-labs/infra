@@ -8,6 +8,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [bitwarden_secret.access_key](https://registry.terraform.io/providers/maxlaverse/bitwarden/latest/docs/resources/secret) | resource |
+| [bitwarden_secret.secret_key](https://registry.terraform.io/providers/maxlaverse/bitwarden/latest/docs/resources/secret) | resource |
 | [linode_object_storage_bucket.storage](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/object_storage_bucket) | resource |
 | [linode_object_storage_key.credentials](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/object_storage_key) | resource |
 
