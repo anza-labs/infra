@@ -9,4 +9,4 @@ spec:
   interval: 5m0s
   url: https://github.com/anza-labs/manifests
   ref:
-    tag: 'v2025-04-08.1'
+    tag: 'v2025-04-14.1'

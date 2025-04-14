@@ -42,9 +42,18 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cilium-tetragon
+  name: kubewarden-crds
 spec:
-  path: "./configs/core/tetragon"
+  path: "./configs/core/kubewarden/crds"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubewarden-controller
+spec:
+  path: "./configs/core/kubewarden/controller"
+  dependsOn:
+  - name: kubewarden-crds
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -78,15 +87,6 @@ spec:
   path: "./configs/core/tailscale"
   dependsOn:
   - name: external-secrets
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: external-dns
-spec:
-  path: "./configs/core/external-dns"
-  dependsOn:
-  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

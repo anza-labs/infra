@@ -16,10 +16,12 @@ spec:
   interval: 30m0s
   timeout: 10m0s
   releaseName: ingress-nginx
+  targetNamespace: ingress-nginx-system
   test:
     enable: true
     ignoreFailures: true
   install:
+    createNamespace: true
     crds: CreateReplace
     remediation:
       retries: -1

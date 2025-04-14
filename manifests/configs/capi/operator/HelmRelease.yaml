@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: capi-operator
 spec:
+  dependsOn:
+  - name: capi-operator-ns
   chart:
     spec:
       chart: cluster-api-operator
@@ -16,10 +18,12 @@ spec:
   interval: 30m0s
   timeout: 10m0s
   releaseName: capi-operator
+  targetNamespace: capi-operator-system
   test:
     enable: true
     ignoreFailures: true
   install:
+    createNamespace: true
     crds: CreateReplace
     remediation:
       retries: -1

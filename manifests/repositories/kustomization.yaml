@@ -3,13 +3,13 @@ kind: Kustomization
 resources:
 - anza-labs.yaml
 - capi-operator.yaml
-- cilium.yaml
 - external-dns.yaml
 - external-secrets.yaml
 - grafana.yaml
 - ingress-nginx.yaml
 - jaegertracing.yaml
 - jetstack.yaml
+- kubewarden.yaml
 - kyverno.yaml
 - prometheus-community.yaml
 - stakater.yaml

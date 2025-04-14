@@ -1,9 +1,0 @@
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: RemoteCluster
-metadata:
-  name: homelab-cluster
-spec:
-  controlPlaneEndpoint:
-    host:
-    port:

@@ -16,10 +16,12 @@ spec:
   interval: 60m0s
   timeout: 30m0s
   releaseName: prometheus
+  targetNamespace: prometheus-system
   test:
     enable: true
     ignoreFailures: true
   install:
+    createNamespace: true
     crds: CreateReplace
     remediation:
       retries: -1
