@@ -2,7 +2,7 @@
 
 set -e
 
-KUSTOMIZATION_FILE="repositories/kustomization.yaml"
+KUSTOMIZATION_FILE="cluster-templates/infra/repos/kustomization.yaml"
 TEMP_FILE="$(mktemp)"
 CHECK_MODE=false
 
@@ -19,13 +19,19 @@ fi
   echo "apiVersion: kustomize.config.k8s.io/v1beta1"
   echo "kind: Kustomization"
   echo "resources:"
-  find repositories -maxdepth 1 -type f -name '*.yaml' \
-    ! -name 'kustomization.yaml' | sort | sed 's|repositories/||' | sed 's/^/- /'
-} >"$TEMP_FILE"
+  find cluster-templates/infra/repos \
+      -maxdepth 1 \
+      -type f \
+      -name '*.yaml' \
+      ! -name 'kustomization.yaml' |\
+    sort |\
+    sed 's|cluster-templates/infra/repos/||' |\
+    sed 's/^/- /'
+} > "${TEMP_FILE}"
 
 # Check for differences if --check is set
 if ${CHECK_MODE}; then
-  if ! diff -q "$KUSTOMIZATION_FILE" "$TEMP_FILE" >/dev/null 2>&1; then
+  if ! diff -q "${KUSTOMIZATION_FILE}" "${TEMP_FILE}" >/dev/null 2>&1; then
     echo "Changes detected in kustomization.yaml. Run the script without --check to update."
     exit 1
   fi
@@ -33,6 +39,6 @@ if ${CHECK_MODE}; then
 fi
 
 # Replace existing kustomization.yaml
-mv "$TEMP_FILE" "$KUSTOMIZATION_FILE"
+mv "${TEMP_FILE}" "${KUSTOMIZATION_FILE}"
 
-echo "Updated $KUSTOMIZATION_FILE"
+echo "Updated ${KUSTOMIZATION_FILE}"

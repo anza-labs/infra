@@ -1,0 +1,16 @@
+- op: add
+  path: /spec/values/admissionController
+  value:
+    replicas: 3
+- op: add
+  path: /spec/values/backgroundController
+  value:
+    replicas: 2
+- op: add
+  path: /spec/values/cleanupController
+  value:
+    replicas: 2
+- op: add
+  path: /spec/values/reportsController
+  value:
+    replicas: 2

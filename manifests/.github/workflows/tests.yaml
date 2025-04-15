@@ -21,16 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: imranismail/setup-kustomize@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: |
+          python3 -m venv venv
+          . ./venv/bin/activate
+          pip install -r ./requirements.txt
+          python3 ./hack/patches.py \
+            '/Users/shanduur/Repos/anza-labs/manifests/clusters/infra/workload/eu-1/apps/flux-apps.yaml' \
+            tmp
       - run: |
           ./hack/test.sh
-
-  render-patches:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: imranismail/setup-kustomize@v2
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: ./go.mod
-      - run: |
-          go run ./hack/patch-test

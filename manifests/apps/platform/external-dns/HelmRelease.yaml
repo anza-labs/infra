@@ -1,0 +1,44 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  chart:
+    spec:
+      chart: external-dns
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: infra
+      version: "1.16.1"
+  interval: 30m0s
+  timeout: 10m0s
+  releaseName: external-dns
+  targetNamespace: external-dns
+  test:
+    enable: true
+    ignoreFailures: true
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      remediateLastFailure: true
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      strategy: rollback
+      remediateLastFailure: true
+  values:
+    policy: sync
+    provider:
+      name: cloudflare
+    env:
+    - name: CF_API_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-token
+          key: api-token
