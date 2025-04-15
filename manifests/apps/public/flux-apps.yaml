@@ -11,6 +11,6 @@ kind: Kustomization
 metadata:
   name: external-dns
 spec:
-  path: "./configs/core/external-dns"
+  path: "./configs/public/external-dns"
   dependsOn:
   - name: external-secrets-bitwarden
