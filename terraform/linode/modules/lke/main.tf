@@ -34,6 +34,8 @@ locals {
   host                   = local.cluster.server
   cluster_ca_certificate = local.cluster["certificate-authority-data"]
   token                  = local.user["token"]
+
+  flux_path = var.cluster_mode == "infra" ? "clusters/${var.cluster_name}-infra" : "clusters/${var.infra_cluster}-infra/${var.cluster_name}"
 }
 
 provider "flux" {
@@ -55,7 +57,7 @@ resource "flux_bootstrap_git" "flux" {
   depends_on = [linode_lke_cluster.lke]
   count      = var.flux ? 1 : 0
 
-  path = "clusters/${var.cluster_name}"
+  path = local.flux_path
 }
 
 provider "kubernetes" {
@@ -94,4 +96,11 @@ resource "kubernetes_secret" "discord_webhook" {
 
 data "kubernetes_nodes" "nodes" {
   depends_on = [linode_lke_cluster.lke]
+}
+
+resource "bitwarden_secret" "kubeconfig" {
+  key        = "${var.cluster_name} (${var.cluster_mode}) Kubeconfig"
+  value      = base64decode(linode_lke_cluster.lke.kubeconfig)
+  project_id = var.project_id
+  note       = "Kubeconfig for ${var.cluster_name} (${var.cluster_mode})"
 }

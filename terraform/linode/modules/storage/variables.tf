@@ -13,6 +13,5 @@ variable "root" {
 }
 
 variable "project_id" {
-  type    = string
-  default = "."
+  type = string
 }

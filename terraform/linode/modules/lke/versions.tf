@@ -15,5 +15,10 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
+
+    # tflint-ignore: terraform_required_providers
+    bitwarden = {
+      source = "maxlaverse/bitwarden"
+    }
   }
 }

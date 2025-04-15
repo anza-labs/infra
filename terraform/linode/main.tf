@@ -12,7 +12,9 @@ module "eu-1" {
   root   = abspath(path.module)
 
   cluster_name = "eu-1"
+  cluster_mode = "infra"
   k8s_version  = "latest"
+  project_id   = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
 
   flux            = true
   github_repo     = "https://github.com/anza-labs/manifests"
@@ -25,6 +27,6 @@ module "oci-registry" {
   source = "./modules/storage"
   root   = abspath(path.module)
 
-  name        = "oci-registry"
-  project_id  = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
+  name       = "oci-registry"
+  project_id = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
 }

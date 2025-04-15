@@ -6,6 +6,21 @@ variable "cluster_name" {
   type = string
 }
 
+variable "cluster_mode" {
+  type    = string
+  default = "infra"
+  validation {
+    condition     = contains(["infra", "workload"], var.cluster_mode)
+    error_message = "cluster_mode must be either 'infra' or 'workload'."
+  }
+}
+
+variable "infra_cluster" {
+  type     = string
+  nullable = true
+  default  = null
+}
+
 variable "region" {
   type    = string
   default = "eu-central"
@@ -50,4 +65,8 @@ variable "node_pools" {
   default = [
     { type = "g6-standard-2", count = 3 },
   ]
+}
+
+variable "project_id" {
+  type = string
 }
