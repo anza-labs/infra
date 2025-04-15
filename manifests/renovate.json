@@ -17,11 +17,7 @@
   "flux": {
     "fileMatch": [
       "apps/.+\\.yaml$",
-      "clusters/.+\\.yaml$",
-      "configs/.+\\.yaml$",
-      "environments/.+\\.yaml$",
-      "repositories/.+\\.yaml$",
-      "versioned/.+\\.yaml$"
+      "cluster-templates/.+\\.yaml$"
     ]
   }
 }
