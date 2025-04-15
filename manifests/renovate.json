@@ -16,8 +16,7 @@
   },
   "flux": {
     "fileMatch": [
-      "apps/.+\\.yaml$",
-      "cluster-templates/.+\\.yaml$"
+      "apps/.+\\.yaml$"
     ]
   }
 }
