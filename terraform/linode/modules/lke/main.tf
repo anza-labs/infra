@@ -81,7 +81,7 @@ resource "kubernetes_secret" "bitwarden" {
 }
 
 resource "kubernetes_secret" "discord_webhook" {
-  depends_on = [linode_lke_cluster.lke]
+  depends_on = [linode_lke_cluster.lke, flux_bootstrap_git.flux]
   count      = var.flux ? 1 : 0
 
   metadata {
