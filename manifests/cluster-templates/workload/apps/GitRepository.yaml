@@ -9,4 +9,4 @@ spec:
   interval: 5m0s
   url: https://github.com/anza-labs/manifests
   ref:
-    commit: '5828d5e85d499a2fc68872d3e8a22d5ea82f9008'
+    commit: '1339be947cea6058ca465bdb5c690c382fae33b5'
