@@ -5,6 +5,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/cert-manager
   prune: true
   sourceRef:
@@ -23,6 +32,15 @@ spec:
   - name: cert-manager
   - name: external-secrets-bitwarden
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/cert-manager/issuers/cloudflare
   prune: true
   sourceRef:
@@ -38,6 +56,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/external-secrets
   prune: true
   sourceRef:
@@ -56,6 +83,15 @@ spec:
   - name: external-secrets
   - name: cert-manager
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/external-secrets/bitwarden
   prune: true
   sourceRef:
@@ -71,6 +107,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/ingress-nginx
   prune: true
   sourceRef:
@@ -86,6 +131,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/kube-storage-version-migrator
   prune: true
   sourceRef:
@@ -103,6 +157,15 @@ spec:
   dependsOn:
   - name: kubewarden-crds
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/kubewarden/controller
   prune: true
   sourceRef:
@@ -118,6 +181,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/kubewarden/crds
   prune: true
   sourceRef:
@@ -133,6 +205,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/kyverno
   prune: true
   sourceRef:
@@ -150,6 +231,15 @@ spec:
   dependsOn:
   - name: kyverno
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/kyverno/policies
   prune: true
   sourceRef:
@@ -165,6 +255,15 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/reloader
   prune: true
   sourceRef:
@@ -182,6 +281,15 @@ spec:
   dependsOn:
   - name: external-secrets
   interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   path: ./apps/platform/tailscale
   prune: true
   sourceRef:
@@ -243,7 +351,7 @@ metadata:
 spec:
   interval: 5m0s
   ref:
-    commit: ae4f15633afddf8ea4fc7c6910b8dce9204d3a6d
+    commit: 490f796885705532770ff7de30937058d7bacb4f
   url: https://github.com/anza-labs/manifests
 ---
 apiVersion: source.toolkit.fluxcd.io/v1

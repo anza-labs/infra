@@ -20,7 +20,17 @@
         - op: add
           path: /spec/kubeConfig
           value:
-            name: "${CLUSTER}-kubeconfig"
+            name: '${CLUSTER}-kubeconfig'
+            key: value
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+    - patch: |
+        - op: add
+          path: /metadata/namespace
+          value:
+            name: 'cluster-${CLUSTER}'
             key: value
       target:
         group: helm.toolkit.fluxcd.io

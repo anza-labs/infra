@@ -13,3 +13,14 @@
     kind: GitRepository
     name: apps
     namespace: infra
+- op: add
+  path: /spec/patches
+  value:
+    - patch: |
+        - op: add
+          path: /metadata/namespace
+          value: infra
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease

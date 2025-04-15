@@ -1,5 +1,0 @@
-- op: add
-  path: /spec/eventMetadata
-  value:
-    env: "production"
-    cluster: eu-2

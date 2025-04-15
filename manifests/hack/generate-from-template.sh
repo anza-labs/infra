@@ -2,7 +2,7 @@
 
 set -e
 
-WORKLOAD=("eu-1")
+WORKLOAD=()
 export GIT_SHA="$(git rev-parse HEAD)"
 
 # Generate infra apps
