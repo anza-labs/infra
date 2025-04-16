@@ -3,6 +3,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kube-storage-version-migrator
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/kube-storage-version-migrator"
 ---
@@ -10,6 +12,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kyverno
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/kyverno"
 ---
@@ -17,6 +21,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kyverno-policies
+  labels:
+    target: workload
 spec:
   path: "./apps/platform/kyverno/policies"
   dependsOn:
@@ -26,6 +32,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/cert-manager"
 ---
@@ -33,6 +41,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager-issuers-cloudflare
+  labels:
+    target: workload
 spec:
   path: "./apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
@@ -43,6 +53,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-crds
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/kubewarden/crds"
 ---
@@ -50,6 +62,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-controller
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/kubewarden/controller"
   dependsOn:
@@ -59,6 +73,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/external-secrets"
 ---
@@ -66,6 +82,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets-bitwarden
+  labels:
+    target: workload
 spec:
   path: "./apps/platform/external-secrets/bitwarden"
   dependsOn:
@@ -76,6 +94,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: ingress-nginx
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/ingress-nginx"
 ---
@@ -83,6 +103,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tailscale
+  labels:
+    target: infra
 spec:
   path: "./apps/platform/tailscale"
   dependsOn:

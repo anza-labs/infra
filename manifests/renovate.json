@@ -16,7 +16,7 @@
   },
   "flux": {
     "fileMatch": [
-      "apps/.+\\.yaml$"
+      "^apps/.+\\.yaml$"
     ]
   }
 }
