@@ -10,7 +10,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: kubewarden
+        name: charts-kubewarden-io
         namespace: placeholder
       version: "1.15.0"
   interval: 30m0s

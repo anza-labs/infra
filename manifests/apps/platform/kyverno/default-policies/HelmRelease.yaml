@@ -10,7 +10,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: kyverno
+        name: kyverno-github-io-kyverno
         namespace: placeholder
       version: "3.3.4"
   interval: 30m0s
