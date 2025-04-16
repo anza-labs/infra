@@ -2,40 +2,51 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kube-storage-version-migrator
+  name: kube-storage-version-migrator-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/kube-storage-version-migrator"
+  path: "./apps/platform/kube-storage-version-migrator/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kyverno
+  name: kyverno-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/kyverno"
+  path: "./apps/platform/kyverno/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kyverno-policies
+  name: kyverno-default-policies
   labels:
     target: workload
 spec:
-  path: "./apps/platform/kyverno/policies"
+  path: "./apps/platform/kyverno/default-policies"
   dependsOn:
-  - name: kyverno
+  - name: kyverno-app
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager
+  name: kyverno-extra-policies
+  labels:
+    target: workload
+spec:
+  path: "./apps/platform/kyverno/extra-policies"
+  dependsOn:
+  - name: kyverno-app
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/cert-manager"
+  path: "./apps/platform/cert-manager/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -46,7 +57,7 @@ metadata:
 spec:
   path: "./apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
-  - name: cert-manager
+  - name: cert-manager-app
   - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -54,29 +65,29 @@ kind: Kustomization
 metadata:
   name: kubewarden-crds
   labels:
-    target: infra
+    target: workload
 spec:
   path: "./apps/platform/kubewarden/crds"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubewarden-controller
+  name: kubewarden-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/kubewarden/controller"
+  path: "./apps/platform/kubewarden/app"
   dependsOn:
   - name: kubewarden-crds
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-secrets
+  name: external-secrets-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/external-secrets"
+  path: "./apps/platform/external-secrets/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -87,48 +98,65 @@ metadata:
 spec:
   path: "./apps/platform/external-secrets/bitwarden"
   dependsOn:
-  - name: external-secrets
-  - name: cert-manager
+  - name: external-secrets-app
+  - name: cert-manager-app
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ingress-nginx
+  name: ingress-nginx-app
   labels:
     target: infra
 spec:
-  path: "./apps/platform/ingress-nginx"
+  path: "./apps/platform/ingress-nginx/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: tailscale
+  name: tailscale-dependencies
   labels:
-    target: infra
+    target: workload
 spec:
-  path: "./apps/platform/tailscale"
+  path: "./apps/platform/tailscale/dependencies"
   dependsOn:
-  - name: external-secrets
+  - name: external-secrets-app
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: reloader
+  name: tailscale-app
+  labels:
+    target: infra
 spec:
-  path: "./apps/platform/reloader"
+  path: "./apps/platform/tailscale/app"
+  dependsOn:
+  - name: tailscale-dependencies
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-dns
+  name: reloader-app
+  labels:
+    target: infra
 spec:
-  path: "./apps/platform/external-dns"
+  path: "./apps/platform/reloader/app"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-dns-app
+  labels:
+    target: infra
+spec:
+  path: "./apps/platform/external-dns/app"
   dependsOn:
   - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: lubelogger
+  name: lubelogger-app
+  labels:
+    target: infra
 spec:
-  path: "./apps/public/lubelogger"
+  path: "./apps/public/lubelogger/app"

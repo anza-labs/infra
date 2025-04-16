@@ -3,10 +3,14 @@ kind: Kustomization
 namespace: 'cluster-${CLUSTER}'
 resources:
 - ../../base
-- ./GitRepository.yaml
-- ./Namespace.yaml
 - ./platform-apps.yaml
+- ./repos.yaml
 patches:
+- path: ./patches/common-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
 - path: ./patches/infra-patch.yaml
   target:
     group: kustomize.toolkit.fluxcd.io

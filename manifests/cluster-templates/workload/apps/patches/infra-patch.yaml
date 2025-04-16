@@ -1,18 +1,3 @@
-- op: replace
-  path: /spec/prune
-  value: true
-- op: replace
-  path: /spec/timeout
-  value: 10m
-- op: replace
-  path: /spec/interval
-  value: 30m
-- op: replace
-  path: /spec/sourceRef
-  value:
-    kind: GitRepository
-    name: apps
-    namespace: infra
 - op: add
   path: /spec/patches
   value:
@@ -20,8 +5,9 @@
         - op: add
           path: /spec/kubeConfig
           value:
-            name: '${CLUSTER}-kubeconfig'
-            key: value
+            secretRef:
+              name: '${CLUSTER}-kubeconfig'
+              key: value
       target:
         group: helm.toolkit.fluxcd.io
         version: v2

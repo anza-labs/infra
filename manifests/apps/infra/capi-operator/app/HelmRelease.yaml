@@ -2,21 +2,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kubewarden-crds
+  name: capi-operator
 spec:
   chart:
     spec:
-      chart: kubewarden-crds
+      chart: cluster-api-operator
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: kubewarden
+        name: kubernetes-sigs-github-io-cluster-api-operator
         namespace: placeholder
-      version: "1.15.0"
+      version: "0.18.1"
   interval: 30m0s
   timeout: 10m0s
-  releaseName: kubewarden
-  targetNamespace: kubewarden
+  releaseName: capi-operator
+  targetNamespace: capi-operator-system
   test:
     enable: true
     ignoreFailures: true

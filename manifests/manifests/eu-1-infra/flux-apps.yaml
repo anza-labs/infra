@@ -1,0 +1,797 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: anza-labs-github-io-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/anza-labs.github.io_charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: cert-manager-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/cert-manager/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: cert-manager-issuers-cloudflare
+  namespace: infra
+spec:
+  dependsOn:
+  - name: cert-manager-app
+  - name: external-secrets-bitwarden
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/cert-manager/issuers/cloudflare
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: charts-external-secrets-io
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/charts.external-secrets.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: charts-jetstack-io
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/charts.jetstack.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: charts-kubewarden-io
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/charts.kubewarden.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: external-dns-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/external-dns/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: external-secrets-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: charts-external-secrets-io
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/external-secrets/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: external-secrets-bitwarden
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-app
+  - name: cert-manager-app
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/external-secrets/bitwarden
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: grafana-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/grafana.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: ingress-nginx-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/ingress-nginx/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: jaegertracing-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/jaegertracing.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kube-storage-version-migrator-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: anza-labs-github-io-charts
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kube-storage-version-migrator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubernetes-github-io-ingress-nginx
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/kubernetes.github.io_ingress-nginx
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubernetes-sigs-github-io-cluster-api-operator
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/kubernetes-sigs.github.io_cluster-api-operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubernetes-sigs-github-io-external-dns
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/kubernetes-sigs.github.io_external-dns
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubewarden-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: kubewarden-crds
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kubewarden/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubewarden-crds
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kubewarden/crds
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kyverno-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kyverno/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kyverno-default-policies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: kyverno-app
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kyverno/default-policies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kyverno-extra-policies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: kyverno-app
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/kyverno/extra-policies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kyverno-github-io-kyverno
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/kyverno.github.io_kyverno
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: pkgs-tailscale-com-helmcharts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/pkgs.tailscale.com_helmcharts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: prometheus-community-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/prometheus-community.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: reloader-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/reloader/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: stakater-github-io-stakater-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/stakater.github.io_stakater-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: tailscale-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: tailscale-dependencies
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/tailscale/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: tailscale-dependencies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-app
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/tailscale/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: generic-notifications
+  namespace: infra
+spec:
+  eventMetadata: {}
+  eventSeverity: info
+  eventSources:
+  - kind: Bucket
+    name: '*'
+  - kind: GitRepository
+    name: '*'
+  - kind: Kustomization
+    name: '*'
+  - kind: HelmRelease
+    name: '*'
+  - kind: HelmChart
+    name: '*'
+  - kind: HelmRepository
+    name: '*'
+  - kind: ImageRepository
+    name: '*'
+  - kind: ImagePolicy
+    name: '*'
+  - kind: ImageUpdateAutomation
+    name: '*'
+  - kind: OCIRepository
+    name: '*'
+  providerRef:
+    name: discord-generic
+  summary: An event has occurred in the production environment.
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: discord-generic
+  namespace: infra
+spec:
+  secretRef:
+    name: discord-webhook
+  type: discord
