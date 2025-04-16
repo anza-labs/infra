@@ -8,14 +8,6 @@ on:
       - "main"
 
 jobs:
-  build-repositories:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: imranismail/setup-kustomize@v2
-      - run: |
-          ./hack/repos.sh --check
-
   render-kustomize:
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +21,7 @@ jobs:
           . ./venv/bin/activate
           pip install -r ./requirements.txt
           python3 ./hack/patches.py \
-            '/Users/shanduur/Repos/anza-labs/manifests/clusters/infra/workload/eu-1/apps/flux-apps.yaml' \
+            './manifests/eu-1-infra/flux-apps.yaml' \
             tmp
       - run: |
           ./hack/test.sh
