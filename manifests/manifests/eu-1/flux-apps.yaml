@@ -1053,7 +1053,7 @@ metadata:
   namespace: cluster-eu-1
 spec:
   dependsOn:
-  - name: external-secrets-app
+  - name: external-secrets-bitwarden
   interval: 30m
   kubeConfig:
     secretRef:

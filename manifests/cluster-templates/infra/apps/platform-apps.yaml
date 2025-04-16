@@ -124,7 +124,7 @@ metadata:
 spec:
   path: "./apps/platform/tailscale/dependencies"
   dependsOn:
-  - name: external-secrets-app
+  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

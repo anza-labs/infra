@@ -761,7 +761,7 @@ metadata:
   namespace: infra
 spec:
   dependsOn:
-  - name: external-secrets-app
+  - name: external-secrets-bitwarden
   interval: 30m
   patches:
   - patch: |
