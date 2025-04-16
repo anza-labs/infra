@@ -27,6 +27,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -53,6 +54,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -82,6 +84,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -108,6 +111,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -134,6 +138,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -160,6 +165,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -188,6 +194,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -216,6 +223,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -245,6 +253,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -271,6 +280,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -297,6 +307,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -323,6 +334,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -351,6 +363,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -377,6 +390,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -403,6 +417,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -429,6 +444,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -457,6 +473,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -483,6 +500,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -509,6 +527,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -537,6 +556,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -565,6 +585,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -591,6 +612,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -617,6 +639,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -643,6 +666,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -669,6 +693,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -695,6 +720,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -723,6 +749,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -751,6 +778,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: infra
+  targetNamespace: infra
   timeout: 10m
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
