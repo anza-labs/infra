@@ -35,6 +35,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -74,6 +75,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -98,6 +100,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -137,6 +140,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -176,6 +180,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -215,6 +220,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -256,6 +262,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -295,6 +302,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -319,6 +327,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -358,6 +367,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -397,6 +407,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -436,6 +447,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -475,6 +487,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -514,6 +527,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -553,6 +567,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -592,6 +607,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -633,6 +649,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -654,6 +671,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -693,6 +711,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -716,6 +735,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -739,6 +759,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -778,6 +799,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -817,6 +839,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -856,6 +879,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -895,6 +919,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -934,6 +959,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -973,6 +999,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -1014,6 +1041,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -1037,6 +1065,7 @@ spec:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
