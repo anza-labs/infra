@@ -15,9 +15,10 @@
     - patch: |
         - op: add
           path: /metadata/namespace
-          value:
-            name: 'cluster-${CLUSTER}'
-            key: value
+          value: 'cluster-${CLUSTER}'
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: 'cluster-${CLUSTER}'
       target:
         group: helm.toolkit.fluxcd.io
         version: v2

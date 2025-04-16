@@ -23,6 +23,9 @@
         - op: add
           path: /metadata/namespace
           value: infra
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: infra
       target:
         group: helm.toolkit.fluxcd.io
         version: v2

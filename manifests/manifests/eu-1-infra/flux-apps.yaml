@@ -17,6 +17,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -43,6 +46,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -74,6 +80,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -100,6 +109,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -128,6 +140,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -154,6 +169,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -184,6 +202,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -212,6 +233,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -243,6 +267,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -269,6 +296,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -297,6 +327,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -323,6 +356,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -353,6 +389,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -379,6 +418,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -407,6 +449,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -433,6 +478,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -463,6 +511,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -490,6 +541,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -516,6 +570,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -546,6 +603,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -575,6 +635,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -601,6 +664,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -629,6 +695,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -655,6 +724,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -683,6 +755,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -709,6 +784,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
@@ -739,6 +817,9 @@ spec:
       - op: add
         path: /metadata/namespace
         value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -767,6 +848,9 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io

@@ -22,9 +22,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -62,9 +63,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -127,9 +129,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -167,9 +170,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -207,9 +211,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -249,9 +254,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -289,9 +295,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -354,9 +361,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -394,9 +402,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -434,9 +443,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -474,9 +484,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -514,9 +525,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -554,9 +566,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -594,9 +607,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -636,9 +650,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -698,9 +713,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -786,9 +802,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -826,9 +843,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -866,9 +884,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -906,9 +925,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -946,9 +966,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -986,9 +1007,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
@@ -1028,9 +1050,10 @@ spec:
   - patch: |
       - op: add
         path: /metadata/namespace
-        value:
-          name: 'cluster-eu-1'
-          key: value
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
