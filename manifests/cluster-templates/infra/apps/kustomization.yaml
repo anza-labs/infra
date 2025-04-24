@@ -4,6 +4,7 @@ namespace: infra
 resources:
 - ../../base
 - ./namespace.yaml
+- ./infra-apps.yaml
 - ./platform-apps.yaml
 - ./repos.yaml
 patches:

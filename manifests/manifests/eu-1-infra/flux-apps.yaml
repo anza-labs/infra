@@ -18,12 +18,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/anza-labs.github.io_charts
   prune: true
   sourceRef:
@@ -48,12 +48,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/cert-manager/app
   prune: true
   sourceRef:
@@ -81,12 +81,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/cert-manager/issuers/cloudflare
   prune: true
   sourceRef:
@@ -111,12 +111,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/charts.external-secrets.io
   prune: true
   sourceRef:
@@ -141,12 +141,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/charts.jetstack.io
   prune: true
   sourceRef:
@@ -171,12 +171,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/charts.kubewarden.io
   prune: true
   sourceRef:
@@ -203,12 +203,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/external-dns/app
   prune: true
   sourceRef:
@@ -235,12 +235,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/external-secrets/app
   prune: true
   sourceRef:
@@ -268,12 +268,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/external-secrets/bitwarden
   prune: true
   sourceRef:
@@ -298,12 +298,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/grafana.github.io_helm-charts
   prune: true
   sourceRef:
@@ -328,12 +328,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/ingress-nginx/app
   prune: true
   sourceRef:
@@ -358,12 +358,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/jaegertracing.github.io_helm-charts
   prune: true
   sourceRef:
@@ -390,13 +390,43 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kube-storage-version-migrator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubelet-device-plugins-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: infra
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  path: ./apps/infra/kubelet-device-plugins/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -420,12 +450,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/kubernetes.github.io_ingress-nginx
   prune: true
   sourceRef:
@@ -450,12 +480,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/kubernetes-sigs.github.io_cluster-api-operator
   prune: true
   sourceRef:
@@ -480,12 +510,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/kubernetes-sigs.github.io_external-dns
   prune: true
   sourceRef:
@@ -512,12 +542,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kubewarden/app
   prune: true
   sourceRef:
@@ -542,12 +572,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kubewarden/crds
   prune: true
   sourceRef:
@@ -572,12 +602,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kyverno/app
   prune: true
   sourceRef:
@@ -604,12 +634,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kyverno/default-policies
   prune: true
   sourceRef:
@@ -636,12 +666,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/kyverno/extra-policies
   prune: true
   sourceRef:
@@ -666,12 +696,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/kyverno.github.io_kyverno
   prune: true
   sourceRef:
@@ -696,12 +726,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/pkgs.tailscale.com_helmcharts
   prune: true
   sourceRef:
@@ -726,12 +756,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/prometheus-community.github.io_helm-charts
   prune: true
   sourceRef:
@@ -756,12 +786,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/reloader/app
   prune: true
   sourceRef:
@@ -786,12 +816,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./repos/stakater.github.io_stakater-charts
   prune: true
   sourceRef:
@@ -818,12 +848,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/tailscale/app
   prune: true
   sourceRef:
@@ -850,12 +880,12 @@ spec:
         path: /metadata/namespace
         value: infra
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
+        path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
+      kind: Kustomization
+      version: v1
   path: ./apps/platform/tailscale/dependencies
   prune: true
   sourceRef:
