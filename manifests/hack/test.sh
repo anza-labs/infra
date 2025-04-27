@@ -6,7 +6,6 @@ declare -a failed_builds
 # Function to find and process kustomization.yaml files
 process_kustomizations() {
     local dir="$1"
-    echo "Root dir: $dir, pwd: $(pwd)"
     for file in $(find "$dir" -type f -name "kustomization.yaml"); do
         echo "Processing: $file in $(dirname "$file")"
         if ! kustomize build "$(dirname "$file")" > /dev/null; then
@@ -16,8 +15,12 @@ process_kustomizations() {
     done
 }
 
+# Display some debug info
+kustomize version
+pwd
+
 # Start processing from the current directory
-process_kustomizations "."
+process_kustomizations "$(pwd)"
 
 # Report results
 if [ ${#failed_builds[@]} -eq 0 ]; then
