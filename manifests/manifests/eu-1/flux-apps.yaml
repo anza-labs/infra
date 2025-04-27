@@ -1182,13 +1182,3 @@ spec:
   providerRef:
     name: discord-generic
   summary: An event has occurred in the production environment.
----
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
-kind: Provider
-metadata:
-  name: discord-generic
-  namespace: cluster-eu-1
-spec:
-  secretRef:
-    name: discord-webhook
-  type: discord
