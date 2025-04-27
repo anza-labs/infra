@@ -34,7 +34,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -69,7 +69,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -90,7 +90,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -124,7 +124,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -159,7 +159,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -194,7 +194,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -231,7 +231,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -251,7 +251,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -287,7 +287,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -325,7 +325,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -360,7 +360,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -395,7 +395,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -430,7 +430,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -467,7 +467,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -502,7 +502,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -537,7 +537,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -572,7 +572,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -607,7 +607,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -644,7 +644,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -679,7 +679,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -714,7 +714,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -751,7 +751,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -788,7 +788,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -823,7 +823,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -858,7 +858,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -893,7 +893,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -928,7 +928,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -963,7 +963,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -1000,7 +1000,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
@@ -1037,7 +1037,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: cluster-
+    namespace: infra
   targetNamespace: infra
   timeout: 10m
 ---
