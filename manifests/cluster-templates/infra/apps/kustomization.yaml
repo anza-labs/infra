@@ -3,10 +3,10 @@ kind: Kustomization
 namespace: infra
 resources:
 - ../../base
-- ./namespace.yaml
 - ./infra-apps.yaml
 - ./platform-apps.yaml
 - ./repos.yaml
+- ./ns.yaml
 patches:
 - path: ./patches/common-patch.yaml
   target:
