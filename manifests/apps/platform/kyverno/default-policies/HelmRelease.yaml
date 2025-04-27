@@ -19,6 +19,8 @@ spec:
   test:
     enable: true
     ignoreFailures: true
+  driftDetection:
+    mode: enabled
   install:
     createNamespace: true
     crds: CreateReplace
