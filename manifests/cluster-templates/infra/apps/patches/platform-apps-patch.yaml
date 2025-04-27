@@ -20,9 +20,6 @@
   path: /spec/patches
   value:
     - patch: |
-        - op: add
-          path: /metadata/namespace
-          value: infra
         - op: replace
           path: /spec/chart/spec/sourceRef/namespace
           value: infra
@@ -30,13 +27,7 @@
         group: helm.toolkit.fluxcd.io
         version: v2
         kind: HelmRelease
-- op: add
-  path: /spec/patches
-  value:
     - patch: |
-        - op: add
-          path: /metadata/namespace
-          value: infra
         - op: replace
           path: /spec/sourceRef/namespace
           value: infra
