@@ -56,7 +56,7 @@ kind: Kustomization
 metadata:
   name: cert-manager-issuers-cloudflare
   labels:
-    target: infra
+    target: direct
 spec:
   path: "./apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
@@ -149,10 +149,21 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: external-dns-dependencies
+  labels:
+    target: direct
+spec:
+  path: "./apps/platform/external-dns/dependencies"
+  dependsOn:
+  - name: external-secrets-bitwarden
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: external-dns-app
   labels:
     target: infra
 spec:
   path: "./apps/platform/external-dns/app"
   dependsOn:
-  - name: external-secrets-bitwarden
+  - name: external-dns-dependencies

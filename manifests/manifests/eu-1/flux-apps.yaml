@@ -84,7 +84,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   labels:
-    target: workload
+    target: direct
   name: cert-manager-issuers-cloudflare
   namespace: cluster-eu-1
 spec:
@@ -92,17 +92,12 @@ spec:
   - name: cert-manager-app
   - name: external-secrets-bitwarden
   interval: 30m
-  kubeConfig:
-    secretRef:
-      key: value
-      name: eu-1-kubeconfig
   path: ./apps/platform/cert-manager/issuers/cloudflare
   prune: true
   sourceRef:
     kind: GitRepository
     name: apps
     namespace: cluster-eu-1
-  targetNamespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -237,7 +232,7 @@ metadata:
   namespace: cluster-eu-1
 spec:
   dependsOn:
-  - name: external-secrets-bitwarden
+  - name: external-dns-dependencies
   interval: 30m
   patches:
   - patch: |
@@ -269,6 +264,25 @@ spec:
     name: apps
     namespace: cluster-eu-1
   targetNamespace: cluster-eu-1
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: direct
+  name: external-dns-dependencies
+  namespace: cluster-eu-1
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  path: ./apps/platform/external-dns/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: cluster-eu-1
   timeout: 10m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -827,6 +841,8 @@ metadata:
   name: lubelogger-app
   namespace: cluster-eu-1
 spec:
+  dependsOn:
+  - name: lubelogger-dependencies
   interval: 30m
   patches:
   - patch: |
@@ -852,6 +868,49 @@ spec:
       kind: HelmRelease
       version: v2
   path: ./apps/public/lubelogger/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: lubelogger-dependencies
+  namespace: cluster-eu-1
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /spec/kubeConfig
+        value:
+          secretRef:
+            name: 'eu-1-kubeconfig'
+            key: value
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/public/lubelogger/dependencies
   prune: true
   sourceRef:
     kind: GitRepository

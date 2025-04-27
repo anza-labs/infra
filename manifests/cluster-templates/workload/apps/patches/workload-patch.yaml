@@ -1,3 +1,6 @@
+- op: replace
+  path: /spec/targetNamespace
+  value: 'cluster-${CLUSTER}'
 - op: add
   path: /spec/kubeConfig
   value:

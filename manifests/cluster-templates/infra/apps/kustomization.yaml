@@ -8,8 +8,14 @@ resources:
 - ./platform-apps.yaml
 - ./repos.yaml
 patches:
-- path: ./patches/platform-apps-patch.yaml
+- path: ./patches/common-patch.yaml
   target:
     group: kustomize.toolkit.fluxcd.io
     version: v1
     kind: Kustomization
+- path: ./patches/infra-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    labelSelector: target=infra

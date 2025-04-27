@@ -53,7 +53,7 @@ kind: Kustomization
 metadata:
   name: cert-manager-issuers-cloudflare
   labels:
-    target: workload
+    target: direct
 spec:
   path: "./apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
@@ -144,11 +144,33 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: external-dns-dependencies
+  labels:
+    target: direct
+spec:
+  path: "./apps/platform/external-dns/dependencies"
+  dependsOn:
+  - name: external-secrets-bitwarden
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: external-dns-app
   labels:
     target: infra
 spec:
   path: "./apps/platform/external-dns/app"
+  dependsOn:
+  - name: external-dns-dependencies
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: lubelogger-dependencies
+  labels:
+    target: infra
+spec:
+  path: "./apps/public/lubelogger/dependencies"
   dependsOn:
   - name: external-secrets-bitwarden
 ---
@@ -160,3 +182,5 @@ metadata:
     target: infra
 spec:
   path: "./apps/public/lubelogger/app"
+  dependsOn:
+  - name: lubelogger-dependencies
