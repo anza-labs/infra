@@ -7,7 +7,7 @@ declare -a failed_builds
 process_kustomizations() {
     local dir="$1"
     for file in $(find "$dir" -type f -name "kustomization.yaml"); do
-        echo "Processing: $file in $(dirname "$file")"
+        echo "Processing: $file"
         if ! kustomize build "$(dirname "$file")" > /dev/null; then
             echo "Failed: $file"
             failed_builds+=("$file")
