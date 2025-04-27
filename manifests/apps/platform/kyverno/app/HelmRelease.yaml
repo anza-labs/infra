@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: kyverno-github-io-kyverno
         namespace: placeholder
-      version: "3.3.7"
+      version: "3.4.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: kyverno
