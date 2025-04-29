@@ -14,3 +14,9 @@ patches:
     version: v2
     kind: HelmRelease
     name: kyverno
+- path: ./patches/kamaji-patch.yaml
+  target:
+    group: helm.toolkit.fluxcd.io
+    version: v2
+    kind: HelmRelease
+    name: kamaji
