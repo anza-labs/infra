@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: kubernetes-github-io-ingress-nginx
         namespace: placeholder
-      version: "4.12.1"
+      version: "4.12.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: ingress-nginx
