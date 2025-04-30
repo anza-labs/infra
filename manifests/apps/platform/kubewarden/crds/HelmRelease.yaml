@@ -15,7 +15,7 @@ spec:
       version: "1.15.0"
   interval: 30m0s
   timeout: 10m0s
-  releaseName: kubewarden
+  releaseName: kubewarden-crds
   targetNamespace: kubewarden
   test:
     enable: true
