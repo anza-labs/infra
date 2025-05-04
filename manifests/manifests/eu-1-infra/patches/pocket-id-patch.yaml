@@ -5,6 +5,16 @@
       - op: replace
         path: /spec/values/ingress/host
         value: auth.eu-1.anza-labs.dev
+      - op: add
+        path: /spec/values/ingress/annotations
+        value:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      - op: add
+        path: /spec/values/ingress/tls
+        value:
+          - hosts:
+              - auth.eu-1.anza-labs.dev
+            secretName: pocket-id-tls
     target:
       group: helm.toolkit.fluxcd.io
       version: v2
