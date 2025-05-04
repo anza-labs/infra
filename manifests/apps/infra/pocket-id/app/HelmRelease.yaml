@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: anza-labs-github-io-charts
         namespace: placeholder
-      version: "0.1.1"
+      version: "0.1.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: pocket-id
