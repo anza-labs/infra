@@ -253,6 +253,51 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
+  name: charts-loft-sh
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'infra'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./repos/charts.loft.sh
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
   name: contour-app
   namespace: infra
 spec:
@@ -581,6 +626,51 @@ spec:
       labelSelector: source=oci
       version: v2
   path: ./repos/jaegertracing.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: jspolicy-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'infra'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./apps/platform/jspolicy/app
   prune: true
   sourceRef:
     kind: GitRepository
