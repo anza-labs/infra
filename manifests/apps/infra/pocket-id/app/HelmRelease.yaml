@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: pocket-id-app
+  name: pocket-id
   labels:
     source: helm
 spec:
