@@ -22,4 +22,4 @@
       group: helm.toolkit.fluxcd.io
       version: v2
       kind: HelmRelease
-      name: pocket-id
+      name: pocket-id-app
