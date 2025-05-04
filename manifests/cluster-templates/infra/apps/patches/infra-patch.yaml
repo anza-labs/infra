@@ -22,12 +22,9 @@
         kind: HelmRelease
         labelSelector: source=helm
     - patch: |
-        - op: add
-          path: /metadata/namespace
-          value: 'cluster-${CLUSTER}'
         - op: replace
           path: /spec/chartRef/namespace
-          value: 'cluster-${CLUSTER}'
+          value: 'infra'
       target:
         group: helm.toolkit.fluxcd.io
         version: v2
