@@ -38,6 +38,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: charts-loft-sh
+  labels:
+    target: infra
+spec:
+  path: "./repos/charts.loft.sh"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: grafana-github-io-helm-charts
   labels:
     target: infra

@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: charts-jetstack-io
         namespace: placeholder
-      version: "v1.17.2"
+      version: "1.17.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: cert-manager

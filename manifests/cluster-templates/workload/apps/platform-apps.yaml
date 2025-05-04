@@ -153,3 +153,12 @@ spec:
   path: "./apps/public/lubelogger/app"
   dependsOn:
   - name: lubelogger-dependencies
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: jspolicy-app
+  labels:
+    target: infra
+spec:
+  path: "./apps/platform/jspolicy/app"
