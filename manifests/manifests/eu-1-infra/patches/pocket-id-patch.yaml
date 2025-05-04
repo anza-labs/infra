@@ -1,0 +1,12 @@
+- op: add
+  path: /spec/patches/0
+  value:
+    patch: |
+      - op: replace
+        path: /spec/values/ingress/host
+        value: auth.eu-1.anza-labs.dev
+    target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: pocket-id

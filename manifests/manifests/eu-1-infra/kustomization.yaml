@@ -10,7 +10,13 @@ patches:
     kind: Alert
 - path: ./patches/kyverno-patch.yaml
   target:
-    group: helm.toolkit.fluxcd.io
-    version: v2
-    kind: HelmRelease
-    name: kyverno
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    name: kyverno-app
+- path: ./patches/pocket-id-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    name: pocket-id-app

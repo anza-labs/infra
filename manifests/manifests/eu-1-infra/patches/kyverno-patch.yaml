@@ -1,16 +1,25 @@
 - op: add
-  path: /spec/values/admissionController
+  path: /spec/patches/0
   value:
-    replicas: 3
-- op: add
-  path: /spec/values/backgroundController
-  value:
-    replicas: 2
-- op: add
-  path: /spec/values/cleanupController
-  value:
-    replicas: 2
-- op: add
-  path: /spec/values/reportsController
-  value:
-    replicas: 2
+    patch: |
+      - op: add
+        path: /spec/values/admissionController
+        value:
+          replicas: 3
+      - op: add
+        path: /spec/values/backgroundController
+        value:
+          replicas: 2
+      - op: add
+        path: /spec/values/cleanupController
+        value:
+          replicas: 2
+      - op: add
+        path: /spec/values/reportsController
+        value:
+          replicas: 2
+    target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: kyverno
