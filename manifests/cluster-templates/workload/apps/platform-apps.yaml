@@ -11,37 +11,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kyverno-app
-  labels:
-    target: infra
-spec:
-  path: "./apps/platform/kyverno/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kyverno-default-policies
-  labels:
-    target: workload
-spec:
-  path: "./apps/platform/kyverno/default-policies"
-  dependsOn:
-  - name: kyverno-app
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kyverno-extra-policies
-  labels:
-    target: workload
-spec:
-  path: "./apps/platform/kyverno/extra-policies"
-  dependsOn:
-  - name: kyverno-app
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: cert-manager-app
   labels:
     target: infra
