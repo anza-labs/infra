@@ -98,6 +98,41 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
+  name: charts-bitnami-com-bitnami
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  path: ./repos/charts.bitnami.com_bitnami
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
   name: charts-external-secrets-io
   namespace: infra
 spec:
@@ -190,6 +225,41 @@ spec:
       kind: Kustomization
       version: v1
   path: ./repos/charts.kubewarden.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: contour-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  path: ./apps/platform/contour/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -369,41 +439,6 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
-  name: ingress-nginx-app
-  namespace: infra
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  path: ./apps/platform/ingress-nginx/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: infra
-  targetNamespace: infra
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
-    target: infra
   name: jaegertracing-github-io-helm-charts
   namespace: infra
 spec:
@@ -533,41 +568,6 @@ spec:
       kind: Kustomization
       version: v1
   path: ./apps/infra/kubelet-device-plugins/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: infra
-  targetNamespace: infra
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
-    target: infra
-  name: kubernetes-github-io-ingress-nginx
-  namespace: infra
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  path: ./repos/kubernetes.github.io_ingress-nginx
   prune: true
   sourceRef:
     kind: GitRepository

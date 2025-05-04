@@ -105,6 +105,47 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
+  name: charts-bitnami-com-bitnami
+  namespace: cluster-eu-1
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /spec/kubeConfig
+        value:
+          secretRef:
+            name: 'eu-1-kubeconfig'
+            key: value
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./repos/charts.bitnami.com_bitnami
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
   name: charts-external-secrets-io
   namespace: cluster-eu-1
 spec:
@@ -215,6 +256,47 @@ spec:
       kind: HelmRelease
       version: v2
   path: ./repos/charts.kubewarden.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: cluster-eu-1
+  targetNamespace: cluster-eu-1
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: contour-app
+  namespace: cluster-eu-1
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: add
+        path: /spec/kubeConfig
+        value:
+          secretRef:
+            name: 'eu-1-kubeconfig'
+            key: value
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-eu-1'
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: 'cluster-eu-1'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  path: ./apps/platform/contour/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -397,47 +479,6 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
-  name: ingress-nginx-app
-  namespace: cluster-eu-1
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: add
-        path: /spec/kubeConfig
-        value:
-          secretRef:
-            name: 'eu-1-kubeconfig'
-            key: value
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: add
-        path: /metadata/namespace
-        value: 'cluster-eu-1'
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: 'cluster-eu-1'
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  path: ./apps/platform/ingress-nginx/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: cluster-eu-1
-  targetNamespace: cluster-eu-1
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
-    target: infra
   name: jaegertracing-github-io-helm-charts
   namespace: cluster-eu-1
 spec:
@@ -507,47 +548,6 @@ spec:
       kind: HelmRelease
       version: v2
   path: ./apps/platform/kube-storage-version-migrator/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: cluster-eu-1
-  targetNamespace: cluster-eu-1
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
-    target: infra
-  name: kubernetes-github-io-ingress-nginx
-  namespace: cluster-eu-1
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: add
-        path: /spec/kubeConfig
-        value:
-          secretRef:
-            name: 'eu-1-kubeconfig'
-            key: value
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: add
-        path: /metadata/namespace
-        value: 'cluster-eu-1'
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: 'cluster-eu-1'
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  path: ./repos/kubernetes.github.io_ingress-nginx
   prune: true
   sourceRef:
     kind: GitRepository
