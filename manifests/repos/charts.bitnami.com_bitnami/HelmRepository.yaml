@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: charts-bitnami-com-bitnami
-  namespace: placeholder
-spec:
-  interval: 5m0s
-  url: https://charts.bitnami.com/bitnami

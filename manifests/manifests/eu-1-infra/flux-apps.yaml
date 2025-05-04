@@ -15,20 +15,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/anza-labs.github.io_charts
   prune: true
   sourceRef:
@@ -50,20 +63,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/cert-manager/app
   prune: true
   sourceRef:
@@ -98,41 +124,6 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
-  name: charts-bitnami-com-bitnami
-  namespace: infra
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  path: ./repos/charts.bitnami.com_bitnami
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: infra
-  targetNamespace: infra
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
-    target: infra
   name: charts-external-secrets-io
   namespace: infra
 spec:
@@ -140,20 +131,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/charts.external-secrets.io
   prune: true
   sourceRef:
@@ -175,20 +179,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/charts.jetstack.io
   prune: true
   sourceRef:
@@ -210,20 +227,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/charts.kubewarden.io
   prune: true
   sourceRef:
@@ -245,12 +275,52 @@ spec:
   patches:
   - patch: |
       - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
         path: /spec/chart/spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
+      labelSelector: source=helm
       version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./apps/platform/contour/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: docker-io-bitnamicharts-contour
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
   - patch: |
       - op: replace
         path: /spec/sourceRef/namespace
@@ -259,7 +329,28 @@ spec:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
-  path: ./apps/platform/contour/app
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./repos/docker.io_bitnamicharts_contour
   prune: true
   sourceRef:
     kind: GitRepository
@@ -282,20 +373,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/external-dns/app
   prune: true
   sourceRef:
@@ -338,20 +442,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/external-secrets/app
   prune: true
   sourceRef:
@@ -376,20 +493,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/external-secrets/bitwarden
   prune: true
   sourceRef:
@@ -411,20 +541,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/grafana.github.io_helm-charts
   prune: true
   sourceRef:
@@ -446,20 +589,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/jaegertracing.github.io_helm-charts
   prune: true
   sourceRef:
@@ -481,20 +637,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/infra/kamaji/app
   prune: true
   sourceRef:
@@ -518,20 +687,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kube-storage-version-migrator/app
   prune: true
   sourceRef:
@@ -553,20 +735,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/infra/kubelet-device-plugins/app
   prune: true
   sourceRef:
@@ -588,20 +783,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/kubernetes-sigs.github.io_cluster-api-operator
   prune: true
   sourceRef:
@@ -623,20 +831,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/kubernetes-sigs.github.io_external-dns
   prune: true
   sourceRef:
@@ -660,20 +881,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kubewarden/app
   prune: true
   sourceRef:
@@ -695,20 +929,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kubewarden/crds
   prune: true
   sourceRef:
@@ -730,20 +977,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kyverno/app
   prune: true
   sourceRef:
@@ -767,20 +1027,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kyverno/default-policies
   prune: true
   sourceRef:
@@ -804,20 +1077,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/kyverno/extra-policies
   prune: true
   sourceRef:
@@ -839,20 +1125,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/kyverno.github.io_kyverno
   prune: true
   sourceRef:
@@ -874,20 +1173,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/pkgs.tailscale.com_helmcharts
   prune: true
   sourceRef:
@@ -909,20 +1221,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/prometheus-community.github.io_helm-charts
   prune: true
   sourceRef:
@@ -944,20 +1269,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/reloader/app
   prune: true
   sourceRef:
@@ -979,20 +1317,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./repos/stakater.github.io_stakater-charts
   prune: true
   sourceRef:
@@ -1016,20 +1367,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/tailscale/app
   prune: true
   sourceRef:
@@ -1053,20 +1417,33 @@ spec:
   patches:
   - patch: |
       - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: infra
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      version: v2
-  - patch: |
-      - op: replace
         path: /spec/sourceRef/namespace
         value: infra
     target:
       group: helm.toolkit.fluxcd.io
       kind: Kustomization
       version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: add
+        path: /metadata/namespace
+        value: 'cluster-'
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'cluster-'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
   path: ./apps/platform/tailscale/dependencies
   prune: true
   sourceRef:

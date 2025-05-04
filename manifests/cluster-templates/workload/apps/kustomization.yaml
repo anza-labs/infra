@@ -22,4 +22,3 @@ patches:
     version: v1
     kind: Kustomization
     labelSelector: target=workload
-

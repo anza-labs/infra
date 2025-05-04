@@ -3,6 +3,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-storage-version-migrator-app
+  labels:
+    source: helm
 spec:
   chart:
     spec:
