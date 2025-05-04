@@ -41,3 +41,6 @@ spec:
       enabled: true
       className: contour
       host: auth.anza-labs.dev
+    persistence:
+      data:
+        enabled: true
