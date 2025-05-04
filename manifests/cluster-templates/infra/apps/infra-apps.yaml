@@ -25,3 +25,7 @@ metadata:
     target: infra
 spec:
   path: "./apps/infra/pocket-id/app"
+  dependsOn:
+  - name: contour-app
+  - name: cert-manager-app
+  - name: external-dns-app
