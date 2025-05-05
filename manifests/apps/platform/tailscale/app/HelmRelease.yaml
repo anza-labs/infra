@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: pkgs-tailscale-com-helmcharts
         namespace: placeholder
-      version: "1.82.0"
+      version: "1.82.5"
   interval: 30m0s
   timeout: 10m0s
   releaseName: tailscale-operator
