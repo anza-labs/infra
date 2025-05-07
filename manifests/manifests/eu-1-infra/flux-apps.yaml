@@ -776,6 +776,96 @@ kind: Kustomization
 metadata:
   labels:
     target: infra
+  name: kubearmor-github-io-charts
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'infra'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./repos/kubearmor.github.io_charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
+  name: kubearmor-operator-app
+  namespace: infra
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: infra
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: 'infra'
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./apps/platform/kubearmor-operator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  targetNamespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    target: infra
   name: kubelet-device-plugins-app
   namespace: infra
 spec:

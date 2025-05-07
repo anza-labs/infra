@@ -32,6 +32,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: kubearmor-operator-app
+  labels:
+    target: infra
+spec:
+  path: "./apps/platform/kubearmor-operator/app"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: kubewarden-crds
   labels:
     target: workload
