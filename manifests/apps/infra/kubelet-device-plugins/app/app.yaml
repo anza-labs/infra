@@ -6,7 +6,7 @@ spec:
   interval: 5m
   url: https://github.com/anza-labs/kubelet-device-plugins
   ref:
-    tag: v0.2.1
+    tag: v0.2.2
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
