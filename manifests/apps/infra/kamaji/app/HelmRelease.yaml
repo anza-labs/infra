@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: anza-labs-github-io-charts
         namespace: placeholder
-      version: "0.1.8"
+      version: "0.1.9"
   interval: 30m0s
   timeout: 10m0s
   releaseName: kamaji
