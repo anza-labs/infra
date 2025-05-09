@@ -17,8 +17,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "main.tf$"
+      "managerFilePatterns": [
+        "/main.tf$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+\\s+=\\s\"(?<currentValue>\\S+)\""
