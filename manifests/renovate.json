@@ -15,10 +15,10 @@
     ]
   },
   "flux": {
-    "fileMatch": [
-      "^apps/.+\\.yaml$",
-      "^clusters/.+\\.yaml$",
-      "^repos/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/^apps/.+\\.yaml$/",
+      "/^clusters/.+\\.yaml$/",
+      "/^repos/.+\\.yaml$/"
     ]
   }
 }
