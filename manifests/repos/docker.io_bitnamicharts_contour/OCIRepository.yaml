@@ -8,4 +8,4 @@ spec:
   interval: 5m0s
   url: oci://docker.io/bitnamicharts/contour
   ref:
-    tag: "20.0.3"
+    tag: "21.0.0"
