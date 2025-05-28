@@ -35,6 +35,6 @@ module "backups" {
   source = "./modules/storage"
   root   = abspath(path.module)
 
-  name       = "backups"
+  name       = "backups-region-eu-1-shared"
   project_id = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
 }
