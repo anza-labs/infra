@@ -30,3 +30,11 @@ module "oci-registry" {
   name       = "oci-registry"
   project_id = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
 }
+
+module "backups" {
+  source = "./modules/storage"
+  root   = abspath(path.module)
+
+  name       = "backups"
+  project_id = "2728ee07-5f6d-4c5c-97d8-b1c500b28bb9"
+}
