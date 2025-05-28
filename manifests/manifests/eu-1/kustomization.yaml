@@ -8,9 +8,3 @@ patches:
     group: notification.toolkit.fluxcd.io
     version: v1beta3
     kind: Alert
-- path: ./patches/kamaji-patch.yaml
-  target:
-    group: helm.toolkit.fluxcd.io
-    version: v2
-    kind: HelmRelease
-    name: kamaji

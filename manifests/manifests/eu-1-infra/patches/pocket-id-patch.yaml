@@ -17,7 +17,7 @@
             secretName: pocket-id-tls
       - op: add
         path: /spec/values/persistence/data/storageClass
-        value: linode-block-storage-retain
+        value: linode-block-storage
     target:
       group: helm.toolkit.fluxcd.io
       version: v2

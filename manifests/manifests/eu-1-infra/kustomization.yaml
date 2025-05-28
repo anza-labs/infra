@@ -14,3 +14,9 @@ patches:
     version: v1
     kind: Kustomization
     name: pocket-id-app
+- path: ./patches/kamaji-patch.yaml
+  target:
+    group: helm.toolkit.fluxcd.io
+    version: v2
+    kind: HelmRelease
+    name: kamaji
