@@ -1,21 +1,22 @@
 #cloud-config
 
-write_files:
-- path: /etc/systemd/system/k2d.service
-  permissions: 0644
-  owner: root
-  content: |
-    [Unit]
-    Description=Start a K2d
-    Wants=gcr-online.target
-    After=gcr-online.target
+# write_files:
+# - path: /etc/systemd/system/cloudservice.service
+#   permissions: 0644
+#   owner: root
+#   content: |
+#     [Unit]
+#     Description=Start a simple docker container
+#     Wants=gcr-online.target
+#     After=gcr-online.target
 
-    [Service]
-    Environment="HOME=/home/cloudservice"
-    ExecStart=/usr/bin/docker run --rm --name k2d-k2d --network host --env K2D_SECRET=${k2d_secret} --label resource.k2d.io/namespace-name=k2d --label workload.k2d.io/name=k2d --volume /var/run/docker.sock:/var/run/docker.sock --volume /var/lib/k2d:/var/lib/k2d docker.io/portainer/k2d:1.0.0
-    ExecStop=/usr/bin/docker stop k2d-k2d
-    ExecStopPost=/usr/bin/docker rm k2d-k2d
+#     [Service]
+#     Environment="HOME=/home/cloudservice"
+#     ExecStartPre=/usr/bin/docker-credential-gcr configure-docker
+#     ExecStart=/usr/bin/docker run --rm --name=mycloudservice gcr.io/google-containers/busybox:latest /bin/sleep 3600
+#     ExecStop=/usr/bin/docker stop mycloudservice
+#     ExecStopPost=/usr/bin/docker rm mycloudservice
 
-runcmd:
-- systemctl daemon-reload
-- systemctl start k2d.service
+# runcmd:
+# - systemctl daemon-reload
+# - systemctl start cloudservice.service

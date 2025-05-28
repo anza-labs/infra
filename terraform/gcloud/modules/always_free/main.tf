@@ -13,9 +13,7 @@ resource "google_compute_instance" "vm_instance" {
   metadata = {
     "user-data" = templatefile(
       "${path.module}/templates/user_data.tftpl",
-      {
-        k2d_secret = var.k2d_secret
-      }
+      {}
     )
   }
 

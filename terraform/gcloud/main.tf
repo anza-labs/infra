@@ -10,6 +10,5 @@ module "gcloud_vm" {
   instance_name  = "micro"
   instance_shape = "e2-micro"
 
-  region     = var.region
-  k2d_secret = var.k2d_secret
+  region = var.region
 }
