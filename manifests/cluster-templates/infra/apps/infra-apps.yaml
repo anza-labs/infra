@@ -20,12 +20,24 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: pocket-id-dependencies
+  labels:
+    target: infra
+spec:
+  path: "./apps/infra/pocket-id/dependencies"
+  dependsOn:
+  - name: external-secrets-bitwarden
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: pocket-id-app
   labels:
     target: infra
 spec:
   path: "./apps/infra/pocket-id/app"
   dependsOn:
+  - name: pocket-id-dependencies
   - name: contour-app
   - name: cert-manager-app
   - name: external-dns-app

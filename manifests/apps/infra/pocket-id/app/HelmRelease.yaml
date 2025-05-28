@@ -44,3 +44,20 @@ spec:
     persistence:
       data:
         enabled: true
+    backup:
+      enabled: true
+      secret:
+        replicas:
+          - region: eu-central
+            bucket: backups-region-eu-1-shared
+            path: /infra-eu-1/pocket-id
+            endpoint: eu-central-1.linodeobjects.com
+  valuesFrom:
+  - kind: Secret
+    name: pocket-id-backup
+    valuesKey: access-key
+    targetPath: backup.secret.accessKey
+  - kind: Secret
+    name: pocket-id-backup
+    valuesKey: secret-key
+    targetPath: backup.secret.secretKey
