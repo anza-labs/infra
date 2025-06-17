@@ -31,7 +31,7 @@ resource "oci_core_security_list" "security_list" {
 
   # Allow inbound icmp traffic of a specific type
   ingress_security_rules {
-    protocol  = "all"
+    protocol  = 1
     source    = "0.0.0.0/0"
     stateless = false
 
