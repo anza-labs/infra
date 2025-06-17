@@ -24,6 +24,8 @@ resource "google_compute_instance" "vm_instance" {
       "${path.module}/templates/user_data.tftpl",
       {
         k3s_version     = var.k3s_version,
+        tailscale_version = var.tailscale_version,
+        hostname = var.instance_name,
         discord_webhook = var.discord_webhook,
         tailscale_key   = tailscale_tailnet_key.tailscale_key.key,
       }
