@@ -24,9 +24,9 @@ resource "google_compute_instance" "vm_instance" {
       "${path.module}/templates/user_data.tftpl",
       {
         tailscale_version = var.tailscale_version,
-        hostname = var.instance_name,
-        discord_webhook = var.discord_webhook,
-        tailscale_key   = tailscale_tailnet_key.tailscale_key.key,
+        hostname          = var.instance_name,
+        discord_webhook   = var.discord_webhook,
+        tailscale_key     = tailscale_tailnet_key.tailscale_key.key,
       }
     ),
     "ssh-keys" = "shared:${var.ssh_public_keys}",
