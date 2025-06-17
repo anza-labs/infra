@@ -65,26 +65,41 @@ write_files:
     permissions: 0755
     owner: root
     content: |
-      #!/bin/bash
+      #!/usr/bin/env bash
       set -eo pipefail
 
       LOG_FILE="/var/log/k3s-init.log"
       DISCORD_WEBHOOK="${discord_webhook}"
+      HOSTNAME="$(hostname)"
 
-      {
+      notify_success() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
+          -F "payload_json={\"content\":\"📦 K3s kubeconfig from ${HOSTNAME}\"}"
+      }
+
+      notify_failure() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "file1=@${LOG_FILE};type=text/plain;filename=k3s-init.log" \
+          -F "payload_json={\"content\":\"❌ K3s initialization failed on ${HOSTNAME}. See attached log.\"}"
+      }
+
+      trap 'notify_failure' ERR
+
+      main() {
         echo "[*] Reloading systemd..."
         systemctl daemon-reexec
         systemctl daemon-reload
 
         echo "[*] Enabling systemd units..."
-        systemctl enable tailscale-container.service
-        systemctl enable k3s-container.service
+        systemctl enable tailscale.service
+        systemctl enable k3s.service
 
         echo "[*] Starting tailscale..."
-        systemctl start tailscale-container.service
+        systemctl start tailscale.service
 
         echo "[*] Starting k3s..."
-        systemctl start k3s-container.service
+        systemctl start k3s.service
 
         echo "[*] Waiting for kubeconfig..."
         for i in $(seq 1 30); do
@@ -92,20 +107,18 @@ write_files:
           sleep 2
         done
 
-        if [ -f /etc/rancher/k3s/k3s.yaml ]; then
-          echo "[*] Sending kubeconfig to Discord webhook..."
-          curl -s -X POST "$DISCORD_WEBHOOK" \
-            -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
-            -F "payload_json={\"content\":\"📦 K3s kubeconfig from $(hostname)\"}"
-        else
+        if [ ! -f /etc/rancher/k3s/k3s.yaml ]; then
           echo "k3s.yaml not found!"
-          curl -s -X POST "$DISCORD_WEBHOOK" \
-            -F "payload_json={\"content\":\"❌ k3s.yaml not found on $(hostname)\"}"
           exit 1
         fi
 
         echo "[*] All done."
-      } | tee "$LOG_FILE"
+      }
+
+      main | tee "$LOG_FILE"
+
+      # If we reach here, everything succeeded
+      notify_success
 
 runcmd:
   - /etc/k3s-init.sh
