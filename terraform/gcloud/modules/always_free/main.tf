@@ -7,6 +7,15 @@ resource "tailscale_tailnet_key" "tailscale_key" {
   tags                = ["tag:gcloud", "tag:always-free"]
 }
 
+resource "null_resource" "triggers" {
+  triggers = {
+    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
+    tailsacle_version_hash = sha256("${var.tailscale_version}"),
+    discord_webhook_hash   = sha256("${var.discord_webhook}"),
+  }
+}
+
+
 resource "google_compute_instance" "vm_instance" {
   name         = var.instance_name
   machine_type = var.instance_shape
@@ -39,9 +48,7 @@ resource "google_compute_instance" "vm_instance" {
 
   lifecycle {
     replace_triggered_by = [
-      sha256(file("${path.module}/templates/user_data.tftpl")),
-      sha256("${var.tailscale_version}"),
-      sha256("${var.discord_webhook}"),
+      null_resource.triggers,
     ]
   }
 }
