@@ -29,8 +29,8 @@ variable "k3s_version" {
   type        = string
   description = "K3s Version"
 
-  # renovate: datasource=github-tags depName=k3s-io/k3s
-  default = "v1.30.1+k3s1"
+  # renovate: datasource=docker depName=rancher/k3s
+  default = "v1.30.1-k3s1"
 }
 
 variable "discord_webhook" {
