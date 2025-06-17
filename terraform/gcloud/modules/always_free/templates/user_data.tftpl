@@ -53,7 +53,7 @@ write_files:
         -v /var/lib/rancher:/var/lib/rancher \
         rancher/k3s:${k3s_version} \
         server \
-          --disable traefik \
+          --disable traefik,servicelb,metrics-server \
           --container-runtime-endpoint=/var/run/containerd/containerd.sock
       ExecStop=/usr/bin/docker stop k3s
       ExecStopPost=/usr/bin/docker rm -f k3s
