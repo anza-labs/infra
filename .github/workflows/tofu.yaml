@@ -10,16 +10,26 @@ on:
   workflow_dispatch:
     inputs:
       extra_args_oci:
-        description: "Extra flags for the OCI Tofu apply/plan"
+        description: |-
+          Extra flags for the OCI Tofu apply/plan
+
+          Often used:
+          ```
+          -replace=module.oci_amd.oci_core_instance.instance[0]
+          -replace=module.oci_amd.oci_core_instance.instance[1]
+          ```
         required: false
         default: ""
-        # -replace=module.oci_amd.oci_core_instance.instance[0]
-        # -replace=module.oci_amd.oci_core_instance.instance[1]
       extra_args_gcloud:
-        description: "Extra flags for the GCloud Tofu apply/plan"
+        description: |-
+          Extra flags for the GCloud Tofu apply/plan
+
+          Often used:
+          ```
+          -replace=module.gcloud_vm.google_compute_instance.vm_instance
+          ```
         required: false
         default: ""
-        # -replace=module.gcloud_vm.google_compute_instance.vm_instance
   schedule:
     - cron: "0 4 * * *"
 
