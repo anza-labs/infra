@@ -29,7 +29,7 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
-  - path: /etc/k3s-init.sh
+  - path: /etc/service-init.sh
     permissions: 0755
     owner: root
     content: |
@@ -41,20 +41,19 @@ write_files:
         tailscale.service
       )
 
-      LOG_FILE="/var/log/k3s-init.log"
+      LOG_FILE="/var/log/service-init.log"
       DISCORD_WEBHOOK="${discord_webhook}"
       HOSTNAME="${hostname}"
 
       notify_success() {
         curl -s -X POST "$DISCORD_WEBHOOK" \
-          -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
-          -F "payload_json={\"content\":\"📦 K3s kubeconfig from $HOSTNAME\"}"
+          -F "payload_json={\"content\":\"✅ Service initialization complete on $HOSTNAME\"}"
       }
 
       notify_failure() {
         curl -s -X POST "$DISCORD_WEBHOOK" \
-          -F "file1=@$LOG_FILE;type=text/plain;filename=k3s-init.log" \
-          -F "payload_json={\"content\":\"❌ K3s initialization failed on $HOSTNAME. See attached log.\"}"
+          -F "file1=@$LOG_FILE;type=text/plain;filename=service-init.log" \
+          -F "payload_json={\"content\":\"❌ Service initialization failed on $HOSTNAME. See attached log.\"}"
       }
 
       trap 'notify_failure' ERR
@@ -81,17 +80,6 @@ write_files:
           systemctl start "$svc"
         done
 
-        echo "[*] Waiting for kubeconfig..."
-        for i in $(seq 1 30); do
-          [ -f /etc/rancher/k3s/k3s.yaml ] && break
-          sleep 2
-        done
-
-        if [ ! -f /etc/rancher/k3s/k3s.yaml ]; then
-          echo "k3s.yaml not found!"
-          exit 1
-        fi
-
         echo "[*] All done."
       }
 
@@ -101,4 +89,4 @@ write_files:
       notify_success
 
 runcmd:
-  - /etc/k3s-init.sh
+  - /etc/service-init.sh
