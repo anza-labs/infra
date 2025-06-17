@@ -93,6 +93,7 @@ jobs:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           tofu -chdir=./terraform/gcloud init -upgrade
       - if: github.event_name == 'pull_request'
@@ -102,6 +103,7 @@ jobs:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_gcloud }}"
           tofu -chdir=./terraform/gcloud plan -input=false -no-color \
@@ -112,6 +114,7 @@ jobs:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
+          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_gcloud }}"
           tofu -chdir=./terraform/gcloud \

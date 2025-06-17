@@ -37,3 +37,8 @@ variable "discord_webhook" {
   type        = string
   description = "Discord Webhook"
 }
+
+variable "ssh_public_keys" {
+  type        = string
+  description = "Public SSH keys to be included in the ~/.ssh/authorized_keys file for the default user on the instance."
+}

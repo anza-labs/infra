@@ -18,7 +18,8 @@ resource "google_compute_instance" "vm_instance" {
         k3s_version     = var.k3s_version,
         discord_webhook = var.discord_webhook,
       }
-    )
+    ),
+    "ssh-keys" = "shared:${var.ssh_public_keys}",
   }
 
   network_interface {

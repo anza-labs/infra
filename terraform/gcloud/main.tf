@@ -12,4 +12,5 @@ module "gcloud_vm" {
 
   region          = var.region
   discord_webhook = var.discord_webhook
+  ssh_public_keys = var.ssh_public_keys
 }
