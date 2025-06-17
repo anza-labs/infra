@@ -80,7 +80,7 @@ write_files:
 
       notify_failure() {
         curl -s -X POST "$DISCORD_WEBHOOK" \
-          -F "file1=@${LOG_FILE};type=text/plain;filename=k3s-init.log" \
+          -F "file1=@$LOG_FILE;type=text/plain;filename=k3s-init.log" \
           -F "payload_json={\"content\":\"❌ K3s initialization failed on $HOSTNAME. See attached log.\"}"
       }
 
