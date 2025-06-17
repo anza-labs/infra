@@ -61,7 +61,7 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
-  - path: /var/lib/k3s-init.sh
+  - path: /etc/k3s-init.sh
     permissions: 0755
     owner: root
     content: |
@@ -108,4 +108,4 @@ write_files:
       } | tee "$LOG_FILE"
 
 runcmd:
-  - /var/lib/k3s-init.sh
+  - /etc/k3s-init.sh
