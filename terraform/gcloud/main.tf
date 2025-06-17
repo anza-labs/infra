@@ -10,5 +10,6 @@ module "gcloud_vm" {
   instance_name  = "micro"
   instance_shape = "e2-micro"
 
-  region = var.region
+  region          = var.region
+  discord_webhook = var.discord_webhook
 }

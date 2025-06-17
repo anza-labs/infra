@@ -29,4 +29,5 @@ module "oci_amd" {
   tailscale_oauth_client_id = var.tailscale_oauth_client_id
   tailscale_oauth_secret    = var.tailscale_oauth_secret
   tailscale_tailnet         = var.tailscale_tailnet
+  discord_webhook           = var.discord_webhook
 }

@@ -19,3 +19,8 @@ variable "zone" {
   type        = string
   default     = "c"
 }
+
+variable "discord_webhook" {
+  type        = string
+  description = "Discord Webhook"
+}
