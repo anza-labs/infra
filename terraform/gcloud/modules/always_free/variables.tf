@@ -25,14 +25,6 @@ variable "region" {
   }
 }
 
-variable "k3s_version" {
-  type        = string
-  description = "K3s Version"
-
-  # renovate: datasource=docker depName=rancher/k3s
-  default = "v1.33.1-k3s1"
-}
-
 variable "tailscale_version" {
   type        = string
   description = "Tailscale Version"

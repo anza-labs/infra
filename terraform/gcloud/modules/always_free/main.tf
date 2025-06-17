@@ -23,7 +23,6 @@ resource "google_compute_instance" "vm_instance" {
     "user-data" = templatefile(
       "${path.module}/templates/user_data.tftpl",
       {
-        k3s_version     = var.k3s_version,
         tailscale_version = var.tailscale_version,
         hostname = var.instance_name,
         discord_webhook = var.discord_webhook,
@@ -36,5 +35,13 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = "default"
     access_config {}
+  }
+
+  lifecycle {
+    replace_triggered_by = [
+      sha256(file("${path.module}/templates/user_data.tftpl")),
+      sha256("${var.tailscale_version}"),
+      sha256("${var.discord_webhook}"),
+    ]
   }
 }
