@@ -21,7 +21,7 @@ write_files:
         -e TS_AUTHKEY=${tailscale_key} \
         -e TS_STATE_DIR=/var/lib/tailscale \
         -e TS_USERSPACE=false \
-        -v /tailscale/state:/var/lib/tailscale \
+        -v /etc/tailscale/state:/var/lib/tailscale \
         tailscale/tailscale:${tailscale_version}
       ExecStop=/usr/bin/docker stop tailscale
       ExecStopPost=/usr/bin/docker rm -f tailscale
