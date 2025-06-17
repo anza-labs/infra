@@ -8,6 +8,15 @@ on:
     branches:
       - "main"
   workflow_dispatch:
+    inputs:
+      extra_args_oci:
+        description: "Extra flags for the OCI Tofu apply/plan"
+        required: false
+        default: ""
+      extra_args_gcloud:
+        description: "Extra flags for the GCloud Tofu apply/plan"
+        required: false
+        default: ""
   schedule:
     - cron: "0 4 * * *"
 
@@ -51,7 +60,9 @@ jobs:
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
-          tofu -chdir=./terraform/oci plan -input=false -no-color
+          ARGS="${{ github.event.inputs.extra_args_oci }}"
+          tofu -chdir=./terraform/oci plan -input=false -no-color \
+            ${ARGS:+$ARGS}
       - if: github.event_name != 'pull_request'
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
@@ -65,8 +76,10 @@ jobs:
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
+          ARGS="${{ github.event.inputs.extra_args_oci }}"
           tofu -chdir=./terraform/oci \
-            apply -auto-approve -input=false -lock=true -no-color
+            apply -auto-approve -input=false -lock=true -no-color \
+            ${ARGS:+$ARGS}
 
   gcloud:
     runs-on: ubuntu-latest
@@ -90,7 +103,9 @@ jobs:
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
-          tofu -chdir=./terraform/gcloud plan -input=false -no-color
+          ARGS="${{ github.event.inputs.extra_args_gcloud }}"
+          tofu -chdir=./terraform/gcloud plan -input=false -no-color \
+            ${ARGS:+$ARGS}
       - if: github.event_name != 'pull_request'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
@@ -98,8 +113,10 @@ jobs:
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
+          ARGS="${{ github.event.inputs.extra_args_gcloud }}"
           tofu -chdir=./terraform/gcloud \
-            apply -auto-approve -input=false -lock=true -no-color
+            apply -auto-approve -input=false -lock=true -no-color \
+            ${ARGS:+$ARGS}
       - if: always()
         run: |
           rm -f /dev/shm/credentials.json
