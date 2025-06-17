@@ -1,4 +1,16 @@
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 7.4.0 |
+| <a name="requirement_tailscale"></a> [tailscale](#requirement\_tailscale) | 0.21.0 |
+
+## Providers
+
+No providers.
+
 ## Modules
 
 | Name | Source | Version |
@@ -15,6 +27,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_availability_domain"></a> [availability\_domain](#input\_availability\_domain) | Availability Domain of the instance. | `number` | `3` | no |
+| <a name="input_discord_webhook"></a> [discord\_webhook](#input\_discord\_webhook) | Discord Webhook | `string` | n/a | yes |
 | <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | Fingerprint of OCI API Private Key. | `string` | n/a | yes |
 | <a name="input_instance_source_id"></a> [instance\_source\_id](#input\_instance\_source\_id) | The source ID of the instance. | `string` | `null` | no |
 | <a name="input_private_key"></a> [private\_key](#input\_private\_key) | Contents of OCI API Private Key used. | `string` | n/a | yes |

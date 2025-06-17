@@ -1,4 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
+| <a name="provider_tailscale"></a> [tailscale](#provider\_tailscale) | n/a |
+
 ## Modules
 
 No modules.
@@ -17,6 +28,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_availability_domain"></a> [availability\_domain](#input\_availability\_domain) | Availability Domain of the instance. | `number` | n/a | yes |
+| <a name="input_discord_webhook"></a> [discord\_webhook](#input\_discord\_webhook) | Discord Webhook | `string` | n/a | yes |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | Name of the instance. | `string` | n/a | yes |
 | <a name="input_instance_shape"></a> [instance\_shape](#input\_instance\_shape) | Type of an instance | `string` | `"VM.Standard.E2.1.Micro"` | no |
 | <a name="input_instance_source_type"></a> [instance\_source\_type](#input\_instance\_source\_type) | The source type for the instance. | `string` | `"image"` | no |

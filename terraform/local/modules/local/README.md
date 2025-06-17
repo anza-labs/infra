@@ -1,4 +1,17 @@
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_docker"></a> [docker](#provider\_docker) | n/a |
+| <a name="provider_flux"></a> [flux](#provider\_flux) | n/a |
+| <a name="provider_kind"></a> [kind](#provider\_kind) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+
 ## Modules
 
 No modules.
