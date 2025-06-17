@@ -12,11 +12,14 @@ on:
       extra_args_oci:
         description: "Extra flags for the OCI Tofu apply/plan"
         required: false
-        default: ""
+        default: >-
+          -replace=module.oci_amd.oci_core_instance.instance[0]
+          -replace=module.oci_amd.oci_core_instance.instance[1]
       extra_args_gcloud:
         description: "Extra flags for the GCloud Tofu apply/plan"
         required: false
-        default: ""
+        default: >-
+          -replace=module.gcloud_vm.google_compute_instance.vm_instance
   schedule:
     - cron: "0 4 * * *"
 

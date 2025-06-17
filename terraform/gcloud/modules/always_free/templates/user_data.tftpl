@@ -1,7 +1,7 @@
 #cloud-config
 
 write_files:
-  - path: /opt/k3s/docker-compose.yml
+  - path: /var/lib/k3s/docker-compose.yml
     permissions: 0644
     owner: root
     content: |
@@ -49,7 +49,7 @@ write_files:
       Requires=docker.service
 
       [Service]
-      WorkingDirectory=/opt/k3s
+      WorkingDirectory=/var/lib/k3s
       ExecStartPre=/usr/bin/docker compose down
       ExecStart=/usr/bin/docker compose up
       ExecStop=/usr/bin/docker compose down
@@ -64,9 +64,7 @@ runcmd:
   - systemctl daemon-reexec
   - systemctl daemon-reload
   - systemctl enable k3s-container.service
-  - systemctl enable tailscale-container.service
   - systemctl start k3s-container.service
-  - systemctl start tailscale-container.service
   - |
     for i in $(seq 1 30); do
       [ -f /etc/rancher/k3s/k3s.yaml ] && break
@@ -79,5 +77,6 @@ runcmd:
         -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
         -F 'payload_json={"content":"📦 K3s kubeconfig from '"$(hostname)"'"}'
     else
-      echo "k3s.yaml not found; skipping webhook upload"
+      curl -s -X POST "${discord_webhook}" \
+        -F 'payload_json={"content":"❌ k3s.yaml not found on '"$(hostname)"'"}'
     fi
