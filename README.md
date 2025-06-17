@@ -14,7 +14,7 @@
     <td align="center"><a href="https://supabase.com" target="_blank"><img src="./resources/supabase.png" height="32px"><br>Supabase</a></td>
     <td align="center"><a href="https://www.mend.io/renovate/" target="_blank"><img src="./resources/renovate.png" height="32px"><br>Renovate</a></td>
     <td align="center"><a href="http://fluxcd.io" target="_blank"><img src="./resources/flux.png" height="32px"><br>FluxCD</a></td>
-    <td align="center"><a href="https://cluster-api.sigs.k8s.io" target="_blank"><img src="./resources/capi.svg" height="32px"><br>Cluster API</a></td>
+    <td align="center"><a href="https://www.talos.dev" target="_blank"><img src="./resources/talos.png" height="32px"><br>Talos Linux</a></td>
   </tr>
 </table>
 
