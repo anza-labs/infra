@@ -47,7 +47,7 @@ runcmd:
     if [ -f /etc/rancher/k3s/k3s.yaml ]; then
       curl -s -X POST "${discord_webhook}" \
         -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
-        -F 'payload_json={"content":"📦 K3s kubeconfig from $(hostname)"}'
+        -F 'payload_json={"content":"📦 K3s kubeconfig from '"$(hostname)"'"}'
     else
       echo "k3s.yaml not found; skipping webhook upload"
     fi
