@@ -29,44 +29,17 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
-  - path: /etc/systemd/system/k3s.service
-    permissions: 0644
-    owner: root
-    content: |
-      [Unit]
-      Description=Run K3s in Docker
-      After=tailscale.service
-      Requires=tailscale.service
-
-      [Service]
-      Restart=always
-      RestartSec=5
-      ExecStop=/usr/bin/docker stop %n
-      ExecStopPost=/usr/bin/docker rm --force %n
-      ExecStartPre=-/usr/bin/docker rm --force %n
-      ExecStart=/usr/bin/docker run --name=%n \
-        --privileged \
-        --network=container:tailscale \
-        --cgroupns=host \
-        --volume=/dev:/dev \
-        --volume=/etc:/etc \
-        --volume=/lib/modules:/lib/modules \
-        --volume=/var/run:/var/run \
-        --volume=/var/lib/rancher:/var/lib/rancher \
-        rancher/k3s:${k3s_version} \
-        server \
-          --disable traefik,servicelb,metrics-server \
-          --container-runtime-endpoint=/var/run/containerd/containerd.sock
-
-      [Install]
-      WantedBy=multi-user.target
-
   - path: /etc/k3s-init.sh
     permissions: 0755
     owner: root
     content: |
       #!/usr/bin/env bash
       set -eo pipefail
+
+      # Define services list here
+      SERVICES=(
+        tailscale.service
+      )
 
       LOG_FILE="/var/log/k3s-init.log"
       DISCORD_WEBHOOK="${discord_webhook}"
@@ -87,19 +60,26 @@ write_files:
       trap 'notify_failure' ERR
 
       main() {
+        if [ "$#" -lt 1 ]; then
+          echo "Usage: main <service1> [service2 ...]"
+          exit 1
+        fi
+
         echo "[*] Reloading systemd..."
         systemctl daemon-reexec
         systemctl daemon-reload
 
         echo "[*] Enabling systemd units..."
-        systemctl enable tailscale.service
-        systemctl enable k3s.service
+        for svc in "$@"; do
+          echo "  - Enabling $svc..."
+          systemctl enable "$svc"
+        done
 
-        echo "[*] Starting tailscale..."
-        systemctl start tailscale.service
-
-        echo "[*] Starting k3s..."
-        systemctl start k3s.service
+        echo "[*] Starting services..."
+        for svc in "$@"; do
+          echo "  - Starting $svc..."
+          systemctl start "$svc"
+        done
 
         echo "[*] Waiting for kubeconfig..."
         for i in $(seq 1 30); do
@@ -115,7 +95,7 @@ write_files:
         echo "[*] All done."
       }
 
-      main | tee "$LOG_FILE"
+      main "${SERVICES[@]}" | tee "$LOG_FILE"
 
       # If we reach here, everything succeeded
       notify_success
