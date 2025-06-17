@@ -1,7 +1,7 @@
 #cloud-config
 
 write_files:
-  - path: /etc/systemd/system/tailscale-container.service
+  - path: /etc/systemd/system/tailscale.service
     permissions: 0644
     owner: root
     content: |
@@ -13,50 +13,50 @@ write_files:
       [Service]
       Restart=always
       RestartSec=5
-      ExecStartPre=-/usr/bin/docker rm -f tailscale
-      ExecStart=/usr/bin/docker run --name tailscale \
-        --device /dev/net/tun \
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStart=/usr/bin/docker run --name=%n \
+        --device=/dev/net/tun \
         --cap-add=NET_ADMIN \
         --network=host \
-        -e TS_AUTHKEY=${tailscale_key} \
-        -e TS_STATE_DIR=/var/lib/tailscale \
-        -e TS_USERSPACE=false \
-        -v /etc/tailscale/state:/var/lib/tailscale \
+        --env=TS_AUTHKEY=${tailscale_key} \
+        --env=TS_STATE_DIR=/var/lib/tailscale \
+        --env=TS_USERSPACE=false \
+        --volume=/etc/tailscale/state:/var/lib/tailscale \
         tailscale/tailscale:${tailscale_version}
-      ExecStop=/usr/bin/docker stop tailscale
-      ExecStopPost=/usr/bin/docker rm -f tailscale
 
       [Install]
       WantedBy=multi-user.target
 
-  - path: /etc/systemd/system/k3s-container.service
+  - path: /etc/systemd/system/k3s.service
     permissions: 0644
     owner: root
     content: |
       [Unit]
       Description=Run K3s in Docker
-      After=tailscale-container.service
-      Requires=tailscale-container.service
+      After=tailscale.service
+      Requires=tailscale.service
 
       [Service]
       Restart=always
       RestartSec=5
-      ExecStartPre=-/usr/bin/docker rm -f k3s
-      ExecStart=/usr/bin/docker run --name k3s \
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStart=/usr/bin/docker run --name=%n \
         --privileged \
         --network=container:tailscale \
         --cgroupns=host \
-        -v /dev:/dev \
-        -v /etc:/etc \
-        -v /lib/modules:/lib/modules \
-        -v /var/run:/var/run \
-        -v /var/lib/rancher:/var/lib/rancher \
+        --volume=/dev:/dev \
+        --volume=/etc:/etc \
+        --volume=/lib/modules:/lib/modules \
+        --volume=/var/run:/var/run \
+        --volume=/var/lib/rancher:/var/lib/rancher \
         rancher/k3s:${k3s_version} \
         server \
           --disable traefik,servicelb,metrics-server \
           --container-runtime-endpoint=/var/run/containerd/containerd.sock
-      ExecStop=/usr/bin/docker stop k3s
-      ExecStopPost=/usr/bin/docker rm -f k3s
 
       [Install]
       WantedBy=multi-user.target
