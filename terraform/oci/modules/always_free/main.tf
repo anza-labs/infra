@@ -61,7 +61,8 @@ resource "oci_core_instance" "instance" {
     user_data = base64encode(templatefile(
       "${path.module}/templates/user_data.tftpl",
       {
-        tailscale_key = tailscale_tailnet_key.tailscale_key.key,
+        tailscale_key   = tailscale_tailnet_key.tailscale_key.key,
+        discord_webhook = var.discord_webhook,
       }
     ))
   }
@@ -72,7 +73,7 @@ resource "oci_core_instance" "instance" {
 
   lifecycle {
     ignore_changes = [
-      metadata["user_data"],
+      # metadata["user_data"],
       source_details[0].source_id,
     ]
   }

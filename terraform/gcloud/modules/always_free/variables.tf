@@ -24,3 +24,16 @@ variable "region" {
     error_message = "Region must be one of: us-west1, us-central1, us-east1."
   }
 }
+
+variable "k3s_version" {
+  type        = string
+  description = "K3s Version"
+
+  # renovate: datasource=github-tags depName=k3s-io/k3s
+  default = "v1.30.1+k3s1"
+}
+
+variable "discord_webhook" {
+  type        = string
+  description = "Discord Webhook"
+}

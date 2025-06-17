@@ -34,6 +34,7 @@ jobs:
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
           TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/oci init -upgrade
       - if: github.event_name == 'pull_request'
@@ -48,6 +49,7 @@ jobs:
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
           TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/oci plan -input=false -no-color
       - if: github.event_name != 'pull_request'
@@ -61,6 +63,7 @@ jobs:
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
           TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/oci \
             apply -auto-approve -input=false -lock=true -no-color
@@ -76,6 +79,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/gcloud init -upgrade
       - if: github.event_name == 'pull_request'
@@ -84,6 +88,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/gcloud plan -input=false -no-color
       - if: github.event_name != 'pull_request'
@@ -91,6 +96,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /dev/shm/credentials.json
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           TF_VAR_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           tofu -chdir=./terraform/gcloud \
             apply -auto-approve -input=false -lock=true -no-color

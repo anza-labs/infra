@@ -2,6 +2,13 @@
 
 ssh_pwauth: false
 
+write_files:
+  - path: /etc/ansible/webhook.conf
+    permissions: '0600'
+    owner: root:root
+    content: |
+      ${discord_webhook}
+
 ansible:
   package_name: ansible-core
   install_method: distro

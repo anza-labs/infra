@@ -67,3 +67,8 @@ variable "tailscale_tailnet" {
   type        = string
   description = "Tailscale Tailnet name."
 }
+
+variable "discord_webhook" {
+  type        = string
+  description = "Discord Webhook"
+}

@@ -13,7 +13,10 @@ resource "google_compute_instance" "vm_instance" {
   metadata = {
     "user-data" = templatefile(
       "${path.module}/templates/user_data.tftpl",
-      {}
+      {
+        k3s_version     = var.k3s_version,
+        discord_webhook = var.discord_webhook,
+      }
     )
   }
 

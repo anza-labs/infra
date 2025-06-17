@@ -1,22 +1,53 @@
 #cloud-config
 
-# write_files:
-# - path: /etc/systemd/system/cloudservice.service
-#   permissions: 0644
-#   owner: root
-#   content: |
-#     [Unit]
-#     Description=Start a simple docker container
-#     Wants=gcr-online.target
-#     After=gcr-online.target
+write_files:
+  - path: /etc/systemd/system/k3s-container.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Run K3s inside a privileged Docker container
+      After=docker.service
+      Requires=docker.service
 
-#     [Service]
-#     Environment="HOME=/home/cloudservice"
-#     ExecStartPre=/usr/bin/docker-credential-gcr configure-docker
-#     ExecStart=/usr/bin/docker run --rm --name=mycloudservice gcr.io/google-containers/busybox:latest /bin/sleep 3600
-#     ExecStop=/usr/bin/docker stop mycloudservice
-#     ExecStopPost=/usr/bin/docker rm mycloudservice
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStartPre=-/usr/bin/docker rm -f k3s
+      ExecStart=/usr/bin/docker run \
+        --name k3s \
+        --privileged \
+        --network=host \
+        --cgroupns=host \
+        --volume=/dev:/dev \
+        --volume=/etc:/etc \
+        --volume=/lib/modules:/lib/modules \
+        --volume=/var/run:/var/run \
+        --volume=/var/lib/rancher:/var/lib/rancher \
+        rancher/k3s:${k3s_version} server --disable traefik
+      ExecStop=/usr/bin/docker stop k3s
+      ExecStopPost=/usr/bin/docker rm -f k3s
 
-# runcmd:
-# - systemctl daemon-reload
-# - systemctl start cloudservice.service
+      [Install]
+      WantedBy=multi-user.target
+
+runcmd:
+  - echo "[*] Enabling K3s container systemd service..."
+  - systemctl daemon-reexec
+  - systemctl daemon-reload
+  - systemctl enable k3s-container.service
+  - systemctl start k3s-container.service
+  - |
+    for i in $(seq 1 30); do
+      [ -f /etc/rancher/k3s/k3s.yaml ] && break
+      sleep 2
+    done
+  - echo "[*] Sending kubeconfig to Discord webhook..."
+  - |
+    if [ -f /etc/rancher/k3s/k3s.yaml ]; then
+      curl -s -X POST "${discord_webhook}" \
+        -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
+        -F 'payload_json={"content":"📦 K3s kubeconfig from $(hostname)"}'
+    else
+      echo "k3s.yaml not found; skipping webhook upload"
+    fi
