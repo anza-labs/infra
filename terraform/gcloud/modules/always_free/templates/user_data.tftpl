@@ -95,7 +95,7 @@ write_files:
         echo "[*] All done."
       }
 
-      main "${SERVICES[@]}" | tee "$LOG_FILE"
+      main "$${SERVICES[@]}" | tee "$LOG_FILE"
 
       # If we reach here, everything succeeded
       notify_success
