@@ -1,82 +1,111 @@
 #cloud-config
 
 write_files:
-  - path: /var/lib/k3s/docker-compose.yml
+  - path: /etc/systemd/system/tailscale-container.service
     permissions: 0644
     owner: root
     content: |
-      version: '3.8'
-      services:
-        tailscale:
-          image: tailscale/tailscale:${tailscale_version}
-          hostname: ${hostname}
-          restart: always
-          environment:
-            TS_AUTHKEY: "${tailscale_key}"
-            TS_STATE_DIR: /var/lib/tailscale
-            TS_USERSPACE: 'false'
-          volumes:
-            - /tailscale/state:/var/lib/tailscale
-          devices:
-            - /dev/net/tun:/dev/net/tun
-          cap_add:
-            - net_admin
-        k3s:
-          image: rancher/k3s:${k3s_version}
-          container_name: k3s
-          depends_on:
-            - tailscale
-          network_mode: service:tailscale
-          restart: always
-          volumes:
-            - /dev:/dev
-            - /etc:/etc
-            - /lib/modules:/lib/modules
-            - /var/run:/var/run
-            - /var/lib/rancher:/var/lib/rancher
-          command:
-            - server
-            - --disable=traefik
-            - --container-runtime-endpoint=/var/run/containerd/containerd.sock
+      [Unit]
+      Description=Run Tailscale in Docker
+      After=docker.service
+      Requires=docker.service
+
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStartPre=-/usr/bin/docker rm -f tailscale
+      ExecStart=/usr/bin/docker run --name tailscale \
+        --device /dev/net/tun \
+        --cap-add=NET_ADMIN \
+        --network=host \
+        -e TS_AUTHKEY=${tailscale_key} \
+        -e TS_STATE_DIR=/var/lib/tailscale \
+        -e TS_USERSPACE=false \
+        -v /tailscale/state:/var/lib/tailscale \
+        tailscale/tailscale:${tailscale_version}
+      ExecStop=/usr/bin/docker stop tailscale
+      ExecStopPost=/usr/bin/docker rm -f tailscale
+
+      [Install]
+      WantedBy=multi-user.target
 
   - path: /etc/systemd/system/k3s-container.service
     permissions: 0644
     owner: root
     content: |
       [Unit]
-      Description=Run K3s using Docker Compose
-      After=docker.service
-      Requires=docker.service
+      Description=Run K3s in Docker
+      After=tailscale-container.service
+      Requires=tailscale-container.service
 
       [Service]
-      WorkingDirectory=/var/lib/k3s
-      ExecStartPre=/usr/bin/docker compose down
-      ExecStart=/usr/bin/docker compose up
-      ExecStop=/usr/bin/docker compose down
       Restart=always
       RestartSec=5
+      ExecStartPre=-/usr/bin/docker rm -f k3s
+      ExecStart=/usr/bin/docker run --name k3s \
+        --privileged \
+        --network=container:tailscale \
+        --cgroupns=host \
+        -v /dev:/dev \
+        -v /etc:/etc \
+        -v /lib/modules:/lib/modules \
+        -v /var/run:/var/run \
+        -v /var/lib/rancher:/var/lib/rancher \
+        rancher/k3s:${k3s_version} \
+        server \
+          --disable traefik \
+          --container-runtime-endpoint=/var/run/containerd/containerd.sock
+      ExecStop=/usr/bin/docker stop k3s
+      ExecStopPost=/usr/bin/docker rm -f k3s
 
       [Install]
       WantedBy=multi-user.target
 
+  - path: /var/lib/k3s-init.sh
+    permissions: 0755
+    owner: root
+    content: |
+      #!/bin/bash
+      set -eo pipefail
+
+      LOG_FILE="/var/log/k3s-init.log"
+      DISCORD_WEBHOOK="${discord_webhook}"
+
+      {
+        echo "[*] Reloading systemd..."
+        systemctl daemon-reexec
+        systemctl daemon-reload
+
+        echo "[*] Enabling systemd units..."
+        systemctl enable tailscale-container.service
+        systemctl enable k3s-container.service
+
+        echo "[*] Starting tailscale..."
+        systemctl start tailscale-container.service
+
+        echo "[*] Starting k3s..."
+        systemctl start k3s-container.service
+
+        echo "[*] Waiting for kubeconfig..."
+        for i in $(seq 1 30); do
+          [ -f /etc/rancher/k3s/k3s.yaml ] && break
+          sleep 2
+        done
+
+        if [ -f /etc/rancher/k3s/k3s.yaml ]; then
+          echo "[*] Sending kubeconfig to Discord webhook..."
+          curl -s -X POST "$DISCORD_WEBHOOK" \
+            -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
+            -F "payload_json={\"content\":\"📦 K3s kubeconfig from $(hostname)\"}"
+        else
+          echo "k3s.yaml not found!"
+          curl -s -X POST "$DISCORD_WEBHOOK" \
+            -F "payload_json={\"content\":\"❌ k3s.yaml not found on $(hostname)\"}"
+          exit 1
+        fi
+
+        echo "[*] All done."
+      } | tee "$LOG_FILE"
+
 runcmd:
-  - echo "[*] Enabling K3s container systemd service..."
-  - systemctl daemon-reexec
-  - systemctl daemon-reload
-  - systemctl enable k3s-container.service
-  - systemctl start k3s-container.service
-  - |
-    for i in $(seq 1 30); do
-      [ -f /etc/rancher/k3s/k3s.yaml ] && break
-      sleep 2
-    done
-  - echo "[*] Sending kubeconfig to Discord webhook..."
-  - |
-    if [ -f /etc/rancher/k3s/k3s.yaml ]; then
-      curl -s -X POST "${discord_webhook}" \
-        -F "file1=@/etc/rancher/k3s/k3s.yaml;type=text/yaml;filename=kubeconfig.yaml" \
-        -F 'payload_json={"content":"📦 K3s kubeconfig from '"$(hostname)"'"}'
-    else
-      curl -s -X POST "${discord_webhook}" \
-        -F 'payload_json={"content":"❌ k3s.yaml not found on '"$(hostname)"'"}'
-    fi
+  - /var/lib/k3s-init.sh
