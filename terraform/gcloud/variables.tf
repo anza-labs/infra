@@ -29,3 +29,18 @@ variable "ssh_public_keys" {
   type        = string
   description = "Public SSH keys to be included in the ~/.ssh/authorized_keys file for the default user on the instance."
 }
+
+variable "tailscale_oauth_client_id" {
+  type        = string
+  description = "OAuth Client ID for Tailscale."
+}
+
+variable "tailscale_oauth_secret" {
+  type        = string
+  description = "OAuth Secret for Tailscale."
+}
+
+variable "tailscale_tailnet" {
+  type        = string
+  description = "Tailscale Tailnet name."
+}

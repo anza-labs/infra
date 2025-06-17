@@ -10,7 +10,10 @@ module "gcloud_vm" {
   instance_name  = "micro"
   instance_shape = "e2-micro"
 
-  region          = var.region
-  discord_webhook = var.discord_webhook
-  ssh_public_keys = var.ssh_public_keys
+  region                    = var.region
+  discord_webhook           = var.discord_webhook
+  ssh_public_keys           = var.ssh_public_keys
+  tailscale_oauth_client_id = var.tailscale_oauth_client_id
+  tailscale_oauth_secret    = var.tailscale_oauth_secret
+  tailscale_tailnet         = var.tailscale_tailnet
 }

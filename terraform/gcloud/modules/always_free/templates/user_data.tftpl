@@ -51,3 +51,8 @@ runcmd:
     else
       echo "k3s.yaml not found; skipping webhook upload"
     fi
+  # Tailscale install
+  - echo "[*] Installing tailscale..."
+  - ['sh', '-c', 'curl -fsSL https://tailscale.com/install.sh | sh']
+  - ['sh', '-c', "echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf && echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf && sudo sysctl -p /etc/sysctl.d/99-tailscale.conf" ]
+  - ['tailscale', 'up', '--auth-key=${tailscale_key}']
