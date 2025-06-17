@@ -14,10 +14,8 @@ on:
           Extra flags for the OCI Tofu apply/plan
 
           Often used:
-          ```
           -replace=module.oci_amd.oci_core_instance.instance[0]
           -replace=module.oci_amd.oci_core_instance.instance[1]
-          ```
         required: false
         default: ""
       extra_args_gcloud:
@@ -25,9 +23,7 @@ on:
           Extra flags for the GCloud Tofu apply/plan
 
           Often used:
-          ```
           -replace=module.gcloud_vm.google_compute_instance.vm_instance
-          ```
         required: false
         default: ""
   schedule:
