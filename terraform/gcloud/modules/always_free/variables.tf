@@ -30,7 +30,7 @@ variable "k3s_version" {
   description = "K3s Version"
 
   # renovate: datasource=docker depName=rancher/k3s
-  default = "v1.30.1-k3s1"
+  default = "v1.33.1-k3s1"
 }
 
 variable "discord_webhook" {
