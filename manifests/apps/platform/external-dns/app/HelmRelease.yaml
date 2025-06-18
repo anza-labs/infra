@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: kubernetes-sigs-github-io-external-dns
         namespace: placeholder
-      version: "1.16.1"
+      version: "1.17.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: external-dns
