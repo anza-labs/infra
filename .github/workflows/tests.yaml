@@ -21,6 +21,7 @@ jobs:
           . ./venv/bin/activate
           pip install -r ./requirements.txt
       - run: |
+          . ./venv/bin/activate
           cd ./flux && python3 ./hack/patches.py \
             './manifests/eu-1-infra/flux-apps.yaml' \
             tmp
