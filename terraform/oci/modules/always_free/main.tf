@@ -33,6 +33,7 @@ resource "tailscale_tailnet_key" "tailscale_key" {
 resource "null_resource" "triggers" {
   triggers = {
     user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
+    tailsacle_version_hash = sha256("${var.tailscale_version}"),
     discord_webhook_hash   = sha256("${var.discord_webhook}"),
   }
 }
@@ -69,8 +70,10 @@ resource "oci_core_instance" "instance" {
     user_data = base64encode(templatefile(
       "${path.module}/templates/user_data.tftpl",
       {
-        tailscale_key   = tailscale_tailnet_key.tailscale_key.key,
-        discord_webhook = var.discord_webhook,
+        tailscale_version = var.tailscale_version,
+        hostname          = format("%s${count.index}", lower(replace(var.instance_name, "/\\s/", ""))),
+        discord_webhook   = var.discord_webhook,
+        tailscale_key     = tailscale_tailnet_key.tailscale_key.key,
       }
     ))
   }

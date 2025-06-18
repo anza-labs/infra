@@ -72,3 +72,11 @@ variable "discord_webhook" {
   type        = string
   description = "Discord Webhook"
 }
+
+variable "tailscale_version" {
+  type        = string
+  description = "Tailscale Version"
+
+  # renovate: datasource=docker depName=tailscale/tailscale
+  default = "v1.84.2"
+}
