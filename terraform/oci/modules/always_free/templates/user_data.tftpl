@@ -3,21 +3,150 @@
 ssh_pwauth: false
 
 write_files:
-  - path: /etc/ansible/webhook.conf
-    permissions: '0600'
-    owner: root:root
+  - path: /etc/systemd/system/tailscale.service
+    permissions: 0644
+    owner: root
     content: |
-      ${discord_webhook}
+      [Unit]
+      Description=Run Tailscale in Docker
+      After=docker.service
+      Requires=docker.service
 
-ansible:
-  package_name: ansible-core
-  install_method: distro
-  pull:
-    url: "https://github.com/anza-labs/infra-ansible.git"
-    playbook_name: playbooks/vmboot.yaml
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStart=/usr/bin/docker run --name=%n \
+        --device=/dev/net/tun \
+        --cap-add=NET_ADMIN \
+        --network=host \
+        --env=TS_AUTHKEY=${tailscale_key} \
+        --env=TS_STATE_DIR=/var/lib/tailscale \
+        --env=TS_USERSPACE=false \
+        --volume=/etc/tailscale/state:/var/lib/tailscale \
+        tailscale/tailscale:${tailscale_version}
+
+      [Install]
+      WantedBy=multi-user.target
+
+  - path: /etc/service-init.sh
+    permissions: 0755
+    owner: root
+    content: |
+      #!/usr/bin/env bash
+      set -eo pipefail
+
+      # Define services list here
+      SERVICES=(
+        tailscale.service
+      )
+
+      LOG_FILE="/var/log/service-init.log"
+      DISCORD_WEBHOOK="${discord_webhook}"
+      HOSTNAME="${hostname}"
+
+      notify_success() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "payload_json={\"content\":\"✅ Service initialization complete on $HOSTNAME\"}"
+      }
+
+      notify_failure() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "file1=@$LOG_FILE;type=text/plain;filename=service-init.log" \
+          -F "payload_json={\"content\":\"❌ Service initialization failed on $HOSTNAME. See attached log.\"}"
+      }
+
+      trap 'notify_failure' ERR
+
+      main() {
+        if [ "$#" -lt 1 ]; then
+          echo "Usage: main <service1> [service2 ...]"
+          exit 1
+        fi
+
+        echo "[*] Reloading systemd..."
+        systemctl daemon-reexec
+        systemctl daemon-reload
+
+        echo "[*] Enabling systemd units..."
+        for svc in "$@"; do
+          echo "  - Enabling $svc..."
+          systemctl enable "$svc"
+        done
+
+        echo "[*] Starting services..."
+        for svc in "$@"; do
+          echo "  - Starting $svc..."
+          systemctl start "$svc"
+        done
+
+        echo "[*] All done."
+      }
+
+      main "$${SERVICES[@]}" | tee "$LOG_FILE"
+
+      # If we reach here, everything succeeded
+      notify_success
+
+  - path: /etc/install-docker.sh
+    permissions: 0755
+    owner: root
+    content: |
+      #!/usr/bin/env bash
+      set -eo pipefail
+
+      LOG_FILE="/var/log/service-init.log"
+      DISCORD_WEBHOOK="${discord_webhook}"
+      HOSTNAME="${hostname}"
+
+      notify_success() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "payload_json={\"content\":\"✅ Docker installation complete on $HOSTNAME\"}"
+      }
+
+      notify_failure() {
+        curl -s -X POST "$DISCORD_WEBHOOK" \
+          -F "file1=@$LOG_FILE;type=text/plain;filename=service-init.log" \
+          -F "payload_json={\"content\":\"❌ Docker installation failed on $HOSTNAME. See attached log.\"}"
+      }
+
+      trap 'notify_failure' ERR
+
+      main() {
+        echo "[*] Updating system packages..."
+        apt-get update
+
+        echo "[*] Installing required packages (ca-certificates, curl)..."
+        apt-get install -y ca-certificates curl
+
+        echo "[*] Creating /etc/apt/keyrings directory..."
+        install -m 0755 -d /etc/apt/keyrings
+
+        echo "[*] Adding Docker's official GPG key..."
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+        echo "[*] Setting permissions on GPG key..."
+        chmod a+r /etc/apt/keyrings/docker.asc
+
+        echo "[*] Adding Docker repository to APT sources..."
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "$${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+          tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        echo "[*] Updating package list after adding Docker repo..."
+        apt-get update
+
+        echo "[*] All done."
+      }
+
+      main | tee "$LOG_FILE"
+
+      # If we reach here, everything succeeded
+      notify_success
 
 runcmd:
-  # Tailscale install
-  - ['sh', '-c', 'curl -fsSL https://tailscale.com/install.sh | sh']
-  - ['sh', '-c', "echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf && echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf && sudo sysctl -p /etc/sysctl.d/99-tailscale.conf" ]
-  - ['tailscale', 'up', '--auth-key=${tailscale_key}']
+  - /etc/install-docker.sh
+  - /etc/service-init.sh

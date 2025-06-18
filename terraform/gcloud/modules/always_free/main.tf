@@ -1,6 +1,7 @@
 resource "tailscale_tailnet_key" "tailscale_key" {
   description         = "GCloud Always-Free VM key"
   expiry              = 3600
+  ephemeral           = true
   reusable            = true
   preauthorized       = true
   recreate_if_invalid = "always"

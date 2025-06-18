@@ -23,10 +23,18 @@ locals {
 resource "tailscale_tailnet_key" "tailscale_key" {
   description         = "OCI Always-Free VM key"
   expiry              = 3600
+  ephemeral           = true
   reusable            = true
   preauthorized       = true
   recreate_if_invalid = "always"
   tags                = ["tag:oci", "tag:always-free"]
+}
+
+resource "null_resource" "triggers" {
+  triggers = {
+    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
+    discord_webhook_hash   = sha256("${var.discord_webhook}"),
+  }
 }
 
 resource "oci_core_instance" "instance" {
@@ -72,9 +80,15 @@ resource "oci_core_instance" "instance" {
   }
 
   lifecycle {
+    create_before_destroy = false
+
     ignore_changes = [
       metadata["user_data"],
       source_details[0].source_id,
+    ]
+
+    replace_triggered_by = [
+      null_resource.triggers,
     ]
   }
 }
