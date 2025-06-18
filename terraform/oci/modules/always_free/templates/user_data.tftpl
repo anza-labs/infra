@@ -97,7 +97,7 @@ write_files:
       #!/usr/bin/env bash
       set -eo pipefail
 
-      LOG_FILE="/var/log/service-init.log"
+      LOG_FILE="/var/log/install-docker.log"
       DISCORD_WEBHOOK="${discord_webhook}"
       HOSTNAME="${hostname}"
 
@@ -138,6 +138,12 @@ write_files:
 
         echo "[*] Updating package list after adding Docker repo..."
         apt-get update
+
+        echo "[*] Installing docker packages..."
+        apt-get install \
+          docker-ce docker-ce-cli \
+          docker-buildx-plugin docker-compose-plugin \
+          containerd.io
 
         echo "[*] All done."
       }
