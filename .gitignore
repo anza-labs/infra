@@ -52,3 +52,6 @@ terraform.rc
 
 # Ignore Bitwarden specific directories
 .bitwarden
+
+# Kustomize tests.
+tmp/

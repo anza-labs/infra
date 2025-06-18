@@ -11,7 +11,15 @@
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": [
+      "area/dependency",
       "kind/security"
+    ]
+  },
+  "flux": {
+    "managerFilePatterns": [
+      "/^flux/apps/.+\\.yaml$/",
+      "/^flux/clusters/.+\\.yaml$/",
+      "/^flux/repos/.+\\.yaml$/"
     ]
   },
   "customManagers": [

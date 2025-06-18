@@ -19,9 +19,10 @@ jobs:
       - run: |
           python3 -m venv venv
           . ./venv/bin/activate
-          pip install -r ./manifests/requirements.txt
-          python3 ./manifests/hack/patches.py \
-            './manifests/manifests/eu-1-infra/flux-apps.yaml' \
+          pip install -r ./requirements.txt
+      - run: |
+          cd ./flux && python3 ./hack/patches.py \
+            './manifests/eu-1-infra/flux-apps.yaml' \
             tmp
       - run: |
-          ./manifests/hack/test.sh
+          cd ./flux && ./hack/test.sh
