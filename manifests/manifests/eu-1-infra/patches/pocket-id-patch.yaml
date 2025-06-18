@@ -1,0 +1,25 @@
+- op: add
+  path: /spec/patches/0
+  value:
+    patch: |
+      - op: replace
+        path: /spec/values/ingress/host
+        value: auth.eu-1.anza-labs.dev
+      - op: add
+        path: /spec/values/ingress/annotations
+        value:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      - op: add
+        path: /spec/values/ingress/tls
+        value:
+          - hosts:
+              - auth.eu-1.anza-labs.dev
+            secretName: pocket-id-tls
+      - op: add
+        path: /spec/values/persistence/data/storageClass
+        value: linode-block-storage
+    target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: pocket-id-app

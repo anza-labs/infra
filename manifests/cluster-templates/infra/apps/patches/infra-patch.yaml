@@ -1,0 +1,32 @@
+- op: replace
+  path: /spec/targetNamespace
+  value: infra
+- op: add
+  path: /spec/patches
+  value:
+    - patch: |
+        - op: replace
+          path: /spec/sourceRef/namespace
+          value: infra
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v1
+        kind: Kustomization
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: infra
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+        labelSelector: source=helm
+    - patch: |
+        - op: replace
+          path: /spec/chartRef/namespace
+          value: 'infra'
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+        labelSelector: source=oci

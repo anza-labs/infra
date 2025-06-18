@@ -1,0 +1,15 @@
+- op: replace
+  path: /spec/prune
+  value: true
+- op: replace
+  path: /spec/timeout
+  value: 10m
+- op: replace
+  path: /spec/interval
+  value: 30m
+- op: replace
+  path: /spec/sourceRef
+  value:
+    kind: GitRepository
+    name: apps
+    namespace: 'cluster-${CLUSTER}'

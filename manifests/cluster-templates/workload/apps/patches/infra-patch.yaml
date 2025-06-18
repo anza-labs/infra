@@ -1,0 +1,41 @@
+- op: replace
+  path: /spec/targetNamespace
+  value: 'cluster-${CLUSTER}'
+- op: add
+  path: /spec/patches
+  value:
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: '${CLUSTER}-kubeconfig'
+              key: value
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+    - patch: |
+        - op: add
+          path: /metadata/namespace
+          value: 'cluster-${CLUSTER}'
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: 'cluster-${CLUSTER}'
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+        labelSelector: source=helm
+    - patch: |
+        - op: add
+          path: /metadata/namespace
+          value: 'cluster-${CLUSTER}'
+        - op: replace
+          path: /spec/chartRef/namespace
+          value: 'cluster-${CLUSTER}'
+      target:
+        group: helm.toolkit.fluxcd.io
+        version: v2
+        kind: HelmRelease
+        labelSelector: source=oci

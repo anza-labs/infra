@@ -1,0 +1,24 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+end_of_line = lf
+
+[{Makefile,go.mod,go.sum,*.go,.gitmodules}]
+indent_size = 4
+indent_style = tab
+
+[*.md]
+indent_size = 4
+
+[*.{yaml,yml,tf,hcl}]
+indent_size = 2

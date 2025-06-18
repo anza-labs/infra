@@ -1,0 +1,126 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: anza-labs-github-io-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/anza-labs.github.io_charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-external-secrets-io
+  labels:
+    target: infra
+spec:
+  path: "./repos/charts.external-secrets.io"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-jetstack-io
+  labels:
+    target: infra
+spec:
+  path: "./repos/charts.jetstack.io"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-kubewarden-io
+  labels:
+    target: infra
+spec:
+  path: "./repos/charts.kubewarden.io"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-loft-sh
+  labels:
+    target: infra
+spec:
+  path: "./repos/charts.loft.sh"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-github-io-helm-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/grafana.github.io_helm-charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: jaegertracing-github-io-helm-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/jaegertracing.github.io_helm-charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubernetes-sigs-github-io-cluster-api-operator
+  labels:
+    target: infra
+spec:
+  path: "./repos/kubernetes-sigs.github.io_cluster-api-operator"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubernetes-sigs-github-io-external-dns
+  labels:
+    target: infra
+spec:
+  path: "./repos/kubernetes-sigs.github.io_external-dns"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: docker-io-bitnamicharts-contour
+  labels:
+    target: infra
+spec:
+  path: "./repos/docker.io_bitnamicharts_contour"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pkgs-tailscale-com-helmcharts
+  labels:
+    target: infra
+spec:
+  path: "./repos/pkgs.tailscale.com_helmcharts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: prometheus-community-github-io-helm-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/prometheus-community.github.io_helm-charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: stakater-github-io-stakater-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/stakater.github.io_stakater-charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubearmor-github-io-charts
+  labels:
+    target: infra
+spec:
+  path: "./repos/kubearmor.github.io_charts"

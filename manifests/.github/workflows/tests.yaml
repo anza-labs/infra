@@ -1,0 +1,27 @@
+name: tests
+
+on:
+  pull_request:
+    branches: [ '*' ]
+  push:
+    branches:
+      - "main"
+
+jobs:
+  render-kustomize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: imranismail/setup-kustomize@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: |
+          python3 -m venv venv
+          . ./venv/bin/activate
+          pip install -r ./requirements.txt
+          python3 ./hack/patches.py \
+            './manifests/eu-1-infra/flux-apps.yaml' \
+            tmp
+      - run: |
+          ./hack/test.sh

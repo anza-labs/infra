@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: infra
+resources:
+- ./infra-apps.yaml
+- ./platform-apps.yaml
+- ./repos.yaml
+- ./ns.yaml
+patches:
+- path: ./patches/common-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+- path: ./patches/infra-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    labelSelector: target=infra

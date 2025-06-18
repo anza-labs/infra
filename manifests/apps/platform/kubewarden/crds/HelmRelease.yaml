@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubewarden-crds
+  labels:
+    source: helm
+spec:
+  chart:
+    spec:
+      chart: kubewarden-crds
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: charts-kubewarden-io
+        namespace: placeholder
+      version: "1.17.0"
+  interval: 30m0s
+  timeout: 10m0s
+  releaseName: kubewarden-crds
+  targetNamespace: kubewarden
+  test:
+    enable: true
+    ignoreFailures: true
+  driftDetection:
+    mode: enabled
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      remediateLastFailure: true
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      strategy: uninstall
+      remediateLastFailure: true

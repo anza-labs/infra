@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "automerge": true,
+  "labels": [
+    "area/dependency"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "kind/security"
+    ]
+  },
+  "flux": {
+    "managerFilePatterns": [
+      "/^apps/.+\\.yaml$/",
+      "/^clusters/.+\\.yaml$/",
+      "/^repos/.+\\.yaml$/"
+    ]
+  }
+}
