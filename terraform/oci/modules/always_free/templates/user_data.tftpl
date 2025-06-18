@@ -116,6 +116,8 @@ write_files:
       trap 'notify_failure' ERR
 
       main() {
+        export DEBIAN_FRONTEND=noninteractive
+
         echo "[*] Updating system packages..."
         apt-get update
 
@@ -141,7 +143,7 @@ write_files:
         apt-get update
 
         echo "[*] Installing docker packages..."
-        apt-get install \
+        apt-get install --assume-yes \
           docker-ce docker-ce-cli \
           docker-buildx-plugin docker-compose-plugin \
           containerd.io
