@@ -2,16 +2,14 @@
 
 set -e
 
-WORKLOAD=("eu-1")
 export GIT_SHA="$(git rev-parse HEAD)"
 
-# Generate infra apps
-kustomize build ./cluster-templates/infra/apps |\
-  envsubst > manifests/eu-1-infra/flux-apps.yaml
+declare -A clusters
+clusters[rpi5]="k3s"
 
-# Generate workload apps for each cluster
-for CLUSTER in "${WORKLOAD[@]}"; do
+for CLUSTER in "${!clusters[@]}"; do
   export CLUSTER
-  kustomize build ./cluster-templates/workload/apps |\
+  mkdir -p "manifests/${CLUSTER}"
+  kustomize build "./cluster-templates/${clusters[$CLUSTER]}/apps" |\
     envsubst > "manifests/${CLUSTER}/flux-apps.yaml"
 done

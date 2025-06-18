@@ -1,6 +1,0 @@
-- op: add
-  path: /spec/values
-  value:
-    "kamaji-etcd":
-      persistentVolumeClaim:
-        storageClassName: "linode-block-storage"

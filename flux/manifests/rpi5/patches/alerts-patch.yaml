@@ -1,5 +1,5 @@
 - op: add
   path: /spec/eventMetadata
   value:
-    env: "infra"
-    cluster: eu-1-infra
+    env: "homelab"
+    cluster: rpi5

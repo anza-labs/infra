@@ -3,26 +3,13 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubelet-device-plugins-app
-  labels:
-    target: infra
 spec:
   path: "./apps/infra/kubelet-device-plugins/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kamaji-app
-  labels:
-    target: infra
-spec:
-  path: "./apps/infra/kamaji/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: pocket-id-dependencies
-  labels:
-    target: infra
 spec:
   path: "./apps/infra/pocket-id/dependencies"
   dependsOn:
@@ -32,12 +19,16 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: pocket-id-app
-  labels:
-    target: infra
 spec:
   path: "./apps/infra/pocket-id/app"
   dependsOn:
   - name: pocket-id-dependencies
-  - name: contour-app
   - name: cert-manager-app
   - name: external-dns-app
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: omada-controller-app
+spec:
+  path: "./apps/infra/omada-controller/app"

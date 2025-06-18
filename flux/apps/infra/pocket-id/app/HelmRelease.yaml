@@ -39,19 +39,26 @@ spec:
   values:
     ingress:
       enabled: true
-      className: contour
+      className: TODO
       host: auth.anza-labs.dev
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls:
+        - secretName: pocket-id-tls
+          hosts:
+            - auth.eu-1.anza-labs.dev
     persistence:
       data:
         enabled: true
+        storageClass: TODO
     backup:
       enabled: true
       secret:
         replicas:
-          - region: eu-central
-            bucket: backups-region-eu-1-shared
-            path: /infra-eu-1/pocket-id
-            endpoint: eu-central-1.linodeobjects.com
+          - path: /pocket-id
+            region: TODO
+            bucket: TODO
+            endpoint: TODO
   valuesFrom:
   - kind: Secret
     name: pocket-id-backup

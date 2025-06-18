@@ -12,7 +12,7 @@ spec:
     solvers:
     - http01:
         ingress:
-          ingressClassName: contour
+          ingressClassName: TODO
     - dns01:
         cloudflare:
           email: mateusz.urbanek.98@gmail.com
@@ -37,7 +37,7 @@ spec:
     solvers:
     - http01:
         ingress:
-          ingressClassName: contour
+          ingressClassName: TODO
     - dns01:
         cloudflare:
           email: mateusz.urbanek.98@gmail.com

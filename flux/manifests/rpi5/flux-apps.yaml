@@ -1,0 +1,465 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: anza-labs-github-io-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/anza-labs.github.io_charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager-app
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/platform/cert-manager/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager-issuers-cloudflare
+  namespace: infra
+spec:
+  dependsOn:
+  - name: cert-manager-app
+  - name: external-secrets-bitwarden
+  interval: 30m
+  path: ./apps/platform/cert-manager/issuers/cloudflare
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-external-secrets-io
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/charts.external-secrets.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-jetstack-io
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/charts.jetstack.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-kubewarden-io
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/charts.kubewarden.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: charts-loft-sh
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/charts.loft.sh
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-dns-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-dns-dependencies
+  interval: 30m
+  path: ./apps/platform/external-dns/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-dns-dependencies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  path: ./apps/platform/external-dns/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-secrets-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: charts-external-secrets-io
+  interval: 30m
+  path: ./apps/platform/external-secrets/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-secrets-bitwarden
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-app
+  - name: cert-manager-app
+  interval: 30m
+  path: ./apps/platform/external-secrets/bitwarden
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/grafana.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: jaegertracing-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/jaegertracing.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-storage-version-migrator-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: anza-labs-github-io-charts
+  interval: 30m
+  path: ./apps/platform/kube-storage-version-migrator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubearmor-github-io-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/kubearmor.github.io_charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubearmor-operator-app
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/platform/kubearmor-operator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubelet-device-plugins-app
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/infra/kubelet-device-plugins/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubernetes-sigs-github-io-external-dns
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/kubernetes-sigs.github.io_external-dns
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubewarden-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: kubewarden-crds
+  interval: 30m
+  path: ./apps/platform/kubewarden/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kubewarden-crds
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/platform/kubewarden/crds
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: omada-controller-app
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/infra/omada-controller/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pkgs-tailscale-com-helmcharts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/pkgs.tailscale.com_helmcharts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pocket-id-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: pocket-id-dependencies
+  - name: cert-manager-app
+  - name: external-dns-app
+  interval: 30m
+  path: ./apps/infra/pocket-id/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pocket-id-dependencies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  path: ./apps/infra/pocket-id/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: prometheus-community-github-io-helm-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/prometheus-community.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: reloader-app
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./apps/platform/reloader/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: stakater-github-io-stakater-charts
+  namespace: infra
+spec:
+  interval: 30m
+  path: ./repos/stakater.github.io_stakater-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-app
+  namespace: infra
+spec:
+  dependsOn:
+  - name: tailscale-dependencies
+  interval: 30m
+  path: ./apps/platform/tailscale/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-dependencies
+  namespace: infra
+spec:
+  dependsOn:
+  - name: external-secrets-bitwarden
+  interval: 30m
+  path: ./apps/platform/tailscale/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: infra
+  timeout: 10m
