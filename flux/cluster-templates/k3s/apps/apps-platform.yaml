@@ -5,7 +5,7 @@ kind: Kustomization
 metadata:
   name: kube-storage-version-migrator-app
 spec:
-  path: "./apps/platform/kube-storage-version-migrator/app"
+  path: "./flux/apps/platform/kube-storage-version-migrator/app"
   dependsOn:
   - name: anza-labs-github-io-charts
 ---
@@ -14,14 +14,14 @@ kind: Kustomization
 metadata:
   name: cert-manager-app
 spec:
-  path: "./apps/platform/cert-manager/app"
+  path: "./flux/apps/platform/cert-manager/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager-issuers-cloudflare
 spec:
-  path: "./apps/platform/cert-manager/issuers/cloudflare"
+  path: "./flux/apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
   - name: cert-manager-app
   - name: external-secrets-bitwarden
@@ -31,21 +31,21 @@ kind: Kustomization
 metadata:
   name: kubearmor-operator-app
 spec:
-  path: "./apps/platform/kubearmor-operator/app"
+  path: "./flux/apps/platform/kubearmor-operator/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-crds
 spec:
-  path: "./apps/platform/kubewarden/crds"
+  path: "./flux/apps/platform/kubewarden/crds"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-app
 spec:
-  path: "./apps/platform/kubewarden/app"
+  path: "./flux/apps/platform/kubewarden/app"
   dependsOn:
   - name: kubewarden-crds
 ---
@@ -54,7 +54,7 @@ kind: Kustomization
 metadata:
   name: external-secrets-app
 spec:
-  path: "./apps/platform/external-secrets/app"
+  path: "./flux/apps/platform/external-secrets/app"
   dependsOn:
   - name: charts-external-secrets-io
 ---
@@ -63,7 +63,7 @@ kind: Kustomization
 metadata:
   name: external-secrets-bitwarden
 spec:
-  path: "./apps/platform/external-secrets/bitwarden"
+  path: "./flux/apps/platform/external-secrets/bitwarden"
   dependsOn:
   - name: external-secrets-app
   - name: cert-manager-app
@@ -73,7 +73,7 @@ kind: Kustomization
 metadata:
   name: tailscale-dependencies
 spec:
-  path: "./apps/platform/tailscale/dependencies"
+  path: "./flux/apps/platform/tailscale/dependencies"
   dependsOn:
   - name: external-secrets-bitwarden
 ---
@@ -82,7 +82,7 @@ kind: Kustomization
 metadata:
   name: tailscale-app
 spec:
-  path: "./apps/platform/tailscale/app"
+  path: "./flux/apps/platform/tailscale/app"
   dependsOn:
   - name: tailscale-dependencies
 ---
@@ -91,14 +91,14 @@ kind: Kustomization
 metadata:
   name: reloader-app
 spec:
-  path: "./apps/platform/reloader/app"
+  path: "./flux/apps/platform/reloader/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-dns-dependencies
 spec:
-  path: "./apps/platform/external-dns/dependencies"
+  path: "./flux/apps/platform/external-dns/dependencies"
   dependsOn:
   - name: external-secrets-bitwarden
 ---
@@ -107,6 +107,6 @@ kind: Kustomization
 metadata:
   name: external-dns-app
 spec:
-  path: "./apps/platform/external-dns/app"
+  path: "./flux/apps/platform/external-dns/app"
   dependsOn:
   - name: external-dns-dependencies

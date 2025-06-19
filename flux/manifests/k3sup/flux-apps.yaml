@@ -25,7 +25,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/platform/cert-manager/app
+  path: ./flux/apps/platform/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -43,7 +43,7 @@ spec:
   - name: cert-manager-app
   - name: external-secrets-bitwarden
   interval: 30m
-  path: ./apps/platform/cert-manager/issuers/cloudflare
+  path: ./flux/apps/platform/cert-manager/issuers/cloudflare
   prune: true
   sourceRef:
     kind: GitRepository
@@ -120,7 +120,7 @@ spec:
   dependsOn:
   - name: external-dns-dependencies
   interval: 30m
-  path: ./apps/platform/external-dns/app
+  path: ./flux/apps/platform/external-dns/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -137,7 +137,7 @@ spec:
   dependsOn:
   - name: external-secrets-bitwarden
   interval: 30m
-  path: ./apps/platform/external-dns/dependencies
+  path: ./flux/apps/platform/external-dns/dependencies
   prune: true
   sourceRef:
     kind: GitRepository
@@ -154,7 +154,7 @@ spec:
   dependsOn:
   - name: charts-external-secrets-io
   interval: 30m
-  path: ./apps/platform/external-secrets/app
+  path: ./flux/apps/platform/external-secrets/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -172,7 +172,7 @@ spec:
   - name: external-secrets-app
   - name: cert-manager-app
   interval: 30m
-  path: ./apps/platform/external-secrets/bitwarden
+  path: ./flux/apps/platform/external-secrets/bitwarden
   prune: true
   sourceRef:
     kind: GitRepository
@@ -219,7 +219,7 @@ spec:
   dependsOn:
   - name: anza-labs-github-io-charts
   interval: 30m
-  path: ./apps/platform/kube-storage-version-migrator/app
+  path: ./flux/apps/platform/kube-storage-version-migrator/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -249,7 +249,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/platform/kubearmor-operator/app
+  path: ./flux/apps/platform/kubearmor-operator/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -264,7 +264,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/infra/kubelet-device-plugins/app
+  path: ./flux/apps/infra/kubelet-device-plugins/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -296,7 +296,7 @@ spec:
   dependsOn:
   - name: kubewarden-crds
   interval: 30m
-  path: ./apps/platform/kubewarden/app
+  path: ./flux/apps/platform/kubewarden/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -311,7 +311,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/platform/kubewarden/crds
+  path: ./flux/apps/platform/kubewarden/crds
   prune: true
   sourceRef:
     kind: GitRepository
@@ -326,7 +326,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/infra/omada-controller/app
+  path: ./flux/apps/infra/omada-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -360,7 +360,7 @@ spec:
   - name: cert-manager-app
   - name: external-dns-app
   interval: 30m
-  path: ./apps/infra/pocket-id/app
+  path: ./flux/apps/infra/pocket-id/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -377,7 +377,7 @@ spec:
   dependsOn:
   - name: external-secrets-bitwarden
   interval: 30m
-  path: ./apps/infra/pocket-id/dependencies
+  path: ./flux/apps/infra/pocket-id/dependencies
   prune: true
   sourceRef:
     kind: GitRepository
@@ -407,7 +407,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./apps/platform/reloader/app
+  path: ./flux/apps/platform/reloader/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -439,7 +439,7 @@ spec:
   dependsOn:
   - name: tailscale-dependencies
   interval: 30m
-  path: ./apps/platform/tailscale/app
+  path: ./flux/apps/platform/tailscale/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -456,7 +456,7 @@ spec:
   dependsOn:
   - name: external-secrets-bitwarden
   interval: 30m
-  path: ./apps/platform/tailscale/dependencies
+  path: ./flux/apps/platform/tailscale/dependencies
   prune: true
   sourceRef:
     kind: GitRepository
