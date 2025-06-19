@@ -10,7 +10,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/anza-labs.github.io_charts
+  path: ./flux/repos/anza-labs.github.io_charts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -58,7 +58,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/charts.external-secrets.io
+  path: ./flux/repos/charts.external-secrets.io
   prune: true
   sourceRef:
     kind: GitRepository
@@ -73,7 +73,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/charts.jetstack.io
+  path: ./flux/repos/charts.jetstack.io
   prune: true
   sourceRef:
     kind: GitRepository
@@ -88,7 +88,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/charts.kubewarden.io
+  path: ./flux/repos/charts.kubewarden.io
   prune: true
   sourceRef:
     kind: GitRepository
@@ -103,7 +103,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/charts.loft.sh
+  path: ./flux/repos/charts.loft.sh
   prune: true
   sourceRef:
     kind: GitRepository
@@ -187,7 +187,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/grafana.github.io_helm-charts
+  path: ./flux/repos/grafana.github.io_helm-charts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -202,7 +202,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/jaegertracing.github.io_helm-charts
+  path: ./flux/repos/jaegertracing.github.io_helm-charts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -234,7 +234,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/kubearmor.github.io_charts
+  path: ./flux/repos/kubearmor.github.io_charts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -279,7 +279,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/kubernetes-sigs.github.io_external-dns
+  path: ./flux/repos/kubernetes-sigs.github.io_external-dns
   prune: true
   sourceRef:
     kind: GitRepository
@@ -341,7 +341,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/pkgs.tailscale.com_helmcharts
+  path: ./flux/repos/pkgs.tailscale.com_helmcharts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -392,7 +392,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/prometheus-community.github.io_helm-charts
+  path: ./flux/repos/prometheus-community.github.io_helm-charts
   prune: true
   sourceRef:
     kind: GitRepository
@@ -422,7 +422,7 @@ metadata:
   namespace: infra
 spec:
   interval: 30m
-  path: ./repos/stakater.github.io_stakater-charts
+  path: ./flux/repos/stakater.github.io_stakater-charts
   prune: true
   sourceRef:
     kind: GitRepository
