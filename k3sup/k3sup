@@ -78,35 +78,46 @@ function create_k8s_secrets() {
   local discord_webhook
   discord_webhook="$(bws secret get "${K8S_DISCORD_WEBHOOK_ID}" | jq -r '.value')"
 
-  echo "[*] Creating Kubernetes secret for Bitwarden token..."
-  kubectl create secret generic \
-    --namespace=kube-system bitwarden \
-    --from-literal=token="${bw_token}"
+  echo "[*] Creating or updating Kubernetes secret for Bitwarden token..."
+  kubectl create secret generic bitwarden \
+    --namespace=kube-system \
+    --from-literal=token="${bw_token}" \
+    --dry-run=client -o yaml | kubectl apply -f -
 
-  echo "[*] Creating Kubernetes secret for Discord webhook..."
-  kubectl create secret generic \
-    --namespace=flux-system discord-webhook \
-    --from-literal=address="${discord_webhook}"
+  echo "[*] Creating or updating Kubernetes secret for Discord webhook..."
+  kubectl create secret generic discord-webhook \
+    --namespace=flux-system \
+    --from-literal=address="${discord_webhook}" \
+    --dry-run=client -o yaml | kubectl apply -f -
 }
 
 function bootstrap_flux() {
   echo "[*] Retrieving GitHub token..."
-  local github_token
-  github_token="$(bws secret get "${K8S_GITHUB_TOKEN_ID}" | jq -r '.value')"
+  export GITHUB_TOKEN="$(bws secret get "${K8S_GITHUB_TOKEN_ID}" | jq -r '.value')"
 
   echo "[*] Bootstrapping Flux..."
-  flux bootstrap git \
-    --force \
-    --password="${github_token}" \
-    --with-bearer-token \
+  flux bootstrap github \
     --kubeconfig=./k3sup.conf \
-    --url=https://github.com/anza-labs/infra.git \
+    --force \
+    --personal=false \
+    --owner=anza-labs \
+    --repository=infra \
+    --branch=main \
     --path=flux/clusters/k3sup
 }
 
 # Run stages
-$INSTALL && install_k3s
-$SECRETS && store_kubeconfig && create_k8s_secrets
-$FLUX && bootstrap_flux
+if $INSTALL; then
+  install_k3s
+fi
+
+if $FLUX; then
+  bootstrap_flux
+fi
+
+if $SECRETS; then
+  store_kubeconfig
+  create_k8s_secrets
+fi
 
 echo "[*] Script execution complete."

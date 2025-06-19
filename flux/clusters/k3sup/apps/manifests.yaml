@@ -4,7 +4,7 @@ metadata:
   name: manifests
 spec:
   interval: 30m
-  path: ./manifests/eu-1-infra
+  path: ./flux/manifests/k3sup
   prune: true
   sourceRef:
     kind: GitRepository

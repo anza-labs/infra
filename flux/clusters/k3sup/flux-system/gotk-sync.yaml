@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/eu-1-infra
+  path: ./flux/clusters/k3sup
   prune: true
   sourceRef:
     kind: GitRepository
