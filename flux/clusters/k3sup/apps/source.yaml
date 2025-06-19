@@ -7,6 +7,6 @@ metadata:
     environment: prod
 spec:
   interval: 5m0s
-  url: https://github.com/anza-labs/manifests
+  url: https://github.com/anza-labs/infra
   ref:
     branch: 'main'
