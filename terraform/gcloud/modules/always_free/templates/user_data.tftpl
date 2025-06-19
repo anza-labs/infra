@@ -19,7 +19,7 @@ write_files:
       ExecStart=/usr/bin/docker run --name=%n \
         --device=/dev/net/tun \
         --cap-add=NET_ADMIN \
-        --network=host \
+        --hostname=%H \
         --env=TS_AUTHKEY=${tailscale_key} \
         --env=TS_STATE_DIR=/var/lib/tailscale \
         --env=TS_USERSPACE=false \
