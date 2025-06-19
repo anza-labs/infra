@@ -11,9 +11,68 @@ MACHINE_IP="${1}"
 REMOTE_USER="${REMOTE_USER:-shared}"
 SSH_KEY="${SSH_KEY:-${HOME}/.ssh/shared}"
 
+BWS_PROJECT_ID="${BWS_PROJECT_ID}"
+K8S_BITWARDEN_TOKEN_ID="${K8S_BITWARDEN_TOKEN_ID}"
+K8S_DISCORD_WEBHOOK_ID="${K8S_DISCORD_WEBHOOK_ID}"
+K8S_GITHUB_TOKEN_ID="${K8S_GITHUB_TOKEN_ID}"
+
+echo "[*] Installing k3s on ${MACHINE_IP} using k3sup..."
 k3sup install \
     --ip="${MACHINE_IP}" \
     --user="${REMOTE_USER}" \
     --ssh-key="${SSH_KEY}" \
     --k3s-extra-args='--disable=servicelb,traefik' \
     --local-path=./k3sup.conf
+
+echo "[*] Waiting for k3s to become ready..."
+k3sup ready \
+    --kubeconfig=./k3sup.conf \
+    --pause 5s
+
+echo "[*] Checking if Bitwarden secret for kubeconfig exists..."
+KUBECONFIG_SECRET_ID="$(bws secret list | jq -r '.[] | select(.key | match("kubeconfig \\(k3sup\\)")) | .id')"
+
+if [[ -z "${KUBECONFIG_SECRET_ID}" ]]; then
+    echo "[*] Creating new Bitwarden secret for kubeconfig..."
+    bws secret create \
+        "kubeconfig (k3sup)" \
+        "$(cat ./k3sup.conf)" \
+        "${BWS_PROJECT_ID}"
+else
+    echo "[*] Updating existing Bitwarden secret for kubeconfig..."
+    bws secret edit \
+        --key "kubeconfig (k3sup)" \
+        --value "$(cat ./k3sup.conf)" \
+        --project-id "${BWS_PROJECT_ID}" \
+        "${KUBECONFIG_SECRET_ID}"
+fi
+
+echo "[*] Retrieving Bitwarden token from secret ID ${K8S_BITWARDEN_TOKEN_ID}..."
+BITWARDEN_TOKEN="$(bws secret get ${K8S_BITWARDEN_TOKEN_ID} | jq -r '.value')"
+
+echo "[*] Retrieving Discord webhook URL from secret ID ${K8S_DISCORD_WEBHOOK_ID}..."
+DISCORD_WEBHOOK="$(bws secret get ${K8S_DISCORD_WEBHOOK_ID} | jq -r '.value')"
+
+echo "[*] Retrieving GitHub token from secret ID ${K8S_GITHUB_TOKEN_ID}..."
+GITHUB_TOKEN="$(bws secret get ${K8S_GITHUB_TOKEN_ID} | jq -r '.value')"
+
+echo "[*] Bootstrapping Flux..."
+flux bootstrap git \
+    --force \
+    --password="${GITHUB_TOKEN}" \
+    --with-bearer-token \
+    --kubeconfig=./k3sup.conf \
+    --url=https://github.com/anza-labs/infra.git \
+    --path=flux/clusters/k3sup
+
+echo "[*] Creating Kubernetes secret for Bitwarden token..."
+kubectl create secret generic \
+    --namespace=kube-system bitwarden \
+    --from-literal=token="${BITWARDEN_TOKEN}"
+
+echo "[*] Creating Kubernetes secret for Discord webhook..."
+kubectl create secret generic \
+    --namespace=flux-system discord-webhook \
+    --from-literal=address="${DISCORD_WEBHOOK}"
+
+echo "[*] Script execution complete."

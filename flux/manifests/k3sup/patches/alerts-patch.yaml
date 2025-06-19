@@ -2,4 +2,4 @@
   path: /spec/eventMetadata
   value:
     env: "homelab"
-    cluster: rpi5
+    cluster: k3sup
