@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+K3SUP="${K3SUP:-k3sup}"
+
+set -u
+
+MACHINE_IP="${1}"
+REMOTE_USER="${REMOTE_USER:-shared}"
+SSH_KEY="${SSH_KEY:-${HOME}/.ssh/shared}"
+
+k3sup install \
+    --ip="${MACHINE_IP}" \
+    --user="${REMOTE_USER}" \
+    --ssh-key="${SSH_KEY}" \
+    --k3s-extra-args='--disable=servicelb,traefik' \
+    --local-path=./k3sup.conf

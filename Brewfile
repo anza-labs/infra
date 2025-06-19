@@ -1,2 +1,5 @@
+tap "fluxcd/tap"
+brew "fluxcd/tap/flux"
+brew "k3sup"
 brew "opentofu"
 brew "terraform-docs"
