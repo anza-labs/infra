@@ -19,7 +19,7 @@ spec:
   eventMetadata: {}
   providerRef:
     name: discord-generic
-  eventSeverity: info
+  eventSeverity: error
   eventSources:
     - kind: "Bucket"
       name: '*'
