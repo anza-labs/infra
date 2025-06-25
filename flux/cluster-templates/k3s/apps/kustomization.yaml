@@ -29,9 +29,3 @@ patches:
     version: v1
     kind: Kustomization
     name: pocket-id-app
-- path: ./patches/omada-controller-patch.yaml
-  target:
-    group: kustomize.toolkit.fluxcd.io
-    version: v1
-    kind: Kustomization
-    name: omada-controller-app
