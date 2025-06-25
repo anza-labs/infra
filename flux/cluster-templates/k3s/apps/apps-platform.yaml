@@ -11,18 +11,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager-issuers-cloudflare
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/cert-manager/issuers/cloudflare"
-  dependsOn:
-  - name: cert-manager-app
-  - name: external-secrets-bitwarden
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: kubearmor-operator-app
   labels:
     override-target-namespace: 'true'
