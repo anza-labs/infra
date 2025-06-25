@@ -4,6 +4,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kube-storage-version-migrator-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/kube-storage-version-migrator/app"
   dependsOn:
@@ -13,6 +15,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/cert-manager/app"
 ---
@@ -20,6 +24,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cert-manager-issuers-cloudflare
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/cert-manager/issuers/cloudflare"
   dependsOn:
@@ -30,6 +36,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubearmor-operator-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/kubearmor-operator/app"
 ---
@@ -37,6 +45,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-crds
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/kubewarden/crds"
 ---
@@ -44,6 +54,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubewarden-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/kubewarden/app"
   dependsOn:
@@ -53,6 +65,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/external-secrets/app"
   dependsOn:
@@ -62,6 +76,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets-bitwarden
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/external-secrets/bitwarden"
   dependsOn:
@@ -72,6 +88,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tailscale-dependencies
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/tailscale/dependencies"
   dependsOn:
@@ -81,6 +99,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tailscale-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/tailscale/app"
   dependsOn:
@@ -90,6 +110,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: reloader-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/reloader/app"
 ---
@@ -97,6 +119,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: system-upgrade-controller-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/system-upgrade-controller/app"
 ---
@@ -104,15 +128,20 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: hwameistor-dependencies
+  labels:
+    override-target-namespace: 'false'
 spec:
   path: "./flux/apps/platform/hwameistor/dependencies"
   dependsOn:
   - name: system-upgrade-controller-app
+  targetNamespace: system-upgrade
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: hwameistor-app
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/hwameistor/app"
   dependsOn:

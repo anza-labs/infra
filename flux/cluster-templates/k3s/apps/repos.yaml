@@ -3,6 +3,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: anza-labs-github-io-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/anza-labs.github.io_charts"
 ---
@@ -10,6 +12,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: charts-external-secrets-io
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/charts.external-secrets.io"
 ---
@@ -17,6 +21,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: charts-jetstack-io
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/charts.jetstack.io"
 ---
@@ -24,6 +30,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: charts-kubewarden-io
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/charts.kubewarden.io"
 ---
@@ -31,6 +39,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: charts-loft-sh
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/charts.loft.sh"
 ---
@@ -38,6 +48,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: grafana-github-io-helm-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/grafana.github.io_helm-charts"
 ---
@@ -45,6 +57,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: hwameistor-io-hwameistor-operator
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/hwameistor.io_hwameistor-operator"
 ---
@@ -52,6 +66,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: jaegertracing-github-io-helm-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/jaegertracing.github.io_helm-charts"
 ---
@@ -59,6 +75,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: pkgs-tailscale-com-helmcharts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/pkgs.tailscale.com_helmcharts"
 ---
@@ -66,6 +84,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: prometheus-community-github-io-helm-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/prometheus-community.github.io_helm-charts"
 ---
@@ -73,6 +93,8 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: stakater-github-io-stakater-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/stakater.github.io_stakater-charts"
 ---
@@ -80,5 +102,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kubearmor-github-io-charts
+  labels:
+    override-target-namespace: 'true'
 spec:
   path: "./flux/repos/kubearmor.github.io_charts"

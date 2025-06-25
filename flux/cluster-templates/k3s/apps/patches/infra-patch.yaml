@@ -1,6 +1,3 @@
-- op: replace
-  path: /spec/targetNamespace
-  value: flux-apps
 - op: add
   path: /spec/patches
   value:
