@@ -55,15 +55,16 @@ spec:
       secret:
         replicas:
           - path: /pocket-id
-            region: TODO
-            bucket: TODO
-            endpoint: TODO
+            region: auto
+            bucket: backups
+            endpoint: 556bb9fcc3f4395cafc528bad941b0b3.r2.cloudflarestorage.com
+            forcePathStyle: true
   valuesFrom:
-  - kind: Secret
-    name: pocket-id-backup
-    valuesKey: access-key
-    targetPath: backup.secret.accessKey
-  - kind: Secret
-    name: pocket-id-backup
-    valuesKey: secret-key
-    targetPath: backup.secret.secretKey
+    - kind: Secret
+      name: pocket-id-backup
+      valuesKey: access-key
+      targetPath: backup.secret.accessKey
+    - kind: Secret
+      name: pocket-id-backup
+      valuesKey: secret-key
+      targetPath: backup.secret.secretKey
