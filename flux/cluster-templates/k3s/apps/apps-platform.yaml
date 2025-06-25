@@ -140,7 +140,7 @@ kind: Kustomization
 metadata:
   name: kured-dependencies
   labels:
-    override-target-namespace: 'false'
+    override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/kured/dependencies"
 ---
