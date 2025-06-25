@@ -11,13 +11,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubelet-device-plugins
+  name: system-upgrade-controller
 spec:
   interval: 30m
-  targetNamespace: kubelet-device-plugins-system
+  targetNamespace: system-upgrade-controller-system
   sourceRef:
     kind: GitRepository
-    name: kubelet-device-plugins
+    name: system-upgrade-controller
   path: "."
   prune: true
   timeout: 10m
