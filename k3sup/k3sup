@@ -42,7 +42,7 @@ function install_k3s() {
     --ip="${MACHINE_IP}" \
     --user="${REMOTE_USER}" \
     --ssh-key="${SSH_KEY}" \
-    --k3s-extra-args='--disable=servicelb' \
+    --k3s-extra-args='--disable=traefik' \
     --local-path=./k3sup.conf
 
   echo "[*] Waiting for k3s to become ready..."
