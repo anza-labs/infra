@@ -9,5 +9,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: apps
-    namespace: infra
+    namespace: flux-apps
   timeout: 10m

@@ -12,4 +12,4 @@
   value:
     kind: GitRepository
     name: apps
-    namespace: 'infra'
+    namespace: flux-apps

@@ -1,13 +1,13 @@
 - op: replace
   path: /spec/targetNamespace
-  value: infra
+  value: flux-apps
 - op: add
   path: /spec/patches
   value:
     - patch: |
         - op: replace
           path: /spec/sourceRef/namespace
-          value: infra
+          value: flux-apps
       target:
         group: helm.toolkit.fluxcd.io
         version: v1
@@ -15,7 +15,7 @@
     - patch: |
         - op: replace
           path: /spec/chart/spec/sourceRef/namespace
-          value: infra
+          value: flux-apps
       target:
         group: helm.toolkit.fluxcd.io
         version: v2
@@ -24,7 +24,7 @@
     - patch: |
         - op: replace
           path: /spec/chartRef/namespace
-          value: 'infra'
+          value: flux-apps
       target:
         group: helm.toolkit.fluxcd.io
         version: v2
