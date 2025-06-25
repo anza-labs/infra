@@ -1,0 +1,79 @@
+---
+- name: Prepare NVMe drive, mount directories, and disable snapd
+  hosts: all
+  become: true
+  vars:
+    nvme_device: /dev/nvme0n1
+    mount_root: /mnt/nvme
+    mount_points:
+      - { path: /opt, subdir: opt }
+      - { path: /var/log, subdir: var_log }
+      - { path: /var/lib, subdir: var_lib }
+
+  tasks:
+
+    - name: Install required packages
+      package:
+        name: e2fsprogs
+        state: present
+
+    - name: Create filesystem if not already present
+      filesystem:
+        fstype: ext4
+        dev: "{{ nvme_device }}"
+      ignore_errors: true
+
+    - name: Create mount root directory
+      file:
+        path: "{{ mount_root }}"
+        state: directory
+
+    - name: Mount device to temporary root mount
+      mount:
+        path: "{{ mount_root }}"
+        src: "{{ nvme_device }}"
+        fstype: ext4
+        state: mounted
+
+    - name: Create subdirectories for bind mounts
+      file:
+        path: "{{ mount_root }}/{{ item.subdir }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ mount_points }}"
+
+    - name: Bind-mount subdirectories to final mount points
+      mount:
+        path: "{{ item.path }}"
+        src: "{{ mount_root }}/{{ item.subdir }}"
+        fstype: none
+        opts: bind
+        state: mounted
+      loop: "{{ mount_points }}"
+
+    - name: Persist bind mounts in /etc/fstab
+      mount:
+        path: "{{ item.path }}"
+        src: "{{ mount_root }}/{{ item.subdir }}"
+        fstype: none
+        opts: bind
+        state: present
+      loop: "{{ mount_points }}"
+
+    - name: Disable snapd services
+      systemd:
+        name: "{{ item }}"
+        enabled: false
+        state: stopped
+        masked: yes
+      loop:
+        - snapd
+        - snapd.socket
+        - snapd.seeded.service
+      ignore_errors: true
+
+    - name: Remove snapd package
+      apt:
+        name: snapd
+        state: absent
+      when: ansible_facts['os_family'] == 'Debian'
