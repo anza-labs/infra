@@ -1,0 +1,11 @@
+- op: add
+  path: /spec/patches/0
+  value:
+    patch: |
+      - op: add
+        path: /spec/values/persistence/data/storageClass
+        value: "todo"
+    target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease

@@ -882,6 +882,14 @@ spec:
   interval: 30m
   patches:
   - patch: |
+      - op: add
+        path: /spec/values/persistence/data/storageClass
+        value: "todo"
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
+  - patch: |
       - op: replace
         path: /spec/sourceRef/namespace
         value: flux-apps
@@ -974,6 +982,14 @@ spec:
   - name: cert-manager-app
   interval: 30m
   patches:
+  - patch: |
+      - op: add
+        path: /spec/values/persistence/data/storageClass
+        value: "todo"
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      version: v2
   - patch: |
       - op: replace
         path: /spec/sourceRef/namespace

@@ -8,15 +8,3 @@ patches:
     group: notification.toolkit.fluxcd.io
     version: v1beta3
     kind: Alert
-- path: ./patches/pocket-id-patch.yaml
-  target:
-    group: helm.toolkit.fluxcd.io
-    version: v2
-    kind: HelmRelease
-    name: pocket-id-app
-- path: ./patches/omada-controller-patch.yaml
-  target:
-    group: helm.toolkit.fluxcd.io
-    version: v2
-    kind: HelmRelease
-    name: omada-controller-app
