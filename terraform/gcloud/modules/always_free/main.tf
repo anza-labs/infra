@@ -1,6 +1,6 @@
 resource "tailscale_tailnet_key" "tailscale_key" {
   description         = "GCloud Always-Free VM key"
-  expiry              = 3600
+  expiry              = 7776000 // 90d
   ephemeral           = true
   reusable            = true
   preauthorized       = true
@@ -10,9 +10,10 @@ resource "tailscale_tailnet_key" "tailscale_key" {
 
 resource "null_resource" "triggers" {
   triggers = {
-    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
-    tailsacle_version_hash = sha256("${var.tailscale_version}"),
     discord_webhook_hash   = sha256("${var.discord_webhook}"),
+    tailscale_key_hash     = sha256("${tailscale_tailnet_key.tailscale_key.key}")
+    tailsacle_version_hash = sha256("${var.tailscale_version}"),
+    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
   }
 }
 
