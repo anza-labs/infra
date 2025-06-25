@@ -22,7 +22,10 @@ spec:
   concurrency: 1
   nodeSelector:
     matchExpressions:
-      - {key: plan.upgrade.cattle.io/bionic, operator: Exists}
+      - key: kubernetes.io/os
+        operator: In
+        values:
+          - linux
   serviceAccountName: system-upgrade
   secrets:
     - name: hwameistor-dependencies
