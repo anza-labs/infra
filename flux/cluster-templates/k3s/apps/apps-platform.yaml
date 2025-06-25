@@ -134,3 +134,24 @@ spec:
   path: "./flux/apps/platform/hwameistor/app"
   dependsOn:
   - name: hwameistor-dependencies
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kured-dependencies
+  labels:
+    override-target-namespace: 'false'
+spec:
+  path: "./flux/apps/platform/kured/dependencies"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kured-app
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/apps/platform/kured/app"
+  dependsOn:
+  - name: kured-dependencies
+
