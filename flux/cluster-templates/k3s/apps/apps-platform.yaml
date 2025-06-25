@@ -96,17 +96,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-dns-dependencies
+  name: system-upgrade-controller-app
 spec:
-  path: "./flux/apps/platform/external-dns/dependencies"
-  dependsOn:
-  - name: external-secrets-bitwarden
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: external-dns-app
-spec:
-  path: "./flux/apps/platform/external-dns/app"
-  dependsOn:
-  - name: external-dns-dependencies
+  path: "./flux/apps/platform/system-upgrade-controller/app"

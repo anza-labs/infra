@@ -39,18 +39,17 @@ spec:
   values:
     ingress:
       enabled: true
-      className: TODO
-      host: auth.anza-labs.dev
+      className: tailscale
+      host: pocket-id
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       tls:
         - secretName: pocket-id-tls
           hosts:
-            - auth.eu-1.anza-labs.dev
+            - pocket-id
     persistence:
       data:
         enabled: true
-        storageClass: TODO
     backup:
       enabled: true
       secret:

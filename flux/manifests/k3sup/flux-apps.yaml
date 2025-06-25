@@ -310,96 +310,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-dns-app
-  namespace: flux-apps
-spec:
-  dependsOn:
-  - name: external-dns-dependencies
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=helm
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/chartRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=oci
-      version: v2
-  path: ./flux/apps/platform/external-dns/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: flux-apps
-  targetNamespace: flux-apps
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: external-dns-dependencies
-  namespace: flux-apps
-spec:
-  dependsOn:
-  - name: external-secrets-bitwarden
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=helm
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/chartRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=oci
-      version: v2
-  path: ./flux/apps/platform/external-dns/dependencies
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: flux-apps
-  targetNamespace: flux-apps
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: external-secrets-app
   namespace: flux-apps
 spec:
@@ -523,6 +433,49 @@ spec:
       labelSelector: source=oci
       version: v2
   path: ./flux/repos/grafana.github.io_helm-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: hwameistor-io-hwameistor-operator
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/repos/hwameistor.io_hwameistor-operator
   prune: true
   sourceRef:
     kind: GitRepository
@@ -751,49 +704,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubernetes-sigs-github-io-external-dns
-  namespace: flux-apps
-spec:
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=helm
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/chartRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=oci
-      version: v2
-  path: ./flux/repos/kubernetes-sigs.github.io_external-dns
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: flux-apps
-  targetNamespace: flux-apps
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: kubewarden-app
   namespace: flux-apps
 spec:
@@ -974,7 +884,6 @@ spec:
   dependsOn:
   - name: pocket-id-dependencies
   - name: cert-manager-app
-  - name: external-dns-app
   interval: 30m
   patches:
   - patch: |
@@ -1178,6 +1087,49 @@ spec:
       labelSelector: source=oci
       version: v2
   path: ./flux/repos/stakater.github.io_stakater-charts
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-upgrade-controller-app
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/apps/platform/system-upgrade-controller/app
   prune: true
   sourceRef:
     kind: GitRepository

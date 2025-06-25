@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/values/persistence/data/storageClass
+  value: "todo"

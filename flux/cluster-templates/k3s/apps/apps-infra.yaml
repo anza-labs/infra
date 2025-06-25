@@ -24,7 +24,6 @@ spec:
   dependsOn:
   - name: pocket-id-dependencies
   - name: cert-manager-app
-  - name: external-dns-app
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
