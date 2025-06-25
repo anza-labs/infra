@@ -14,7 +14,7 @@ metadata:
   name: system-upgrade-controller
 spec:
   interval: 30m
-  targetNamespace: system-upgrade-controller-system
+  targetNamespace: system-upgrade
   sourceRef:
     kind: GitRepository
     name: system-upgrade-controller

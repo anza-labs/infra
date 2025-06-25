@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hwameistor-dependencies
+type: Opaque
+stringData:
+  ubuntu.sh: |
+    #!/bin/sh
+    set -e
+    apt-get --assume-yes update
+    apt-get --assume-yes install \
+      lvm2 \
+      linux-headers-$(uname -r) \
+      xfsprogs
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: hwameistor-dependencies-ubuntu
+spec:
+  concurrency: 1
+  nodeSelector:
+    matchExpressions:
+      - {key: plan.upgrade.cattle.io/bionic, operator: Exists}
+  serviceAccountName: system-upgrade
+  secrets:
+    - name: hwameistor-dependencies
+      path: /host/run/system-upgrade/secrets/hwameistor-dependencies
+  version: '24.04'
+  upgrade:
+    image: ubuntu
+    command: ["chroot", "/host"]
+    args: ["sh", "/run/system-upgrade/secrets/hwameistor-dependencies/ubuntu.sh"]

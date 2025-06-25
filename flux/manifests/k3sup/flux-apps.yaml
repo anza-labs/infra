@@ -444,6 +444,96 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: hwameistor-app
+  namespace: flux-apps
+spec:
+  dependsOn:
+  - name: hwameistor-dependencies
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/apps/platform/hwameistor/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: hwameistor-dependencies
+  namespace: flux-apps
+spec:
+  dependsOn:
+  - name: system-upgrade-controller-app
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/apps/platform/hwameistor/dependencies
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: hwameistor-io-hwameistor-operator
   namespace: flux-apps
 spec:
