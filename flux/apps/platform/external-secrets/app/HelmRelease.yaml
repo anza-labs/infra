@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: charts-external-secrets-io
         namespace: placeholder
-      version: "0.18.0"
+      version: "0.18.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: external-secrets
