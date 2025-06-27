@@ -66,6 +66,4 @@ spec:
                   storage: 100Gi
   valuesFrom:
     - kind: Secret
-      name: grafana-ini
-      valuesKey: "grafana.ini"
-      targetPath: grafana
+      name: grafana-values
