@@ -458,7 +458,7 @@ spec:
       kind: HelmRelease
       labelSelector: source=oci
       version: v2
-  path: ./flux/apps/infra/kube-prometheus-stack/app
+  path: ./flux/apps/observability/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository

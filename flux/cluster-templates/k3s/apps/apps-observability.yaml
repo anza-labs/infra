@@ -6,6 +6,6 @@ metadata:
   labels:
     override-target-namespace: 'true'
 spec:
-  path: "./flux/apps/infra/kube-prometheus-stack/app"
+  path: "./flux/apps/observability/kube-prometheus-stack/app"
   dependsOn:
   - name: tailscale-app
