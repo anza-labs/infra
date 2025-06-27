@@ -44,7 +44,9 @@ spec:
         forceConflicts: true
     grafana:
       "grafana.ini":
-        server: https://grafana.tail4d421.ts.net
+        server:
+          domain: grafana.tail4d421.ts.net
+          root_url: https://grafana.tail4d421.ts.net
         "auth.generic_oauth":
           enabled: true
           name: Pocket ID
