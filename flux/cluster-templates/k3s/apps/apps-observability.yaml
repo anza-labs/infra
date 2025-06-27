@@ -19,4 +19,5 @@ metadata:
 spec:
   path: "./flux/apps/observability/kube-prometheus-stack/app"
   dependsOn:
+  - name: kube-prometheus-stack-dependencies
   - name: tailscale-app
