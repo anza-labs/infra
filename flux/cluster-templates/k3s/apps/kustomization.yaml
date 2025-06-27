@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: flux-apps
 resources:
 - ./apps-infra.yaml
+- ./apps-observability.yaml
 - ./apps-platform.yaml
 - ./repos.yaml
 - ./ns.yaml
@@ -29,3 +30,9 @@ patches:
     version: v1
     kind: Kustomization
     name: pocket-id-app
+- path: ./patches/kube-prometheus-stack-patch.yaml
+  target:
+    group: kustomize.toolkit.fluxcd.io
+    version: v1
+    kind: Kustomization
+    name: kube-prometheus-stack-app

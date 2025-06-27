@@ -29,4 +29,4 @@ spec:
   path: "./flux/apps/infra/pocket-id/app"
   dependsOn:
   - name: pocket-id-dependencies
-  - name: cert-manager-app
+  - name: tailscale-app
