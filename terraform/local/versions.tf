@@ -9,7 +9,7 @@ terraform {
 
     flux = {
       source  = "fluxcd/flux"
-      version = "1.6.2"
+      version = "1.6.3"
     }
 
     kind = {
