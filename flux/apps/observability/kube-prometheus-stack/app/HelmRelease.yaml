@@ -55,7 +55,8 @@ spec:
           api_url: ""
           allow_sign_up: false
           auto_login: false
-          email_attribute_name: 'email'
+          scopes: openid profile email
+          email_attribute_name: 'email:primary'
           skip_org_role_sync: true
       ingress:
         enabled: true
