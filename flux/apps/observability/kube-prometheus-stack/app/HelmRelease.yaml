@@ -45,11 +45,12 @@ spec:
     grafana:
       ingress:
         enabled: true
+        ingressClassName: tailscale
         hosts:
-          - prometheus
+          - grafana
         tls:
           - hosts:
-              - prometheus
+              - grafana
     kubeEtcd:
       enabled: false
     prometheus:
