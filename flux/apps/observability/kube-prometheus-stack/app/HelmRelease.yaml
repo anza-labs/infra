@@ -51,7 +51,7 @@ spec:
           enabled: true
           name: Pocket ID
           auth_url: https://pocket-id.tail4d421.ts.net/authorize
-          token_url: https://pocket-id.tail4d421.ts.net/api/oidc/token
+          token_url: https://pocket-id/api/oidc/token
           api_url: ""
           allow_sign_up: false
           auto_login: false

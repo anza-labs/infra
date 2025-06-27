@@ -21,3 +21,15 @@ spec:
   dependsOn:
   - name: kube-prometheus-stack-dependencies
   - name: tailscale-app
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-prometheus-stack-oauth-egress
+  labels:
+    override-target-namespace: 'false'
+spec:
+  path: "./flux/apps/observability/kube-prometheus-stack/oauth-egress"
+  dependsOn:
+  - name: kube-prometheus-stack-app
+  - name: tailscale-app
