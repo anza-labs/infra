@@ -43,7 +43,7 @@ spec:
       className: tailscale
       host: pocket-id
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
+        tailscale.com/funnel: "true"
       tls:
         - hosts:
             - pocket-id

@@ -519,53 +519,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   labels:
-    override-target-namespace: "false"
-  name: kube-prometheus-stack-oauth-egress
-  namespace: flux-apps
-spec:
-  dependsOn:
-  - name: kube-prometheus-stack-app
-  - name: tailscale-app
-  interval: 30m
-  patches:
-  - patch: |
-      - op: replace
-        path: /spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: Kustomization
-      version: v1
-  - patch: |
-      - op: replace
-        path: /spec/chart/spec/sourceRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=helm
-      version: v2
-  - patch: |
-      - op: replace
-        path: /spec/chartRef/namespace
-        value: flux-apps
-    target:
-      group: helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      labelSelector: source=oci
-      version: v2
-  path: ./flux/apps/observability/kube-prometheus-stack/oauth-egress
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: apps
-    namespace: flux-apps
-  timeout: 10m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  labels:
     override-target-namespace: "true"
   name: kubearmor-github-io-charts
   namespace: flux-apps
