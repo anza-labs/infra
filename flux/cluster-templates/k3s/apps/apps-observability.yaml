@@ -2,6 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: kube-prometheus-stack-dependencies
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/apps/observability/kube-prometheus-stack/dependencies"
+  dependsOn:
+  - name: external-secrets-bitwarden
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: kube-prometheus-stack-app
   labels:
     override-target-namespace: 'true'
