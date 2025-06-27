@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kube-kube-prometheus-stack-stack-app
+  name: kube-prometheus-stack-app
   labels:
     source: helm
 spec:
@@ -12,7 +12,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: kube-prometheus-stack-community-github-io-helm-charts
+        name: prometheus-community-github-io-helm-charts
         namespace: placeholder
       version: "75.6.0"
   interval: 30m0s
