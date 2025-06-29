@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: kubereboot-github-io-charts
         namespace: placeholder
-      version: "5.6.1"
+      version: "5.6.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: kured
