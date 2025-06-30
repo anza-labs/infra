@@ -1,0 +1,25 @@
+---
+- name: Install Cockpit and modules from Ubuntu backports
+  hosts: webmanaged
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Get Ubuntu codename
+      ansible.builtin.command: lsb_release -cs
+      register: ubuntu_codename
+      changed_when: false
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install cockpit and related packages from backports
+      ansible.builtin.apt:
+        name:
+          - cockpit
+          - cockpit-machines
+          - cockpit-packagekit
+          - cockpit-podman
+        default_release: "{{ ubuntu_codename.stdout }}-backports"
+        state: present
