@@ -23,3 +23,10 @@
           - cockpit-podman
         default_release: "{{ ubuntu_codename.stdout }}-backports"
         state: present
+
+    - name: Install monitoring tools
+      ansible.builtin.apt:
+        name:
+          - prometheus-node-exporter
+          - prometheus-node-exporter-collectors
+        state: present
