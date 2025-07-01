@@ -65,9 +65,67 @@
         default_release: "{{ ubuntu_codename.stdout }}-backports"
         state: present
 
+    - name: Install core packages
+      ansible.builtin.apt:
+        name:
+          - git
+          - stow
+          - unzip
+          - zsh
+        state: present
+
     - name: Install monitoring tools
       ansible.builtin.apt:
         name:
           - prometheus-node-exporter
           - prometheus-node-exporter-collectors
         state: present
+
+- name: Prepare user env
+  hosts: builders
+  become: false
+  gather_facts: true
+
+  tasks:
+    - name: Configure global git
+      ansible.builtin.shell:
+        cmd: git config --global --add safe.directory '*'
+
+    - name: Install posh
+      ansible.builtin.shell:
+        cmd: curl -s https://ohmyposh.dev/install.sh | bash -s
+        chdir: "/home/{{ ansible_user }}"
+
+
+    - name: Install ohmyzsh
+      ansible.builtin.git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: "/home/{{ ansible_user }}/.ohmyzsh"
+        force: true
+
+    - name: Clone dotfiles
+      ansible.builtin.git:
+        repo: https://github.com/{{ ansible_user }}/dotfiles.git
+        dest: "/home/{{ ansible_user }}/dotfiles"
+        force: true
+
+    - name: Remove .zshrc directory
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user }}/.zshrc"
+        state: absent
+
+    - name: Install dotfiles
+      ansible.builtin.shell:
+        cmd: stow .
+        chdir: "/home/{{ ansible_user }}/dotfiles"
+
+- name: Set shell for user
+  hosts: builders
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Set default shell to zsh
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: /usr/bin/zsh
