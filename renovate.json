@@ -31,15 +31,10 @@
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+\\s+=\\s\"(?<currentValue>\\S+)\""
-      ],
-      "datasourceTemplate": "docker"
+      ]
     },
     {
       "customType": "regex",
-      "labels": [
-        "area/dependency",
-        "do-not-merge"
-      ],
       "managerFilePatterns": [
         "/requirements.yaml$/"
       ],
