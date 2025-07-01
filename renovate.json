@@ -39,7 +39,7 @@
         "/builder.yaml$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)?( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+:\\s\"(?<currentValue>\\S+)\"(\\s+[A-Za-z0-9_]+:\\s\"(?<currentDigest>\\S+)\")?"
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)?( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+:\\s\"(?<currentValue>\\S+)\""
       ]
     }
   ]

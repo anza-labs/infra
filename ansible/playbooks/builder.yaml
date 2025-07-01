@@ -7,7 +7,40 @@
   vars:
     # renovate: datasource=golang-version depName=golang
     go_version: "1.24.4"
-    go_checksum: "77e5da33bb72aeaef1ba4418b6fe511bc4d041873cbf82e5aa6318740df98717"
+    go_base_url: "https://go.dev/dl"
+
+  pre_tasks:
+    - name: Set Go OS and ARCH
+      ansible.builtin.set_fact:
+        go_os: "{{ ansible_system | lower }}"
+        go_arch: |-
+          {% if ansible_architecture in ['x86_64', 'amd64'] %}amd64{% elif ansible_architecture in ['aarch64', 'arm64'] %}arm64{% endif %}
+
+    - name: Set Go filename
+      ansible.builtin.set_fact:
+        go_filename: "go{{ go_version }}.{{ go_os }}-{{ go_arch }}.tar.gz"
+
+    - name: Fetch Go release data
+      ansible.builtin.uri:
+        url: "https://go.dev/dl/?mode=json&include={{ go_version }}"
+        return_content: true
+      register: go_dl_json
+
+    - name: Extract matching release info
+      set_fact:
+        go_release: "{{ go_dl_json.json | selectattr('version', 'equalto', 'go' + go_version) | list | first }}"
+
+    - name: Extract matching file entry
+      set_fact:
+        go_file_entry: "{{ go_release.files | selectattr('filename', 'equalto', go_filename) | list | first }}"
+
+    - name: Extract checksum from file entry
+      ansible.builtin.set_fact:
+        go_checksum: "{{ go_file_entry.sha256 }}"
+
+    - name: Debug SHA256 content
+      ansible.builtin.debug:
+        msg: "Checksum for {{ go_filename }} is {{ go_checksum }}"
 
   roles:
     - geerlingguy.docker
