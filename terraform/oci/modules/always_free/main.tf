@@ -30,12 +30,18 @@ resource "tailscale_tailnet_key" "tailscale_key" {
   tags                = ["tag:oci", "tag:always-free"]
 }
 
+data "http" "otel_collector_config" {
+  url = var.otel_collector_config_url
+}
+
 resource "null_resource" "triggers" {
   triggers = {
-    discord_webhook_hash   = sha256("${var.discord_webhook}"),
-    tailscale_key_hash     = sha256("${tailscale_tailnet_key.tailscale_key.key}")
-    tailsacle_version_hash = sha256("${var.tailscale_version}"),
-    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
+    discord_webhook_hash        = sha256("${var.discord_webhook}"),
+    otel_collector_config_hash  = sha256("${http.otel_collector_config.response_body}"),
+    otel_collector_version_hash = sha256("${var.otel_collector_version}"),
+    tailscale_key_hash          = sha256("${tailscale_tailnet_key.tailscale_key.key}")
+    tailsacle_version_hash      = sha256("${var.tailscale_version}"),
+    user_data_hash              = sha256(file("${path.module}/templates/user_data.tftpl")),
   }
 }
 
@@ -71,10 +77,13 @@ resource "oci_core_instance" "instance" {
     user_data = base64encode(templatefile(
       "${path.module}/templates/user_data.tftpl",
       {
-        tailscale_version = var.tailscale_version,
-        hostname          = format("%s${count.index}", lower(replace(var.instance_name, "/\\s/", ""))),
-        discord_webhook   = var.discord_webhook,
-        tailscale_key     = tailscale_tailnet_key.tailscale_key.key,
+        otel_collector_version = var.otel_collector_version,
+        tailscale_version      = var.tailscale_version,
+
+        hostname              = format("%s${count.index}", lower(replace(var.instance_name, "/\\s/", ""))),
+        discord_webhook       = var.discord_webhook,
+        otel_collector_config = http.otel_collector_config.response_body,
+        tailscale_key         = tailscale_tailnet_key.tailscale_key.key,
       }
     ))
   }

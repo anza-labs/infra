@@ -7,7 +7,7 @@
   vars:
     # renovate: datasource=golang-version depName=golang
     go_version: "1.24.4"
-    go_checksum: "cb2396bae64183cdccf81a9a6df0aea3bce9511fc21469fb89a0c00470088073"
+    go_checksum: "77e5da33bb72aeaef1ba4418b6fe511bc4d041873cbf82e5aa6318740df98717"
 
   roles:
     - geerlingguy.docker

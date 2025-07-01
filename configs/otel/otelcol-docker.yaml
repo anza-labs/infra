@@ -1,0 +1,70 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+  filelog:
+    include:
+      - /var/lib/docker/containers/*/*-json.log
+    exclude_older_than: 60m
+    start_at: end
+    include_file_path: true
+    include_file_name: false
+    operators:
+      - type: container
+        format: docker
+
+  hostmetrics:
+    root_path: /hostfs
+    collection_interval: 10s
+    scrapers:
+      cpu:
+      disk:
+      filesystem:
+      load:
+      memory:
+      network:
+      paging:
+      process:
+      processes:
+
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: otel-collector
+          scrape_interval: 5s
+          static_configs:
+            - targets: ['0.0.0.0:8888']
+
+processors:
+  batch:
+
+  resourcedetection:
+    detectors: [env, system]
+    system:
+      hostname_sources: [os]
+    override: true
+
+exporters:
+  otlp:
+    endpoint: otlp.tail4d421.ts.net:4317
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, resourcedetection]
+      exporters: [otlp]
+    metrics:
+      receivers: [hostmetrics, prometheus]
+      processors: [batch,resourcedetection]
+      exporters: [otlp]
+    logs:
+      receivers: [filelog]
+      processors: [batch, resourcedetection]
+      exporters: [otlp]

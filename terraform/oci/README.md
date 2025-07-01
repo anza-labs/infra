@@ -1,16 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 7.5.0 |
-| <a name="requirement_tailscale"></a> [tailscale](#requirement\_tailscale) | 0.21.0 |
-
-## Providers
-
-No providers.
-
 ## Modules
 
 | Name | Source | Version |

@@ -21,10 +21,42 @@ write_files:
         --cap-add=NET_ADMIN \
         --hostname=%H \
         --env=TS_AUTHKEY=${tailscale_key} \
+        --env=TS_ENABLE_METRICS=true \
         --env=TS_STATE_DIR=/var/lib/tailscale \
         --env=TS_USERSPACE=false \
         --volume=/etc/tailscale/state:/var/lib/tailscale \
         tailscale/tailscale:${tailscale_version}
+
+      [Install]
+      WantedBy=multi-user.target
+
+  - path: /etc/otelcol/config.yaml
+    permissions: 0644
+    owner: root
+    content: |
+      {otel_collector_config}
+
+  - path: /etc/systemd/system/otel-collector.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Run Prometheus Node Exporter in Docker
+      After=docker.service
+      Requires=docker.service
+
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStart=/usr/bin/docker run --name=%n \
+        --hostname=%H \
+        --volume=/:/hostfs:ro,rslave \
+        --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
+        otel/otel-collector-k8s:${node_exporter_version} \
+          --config=/etc/otelcol/config.yaml
 
       [Install]
       WantedBy=multi-user.target
@@ -38,6 +70,7 @@ write_files:
 
       # Define services list here
       SERVICES=(
+        otel-collector.service
         tailscale.service
       )
 

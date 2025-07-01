@@ -1,15 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
-| <a name="provider_tailscale"></a> [tailscale](#provider\_tailscale) | n/a |
-
 ## Modules
 
 No modules.
@@ -18,8 +7,10 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [null_resource.triggers](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [oci_core_instance.instance](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/core_instance) | resource |
 | [tailscale_tailnet_key.tailscale_key](https://registry.terraform.io/providers/tailscale/tailscale/latest/docs/resources/tailnet_key) | resource |
+| [http_http.otel_collector_config](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 | [oci_core_images.instance_images](https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/core_images) | data source |
 | [oci_identity_availability_domain.ad](https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/identity_availability_domain) | data source |
 
@@ -32,6 +23,8 @@ No modules.
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | Name of the instance. | `string` | n/a | yes |
 | <a name="input_instance_shape"></a> [instance\_shape](#input\_instance\_shape) | Type of an instance | `string` | `"VM.Standard.E2.1.Micro"` | no |
 | <a name="input_instance_source_type"></a> [instance\_source\_type](#input\_instance\_source\_type) | The source type for the instance. | `string` | `"image"` | no |
+| <a name="input_otel_collector_config_url"></a> [otel\_collector\_config\_url](#input\_otel\_collector\_config\_url) | OTel Collector config URL | `string` | n/a | yes |
+| <a name="input_otel_collector_version"></a> [otel\_collector\_version](#input\_otel\_collector\_version) | OTel Collector Version | `string` | `"0.128.0"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The oci region where resources will be created. | `string` | `"eu-frankfurt-1"` | no |
 | <a name="input_source_id"></a> [source\_id](#input\_source\_id) | The source ID of the instance. | `string` | `null` | no |
 | <a name="input_ssh_public_keys"></a> [ssh\_public\_keys](#input\_ssh\_public\_keys) | Public SSH keys to be included in the ~/.ssh/authorized\_keys file for the default user on the instance. | `string` | n/a | yes |
@@ -39,6 +32,7 @@ No modules.
 | <a name="input_tailscale_oauth_client_id"></a> [tailscale\_oauth\_client\_id](#input\_tailscale\_oauth\_client\_id) | OAuth Client ID for Tailscale. | `string` | n/a | yes |
 | <a name="input_tailscale_oauth_secret"></a> [tailscale\_oauth\_secret](#input\_tailscale\_oauth\_secret) | OAuth Secret for Tailscale. | `string` | n/a | yes |
 | <a name="input_tailscale_tailnet"></a> [tailscale\_tailnet](#input\_tailscale\_tailnet) | Tailscale Tailnet name. | `string` | n/a | yes |
+| <a name="input_tailscale_version"></a> [tailscale\_version](#input\_tailscale\_version) | Tailscale Version | `string` | `"v1.84.3"` | no |
 | <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid) | Tenancy ocid where to create the sources. | `string` | n/a | yes |
 
 ## Outputs

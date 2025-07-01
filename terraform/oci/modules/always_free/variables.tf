@@ -80,3 +80,16 @@ variable "tailscale_version" {
   # renovate: datasource=docker depName=tailscale/tailscale
   default = "v1.84.3"
 }
+
+variable "otel_collector_config_url" {
+  type        = string
+  description = "OTel Collector config URL"
+}
+
+variable "otel_collector_version" {
+  type        = string
+  description = "OTel Collector Version"
+
+  # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
+  default = "0.128.0"
+}

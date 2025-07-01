@@ -7,8 +7,9 @@ provider "google" {
 module "gcloud_vm" {
   source = "./modules/always_free"
 
-  instance_name  = "micro"
-  instance_shape = "e2-micro"
+  instance_name             = "micro"
+  instance_shape            = "e2-micro"
+  otel_collector_config_url = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/otel/otelcol-docker.yaml"
 
   region                    = var.region
   discord_webhook           = var.discord_webhook

@@ -8,15 +8,20 @@ resource "tailscale_tailnet_key" "tailscale_key" {
   tags                = ["tag:gcloud", "tag:always-free"]
 }
 
-resource "null_resource" "triggers" {
-  triggers = {
-    discord_webhook_hash   = sha256("${var.discord_webhook}"),
-    tailscale_key_hash     = sha256("${tailscale_tailnet_key.tailscale_key.key}")
-    tailsacle_version_hash = sha256("${var.tailscale_version}"),
-    user_data_hash         = sha256(file("${path.module}/templates/user_data.tftpl")),
-  }
+data "http" "otel_collector_config" {
+  url = var.otel_collector_config_url
 }
 
+resource "null_resource" "triggers" {
+  triggers = {
+    discord_webhook_hash        = sha256("${var.discord_webhook}"),
+    otel_collector_config_hash  = sha256("${http.otel_collector_config.response_body}"),
+    otel_collector_version_hash = sha256("${var.otel_collector_version}"),
+    tailscale_key_hash          = sha256("${tailscale_tailnet_key.tailscale_key.key}")
+    tailsacle_version_hash      = sha256("${var.tailscale_version}"),
+    user_data_hash              = sha256(file("${path.module}/templates/user_data.tftpl")),
+  }
+}
 
 resource "google_compute_instance" "vm_instance" {
   name         = var.instance_name
@@ -34,10 +39,13 @@ resource "google_compute_instance" "vm_instance" {
     "user-data" = templatefile(
       "${path.module}/templates/user_data.tftpl",
       {
-        tailscale_version = var.tailscale_version,
-        hostname          = var.instance_name,
-        discord_webhook   = var.discord_webhook,
-        tailscale_key     = tailscale_tailnet_key.tailscale_key.key,
+        otel_collector_version = var.otel_collector_version,
+        tailscale_version      = var.tailscale_version,
+
+        hostname              = var.instance_name,
+        discord_webhook       = var.discord_webhook,
+        otel_collector_config = http.otel_collector_config.response_body,
+        tailscale_key         = tailscale_tailnet_key.tailscale_key.key,
       }
     ),
     "ssh-keys" = "shared:${var.ssh_public_keys}",
