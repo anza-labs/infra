@@ -81,6 +81,46 @@
           - prometheus-node-exporter-collectors
         state: present
 
+- name: Install GitHub CLI
+  hosts: builders
+  become: true
+  tasks:
+    - name: Ensure wget is installed
+      ansible.builtin.apt:
+        name: wget
+        state: present
+        update_cache: yes
+
+    - name: Ensure /etc/apt/keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download GitHub CLI GPG key
+      ansible.builtin.get_url:
+        url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+        dest: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+        mode: '0644'
+
+    - name: Ensure /etc/apt/sources.list.d directory exists
+      ansible.builtin.file:
+        path: /etc/apt/sources.list.d
+        state: directory
+        mode: '0755'
+
+    - name: Add GitHub CLI APT repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch={{ ansible_architecture | lower }} signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+        filename: github-cli
+        state: present
+        update_cache: yes
+
+    - name: Install gh (GitHub CLI)
+      ansible.builtin.apt:
+        name: gh
+        state: present
+
 - name: Prepare user env
   hosts: builders
   become: false
