@@ -68,7 +68,11 @@
     - name: Install core packages
       ansible.builtin.apt:
         name:
+          - bsdtar
           - git
+          - libarchive-tools
+          - make
+          - socat
           - stow
           - unzip
           - zsh
@@ -135,7 +139,6 @@
       ansible.builtin.shell:
         cmd: curl -s https://ohmyposh.dev/install.sh | bash -s
         chdir: "/home/{{ ansible_user }}"
-
 
     - name: Install ohmyzsh
       ansible.builtin.git:
