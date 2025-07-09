@@ -5,7 +5,7 @@ set -e
 export GIT_SHA="$(git rev-parse HEAD)"
 
 declare -A clusters
-clusters[k3sup]="k3s"
+clusters[homelab]="talos"
 
 for CLUSTER in "${!clusters[@]}"; do
   export CLUSTER

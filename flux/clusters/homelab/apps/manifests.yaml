@@ -4,7 +4,7 @@ metadata:
   name: manifests
 spec:
   interval: 30m
-  path: ./flux/manifests/k3sup
+  path: ./flux/manifests/homelab
   prune: true
   sourceRef:
     kind: GitRepository

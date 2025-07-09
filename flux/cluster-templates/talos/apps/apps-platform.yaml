@@ -90,35 +90,3 @@ metadata:
     override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/reloader/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: system-upgrade-controller-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/system-upgrade-controller/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kured-dependencies
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/kured/dependencies"
-  dependsOn:
-  - name: external-secrets-bitwarden
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kured-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/kured/app"
-  dependsOn:
-  - name: kured-dependencies
-

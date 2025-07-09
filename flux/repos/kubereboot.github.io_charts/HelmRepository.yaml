@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: kubereboot-github-io-charts
-  namespace: placeholder
-spec:
-  interval: 5m0s
-  url: https://kubereboot.github.io/charts
