@@ -15,6 +15,11 @@
     <td align="center" colspan="2"><a href="http://ubuntu.com" target="_blank"><img src="./resources/ubuntu.png" height="32px"><br>Ubuntu</a></td>
     <td align="center" colspan="2"><a href="https://cloud.google.com/container-optimized-os/docs" target="_blank"><img src="./resources/google-cos.png" height="32px"><br>Google COS</a></td>
   </tr>
+</table>
+
+# Core Tools
+
+<table align="center">
   <tr>
     <td align="center"><a href="http://fluxcd.io" target="_blank"><img src="./resources/flux.png" height="32px"><br>FluxCD</a></td>
     <td align="center"><a href="http://prometheus.io" target="_blank"><img src="./resources/prometheus.png" height="32px"><br>Prometheus</a></td>
