@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td align="center"><a href="http://opentelemetry.io" target="_blank"><img src="./resources/opentelemetry.png" height="32px"><br>OTel</a></td>
-    <td align="center" colspan="4" rowspan="3"><a href="https://kubernetes.io"><img src="./resources/kubernetes.png" alt="Kubernetes" width="128px"/><br>Kubernetes</a></td>
+    <td align="center" colspan="5" rowspan="3"><a href="https://kubernetes.io"><img src="./resources/kubernetes.png" alt="Kubernetes" width="128px"/><br>Kubernetes</a></td>
     <td align="center"><a href="http://opentofu.org" target="_blank"><img src="./resources/opentofu.png" height="32px"><br>OpenTofu</a></td>
     <td align="center"><a href="https://cloud-init.io" target="_blank"><img src="./resources/cloud-init.png" height="32px"><br>Cloud-Init</a></td>
     <td align="center"><a href="https://www.mend.io/renovate/" target="_blank"><img src="./resources/renovate.png" height="32px"><br>Renovate</a></td>
@@ -19,10 +19,12 @@
     <td align="center"><a href="https://www.talos.dev" target="_blank"><img src="./resources/talos.png" height="32px"><br>Talos Linux</a></td>
     <td align="center"><a href="http://ubuntu.com" target="_blank"><img src="./resources/ubuntu.png" height="32px"><br>Ubuntu</a></td>
     <td align="center"><a href="https://cloud.google.com/container-optimized-os/docs" target="_blank"><img src="./resources/google-cos.png" height="32px"><br>Google COS</a></td>
+    <td></td>
   </tr>
   <tr>
     <td align="center"><a href="http://perses.dev" target="_blank"><img src="./resources/perses.png" height="32px"><br>Perses</a></td>
     <td align="center"><a href="http://fluxcd.io" target="_blank"><img src="./resources/flux.png" height="32px"><br>FluxCD</a></td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
