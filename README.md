@@ -25,7 +25,6 @@
     <td align="center"><a href="http://fluxcd.io" target="_blank"><img src="./resources/flux.png" height="32px"><br>FluxCD</a></td>
     <td></td>
     <td></td>
-    <td></td>
   </tr>
 </table>
 
