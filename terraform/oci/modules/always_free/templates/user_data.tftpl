@@ -57,7 +57,7 @@ write_files:
         --hostname=%H \
         --volume=/:/hostfs:ro,rslave \
         --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
-        otel/otel-collector-k8s:${node_exporter_version} \
+        otel/otel-collector-k8s:${otel_collector_version} \
           --config=/etc/otelcol/config.yaml
 
       [Install]
