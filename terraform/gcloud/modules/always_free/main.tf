@@ -13,9 +13,13 @@ data "http" "otel_collector_config" {
 }
 
 resource "null_resource" "triggers" {
+  depends_on = [
+    data.http.otel_collector_config,
+  ]
+
   triggers = {
     discord_webhook_hash        = sha256("${var.discord_webhook}"),
-    otel_collector_config_hash  = sha256("${http.otel_collector_config.response_body}"),
+    otel_collector_config_hash  = sha256("${data.http.otel_collector_config.response_body}"),
     otel_collector_version_hash = sha256("${var.otel_collector_version}"),
     tailscale_key_hash          = sha256("${tailscale_tailnet_key.tailscale_key.key}")
     tailsacle_version_hash      = sha256("${var.tailscale_version}"),
@@ -44,7 +48,7 @@ resource "google_compute_instance" "vm_instance" {
 
         hostname              = var.instance_name,
         discord_webhook       = var.discord_webhook,
-        otel_collector_config = http.otel_collector_config.response_body,
+        otel_collector_config = data.http.otel_collector_config.response_body,
         tailscale_key         = tailscale_tailnet_key.tailscale_key.key,
       }
     ),
