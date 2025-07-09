@@ -7,8 +7,8 @@
     <td align="center" colspan="2"><a href="https://cloud.google.com" target="_blank"><img src="./resources/gcloud.png" height="32px"><br>Google Cloud</a></a></td>
   </tr>
   <tr>
-    <td align="center" colspan="3"><a href="https://kubernetes.io"><img src="./resources/kubernetes.png" alt="Kubernetes" width="128px"/><br>Kubernetes</a></td>
-    <td align="center" colspan="3"><a href="https://docker.com"><img src="./resources/docker.webp" alt="Kubernetes" width="128px"/><br>Docker</a></td>
+    <td align="center" colspan="2"><a href="https://kubernetes.io"><img src="./resources/kubernetes.png" alt="Kubernetes" width="128px"/><br>Kubernetes</a></td>
+    <td align="center" colspan="4"><a href="https://docker.com"><img src="./resources/docker.webp" alt="Kubernetes" width="128px"/><br>Docker</a></td>
   </tr>
   <tr>
     <td align="center" colspan="2"><a href="https://www.talos.dev" target="_blank"><img src="./resources/talos.png" height="32px"><br>Talos Linux</a></td>
