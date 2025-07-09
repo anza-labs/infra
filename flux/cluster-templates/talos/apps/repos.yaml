@@ -38,6 +38,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: charts-longhorn-io
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/repos/charts.longhorn.io"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: grafana-github-io-helm-charts
   labels:
     override-target-namespace: 'true'
@@ -97,3 +106,12 @@ metadata:
     override-target-namespace: 'true'
 spec:
   path: "./flux/repos/kubereboot.github.io_charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: perses-github-io-helm-charts
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/repos/perses.github.io_helm-charts"

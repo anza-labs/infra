@@ -233,6 +233,51 @@ kind: Kustomization
 metadata:
   labels:
     override-target-namespace: "true"
+  name: charts-longhorn-io
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/repos/charts.longhorn.io
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    override-target-namespace: "true"
   name: external-secrets-app
   namespace: flux-apps
 spec:
@@ -824,6 +869,51 @@ spec:
       labelSelector: source=oci
       version: v2
   path: ./flux/apps/platform/longhorn/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    override-target-namespace: "true"
+  name: perses-github-io-helm-charts
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/repos/perses.github.io_helm-charts
   prune: true
   sourceRef:
     kind: GitRepository
