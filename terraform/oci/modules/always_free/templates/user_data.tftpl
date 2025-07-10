@@ -46,6 +46,8 @@ write_files:
       Description=Run OTel Collector in Docker
       After=docker.service
       Requires=docker.service
+      After=tailscale.service
+      Requires=tailscale.service
 
       [Service]
       Restart=always
@@ -53,6 +55,14 @@ write_files:
       ExecStop=/usr/bin/docker stop %n
       ExecStopPost=/usr/bin/docker rm --force %n
       ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStartPre=/usr/bin/env sh -c '\
+        while true; do \
+          IP=$(docker exec tailscale.service tailscale ip 2>/dev/null); \
+          case "$IP" in \
+            "") echo "Waiting for tailscale to report an IP..."; sleep 1 ;; \
+            *)  echo "Tailscale IP: $IP. Waiting extra 5 seconds..."; sleep 5; break ;; \
+          esac; \
+        done'
       ExecStart=/usr/bin/docker run --name=%n \
         --network=container:tailscale.service \
         --volume=/:/hostfs:ro,rslave \
@@ -72,7 +82,6 @@ write_files:
 
       # Define services list here
       SERVICES=(
-        docker.service
         otel-collector.service
         tailscale.service
       )
@@ -93,6 +102,19 @@ write_files:
       }
 
       trap 'notify_failure' ERR
+
+      check_containers_exist() {
+        echo "[*] Checking referenced containers exist..."
+
+        for svc in "$@"; do
+          if ! docker ps -a --format '{{.Names}}' | grep -q "^${svc}$"; then
+            echo "  - Container '${svc}' not found"
+            exit 1
+          else
+            echo "  - Container '${svc}' exists"
+          fi
+        done
+      }
 
       main() {
         if [ "$#" -lt 1 ]; then
@@ -116,10 +138,12 @@ write_files:
           systemctl start "$svc"
         done
 
+        check_containers_exist "$@"
+
         echo "[*] All done."
       }
 
-      main "$${SERVICES[@]}" | tee "$LOG_FILE"
+      main "${SERVICES[@]}" | tee "$LOG_FILE"
 
       # If we reach here, everything succeeded
       notify_success
