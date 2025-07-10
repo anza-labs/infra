@@ -41,7 +41,7 @@ write_files:
     owner: root
     content: |
       [Unit]
-      Description=Run Prometheus Node Exporter in Docker
+      Description=Run OTel Collector in Docker
       After=docker.service
       Requires=docker.service
 
@@ -53,6 +53,7 @@ write_files:
       ExecStartPre=-/usr/bin/docker rm --force %n
       ExecStart=/usr/bin/docker run --name=%n \
         --hostname=%H \
+        --network=container:tailscale.service \
         --volume=/:/hostfs:ro,rslave \
         --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
         otel/opentelemetry-collector-k8s:${otel_collector_version} \
