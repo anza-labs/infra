@@ -36,7 +36,7 @@ write_files:
     permissions: 0644
     owner: root
     content: |
-      {otel_collector_config}
+      ${indent(6, otel_collector_config)}
 
   - path: /etc/systemd/system/otel-collector.service
     permissions: 0644
@@ -54,7 +54,6 @@ write_files:
       ExecStopPost=/usr/bin/docker rm --force %n
       ExecStartPre=-/usr/bin/docker rm --force %n
       ExecStart=/usr/bin/docker run --name=%n \
-        --hostname=%H \
         --network=container:tailscale.service \
         --volume=/:/hostfs:ro,rslave \
         --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
