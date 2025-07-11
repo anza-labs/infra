@@ -107,6 +107,11 @@ write_files:
         echo "[*] Checking referenced containers exist..."
 
         for svc in "$@"; do
+          if [ "$svc" = "docker.service" ]; then
+            echo "  - Skipping '$svc', not a container"
+            continue
+          fi
+
           if ! docker ps -a --format '{{.Names}}' | grep -q "^$${svc}$"; then
             echo "  - Container '$svc' not found"
             exit 1
