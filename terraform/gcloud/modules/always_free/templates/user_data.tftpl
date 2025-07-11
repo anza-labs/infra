@@ -80,8 +80,8 @@ write_files:
 
       # Define services list here
       SERVICES=(
-        otel-collector.service
         tailscale.service
+        otel-collector.service
       )
 
       LOG_FILE="/var/log/service-init.log"
@@ -105,11 +105,11 @@ write_files:
         echo "[*] Checking referenced containers exist..."
 
         for svc in "$@"; do
-          if ! docker ps -a --format '{{.Names}}' | grep -q "^${svc}$"; then
-            echo "  - Container '${svc}' not found"
+          if ! docker ps -a --format '{{.Names}}' | grep -q "^$${svc}$"; then
+            echo "  - Container '$svc' not found"
             exit 1
           else
-            echo "  - Container '${svc}' exists"
+            echo "  - Container '$svc' exists"
           fi
         done
       }
@@ -141,7 +141,7 @@ write_files:
         echo "[*] All done."
       }
 
-      main "${SERVICES[@]}" | tee "$LOG_FILE"
+      main "$${SERVICES[@]}" | tee "$LOG_FILE"
 
       # If we reach here, everything succeeded
       notify_success
