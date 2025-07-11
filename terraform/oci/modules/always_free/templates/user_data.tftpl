@@ -15,7 +15,9 @@ write_files:
       [Service]
       Restart=always
       RestartSec=5
-      ExecStop=/usr/bin/docker stop %n
+      ExecStop=/usr/bin/env sh -c '\
+        /usr/bin/docker exec %n tailscale logout; \
+        /usr/bin/docker stop %n;'
       ExecStopPost=/usr/bin/docker rm --force %n
       ExecStartPre=-/usr/bin/docker rm --force %n
       ExecStart=/usr/bin/docker run --name=%n \
