@@ -109,13 +109,29 @@ write_files:
       check_containers_exist() {
         echo "[*] Checking referenced containers exist..."
 
+        local retries=5
+        local base_wait=2
+
         for svc in "$@"; do
-          if ! docker ps -a --format '{{.Names}}' | grep -q "^$${svc}$"; then
-            echo "  - Container '$svc' not found"
-            exit 1
-          else
-            echo "  - Container '$svc' exists"
+          if [ "$svc" = "docker.service" ]; then
+            echo "  - Skipping '$svc', not a container"
+            continue
           fi
+
+          local attempt=1
+          while ! docker ps -a --format '{{.Names}}' | grep -q "^$${svc}$"; do
+            if [ "$attempt" -ge "$retries" ]; then
+              echo "  - Container '$svc' not found after $retries attempts"
+              exit 1
+            fi
+
+            local sleep_time=$((base_wait ** attempt))
+            echo "  - Attempt $attempt: Container '$svc' not found, retrying in $sleep_time seconds..."
+            sleep "$sleep_time"
+            attempt=$((attempt + 1))
+          done
+
+          echo "  - Container '$svc' exists"
         done
       }
 
