@@ -8,6 +8,7 @@ retry() {
 
     if "$@"; then
       echo "Command succeeded on attempt $attempt."
+      return 0
     else
       echo "Attempt $attempt failed."
       attempt=$((attempt + 1))
@@ -16,7 +17,7 @@ retry() {
         echo "Retrying..."
       else
         echo "All $max_attempts attempts failed."
-        exit 1
+        return 1
       fi
     fi
   done
