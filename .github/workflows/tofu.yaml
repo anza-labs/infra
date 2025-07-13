@@ -86,7 +86,8 @@ jobs:
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_oci }}"
-          tofu -chdir=./terraform/oci \
+          source ./hack/actions.sh
+          retry 2 tofu -chdir=./terraform/oci \
             apply -auto-approve -input=false -lock=true -no-color \
             ${ARGS:+$ARGS}
 
