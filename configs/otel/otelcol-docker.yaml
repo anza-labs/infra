@@ -48,6 +48,11 @@ receivers:
           static_configs:
             - targets:
                 - 127.0.0.1:8888  # Collector metrics endpoint
+        - job_name: docker-status
+          scrape_interval: 10s
+          static_configs:
+            - targets:
+                - 127.0.0.1:8080  # Docker Status metrics endpoint
 
 # =======================================
 # PROCESSORS

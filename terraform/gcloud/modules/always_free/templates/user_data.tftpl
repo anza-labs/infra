@@ -32,6 +32,39 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
+  - path: /etc/systemd/system/docker-status.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Run Docker Status in Docker
+      After=docker.service
+      Requires=docker.service
+      After=tailscale.service
+      Requires=tailscale.service
+
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStartPre=/usr/bin/env sh -c '\
+        while true; do \
+          IP=$(docker exec tailscale.service tailscale ip 2>/dev/null); \
+          case "$IP" in \
+            "") echo "Waiting for tailscale to report an IP..."; sleep 1 ;; \
+            *)  echo "Tailscale IP: $IP. Waiting extra 5 seconds..."; sleep 5; break ;; \
+          esac; \
+        done'
+      ExecStart=/usr/bin/docker run --name=%n \
+        --network=container:tailscale.service \
+        --volume=/var/run/docker.sock:/var/run/docker.sock \
+        ghcr.io/shanduur/docker-status/docker-status:latest
+
+      [Install]
+      WantedBy=multi-user.target
+
   - path: /etc/otelcol/config.yaml
     permissions: 0644
     owner: root
