@@ -54,7 +54,8 @@ jobs:
           TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
-          tofu -chdir=./terraform/oci init -upgrade
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/oci init -upgrade
       - if: github.event_name == 'pull_request'
         id: plan
         env:
@@ -70,7 +71,8 @@ jobs:
           TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_oci }}"
-          tofu -chdir=./terraform/oci plan -input=false -no-color \
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/oci plan -input=false -no-color \
             ${ARGS:+$ARGS}
       - if: github.event_name != 'pull_request'
         env:
@@ -108,7 +110,8 @@ jobs:
           TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
         run: |
-          tofu -chdir=./terraform/gcloud init -upgrade
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/gcloud init -upgrade
       - if: github.event_name == 'pull_request'
         id: plan
         env:
@@ -122,7 +125,8 @@ jobs:
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_gcloud }}"
-          tofu -chdir=./terraform/gcloud plan -input=false -no-color \
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/gcloud plan -input=false -no-color \
             ${ARGS:+$ARGS}
       - if: github.event_name != 'pull_request'
         env:
@@ -136,7 +140,8 @@ jobs:
           TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
         run: |
           ARGS="${{ github.event.inputs.extra_args_gcloud }}"
-          tofu -chdir=./terraform/gcloud \
+          source ./hack/actions.sh
+          retry 2 tofu -chdir=./terraform/gcloud \
             apply -auto-approve -input=false -lock=true -no-color \
             ${ARGS:+$ARGS}
       - if: always()
