@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community-github-io-helm-charts
         namespace: placeholder
-      version: "75.11.0"
+      version: "75.12.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: kube-prometheus-stack
