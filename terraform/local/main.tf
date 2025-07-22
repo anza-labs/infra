@@ -8,7 +8,7 @@ module "local" {
   cluster_name = "local"
 
   # renovate: datasource=docker depName=kindest/node
-  k8s_version = "v1.33.1"
+  k8s_version = "v1.33.2"
 
   flux            = true
   github_repo     = "https://github.com/anza-labs/manifests"
