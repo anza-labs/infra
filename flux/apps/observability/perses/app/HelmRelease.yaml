@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: perses-github-io-helm-charts
         namespace: placeholder
-      version: "0.14.3"
+      version: "0.14.4"
   interval: 30m0s
   timeout: 10m0s
   releaseName: perses
