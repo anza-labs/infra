@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: stakater-github-io-stakater-charts
         namespace: placeholder
-      version: "2.1.5"
+      version: "2.2.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: reloader
