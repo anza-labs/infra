@@ -68,7 +68,6 @@
     - name: Install core packages
       ansible.builtin.apt:
         name:
-          - bsdtar
           - git
           - libarchive-tools
           - make
