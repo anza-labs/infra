@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   otel:
-    image: otel/opentelemetry-collector-k8s:0.133.0
+    image: otel/opentelemetry-collector-k8s:0.134.1
     container_name: otel
     hostname: otel
     ports:
