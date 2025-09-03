@@ -68,5 +68,5 @@ variable "otel_collector_version" {
   description = "OTel Collector Version"
 
   # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
-  default = "0.133.0"
+  default = "0.134.1"
 }
