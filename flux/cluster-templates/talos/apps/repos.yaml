@@ -29,29 +29,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: charts-kubewarden-io
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/repos/charts.kubewarden.io"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: charts-longhorn-io
   labels:
     override-target-namespace: 'true'
 spec:
   path: "./flux/repos/charts.longhorn.io"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: grafana-github-io-helm-charts
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/repos/grafana.github.io_helm-charts"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -79,33 +61,6 @@ metadata:
     override-target-namespace: 'true'
 spec:
   path: "./flux/repos/prometheus-community.github.io_helm-charts"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: stakater-github-io-stakater-charts
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/repos/stakater.github.io_stakater-charts"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kubearmor-github-io-charts
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/repos/kubearmor.github.io_charts"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kubereboot-github-io-charts
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/repos/kubereboot.github.io_charts"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

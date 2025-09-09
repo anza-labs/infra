@@ -2,22 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubelet-device-plugins-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/infra/kubelet-device-plugins/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: pocket-id-dependencies
   labels:
     override-target-namespace: 'true'
 spec:
   path: "./flux/apps/infra/pocket-id/dependencies"
-  dependsOn:
-  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -30,3 +19,12 @@ spec:
   dependsOn:
   - name: pocket-id-dependencies
   - name: tailscale-app
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: registry-app
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/apps/infra/registry/app"

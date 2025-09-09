@@ -11,65 +11,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubearmor-operator-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/kubearmor-operator/app"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kubewarden-crds
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/kubewarden/crds"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kubewarden-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/kubewarden/app"
-  dependsOn:
-  - name: kubewarden-crds
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: external-secrets-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/external-secrets/app"
-  dependsOn:
-  - name: charts-external-secrets-io
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: external-secrets-bitwarden
-  labels:
-    override-target-namespace: 'false'
-spec:
-  path: "./flux/apps/platform/external-secrets/bitwarden"
-  dependsOn:
-  - name: external-secrets-app
-  - name: cert-manager-app
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: tailscale-dependencies
   labels:
     override-target-namespace: 'true'
 spec:
   path: "./flux/apps/platform/tailscale/dependencies"
-  dependsOn:
-  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -81,15 +27,6 @@ spec:
   path: "./flux/apps/platform/tailscale/app"
   dependsOn:
   - name: tailscale-dependencies
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: reloader-app
-  labels:
-    override-target-namespace: 'true'
-spec:
-  path: "./flux/apps/platform/reloader/app"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

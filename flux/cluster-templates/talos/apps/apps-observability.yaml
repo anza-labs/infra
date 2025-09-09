@@ -7,8 +7,6 @@ metadata:
     override-target-namespace: 'true'
 spec:
   path: "./flux/apps/observability/kube-prometheus-stack/dependencies"
-  dependsOn:
-  - name: external-secrets-bitwarden
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
