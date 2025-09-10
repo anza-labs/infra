@@ -26,6 +26,11 @@ on:
           -replace=module.gcloud_vm.google_compute_instance.vm_instance
         required: false
         default: ""
+      extra_args_shared:
+        description: |-
+          Extra flags for the shared Tofu apply/plan
+        required: false
+        default: ""
   schedule:
     - cron: "0 4 * * *"
 
@@ -147,3 +152,38 @@ jobs:
       - if: always()
         run: |
           rm -f /dev/shm/credentials.json
+
+  shared:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: opentofu/setup-opentofu@v1
+      - env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+        run: |
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/shared init -upgrade
+      - if: github.event_name == 'pull_request'
+        id: plan
+        env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+        run: |
+          ARGS="${{ github.event.inputs.extra_args_shared }}"
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/shared plan -input=false -no-color \
+            ${ARGS:+$ARGS}
+      - if: github.event_name != 'pull_request'
+        env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_bws_access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+        run: |
+          ARGS="${{ github.event.inputs.extra_args_shared }}"
+          source ./hack/actions.sh
+          retry 2 tofu -chdir=./terraform/shared \
+            apply -auto-approve -input=false -lock=true -no-color \
+            ${ARGS:+$ARGS}

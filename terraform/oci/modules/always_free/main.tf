@@ -34,6 +34,10 @@ data "http" "otel_collector_config" {
   url = var.otel_collector_config_url
 }
 
+data "http" "registry_config" {
+  url = var.registry_config_url
+}
+
 resource "null_resource" "triggers" {
   depends_on = [
     data.http.otel_collector_config,
@@ -83,10 +87,13 @@ resource "oci_core_instance" "instance" {
       {
         otel_collector_version = var.otel_collector_version,
         tailscale_version      = var.tailscale_version,
+        registry_version       = var.registry_version,
 
         hostname              = format("%s${count.index}", lower(replace(var.instance_name, "/\\s/", ""))),
         discord_webhook       = var.discord_webhook,
         otel_collector_config = data.http.otel_collector_config.response_body,
+        registry_config       = data.http.registry_config.response_body,
+        registry_env          = "", // TODO
         tailscale_key         = tailscale_tailnet_key.tailscale_key.key,
       }
     ))

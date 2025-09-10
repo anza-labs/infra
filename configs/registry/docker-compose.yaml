@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  registry:
+    image: registry:3.0.0
+    container_name: registry
+    hostname: registry
+    environment:
+      OTEL_TRACES_EXPORTER: none
+    env_file:
+      - .env
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./config.yml:/etc/distribution/config.yml:ro

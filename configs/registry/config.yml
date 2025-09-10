@@ -1,0 +1,33 @@
+version: 0.1
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
+http:
+  addr: 0.0.0.0:5000
+  debug:
+    addr: 0.0.0.0:5001
+    prometheus:
+      enabled: true
+      path: /metrics
+  headers:
+    X-Content-Type-Options:
+      - nosniff
+log:
+  level: info
+  accesslog:
+    disabled: false
+    formatter: json
+storage:
+  cache:
+    blobdescriptor: inmemory
+  delete:
+    enabled: false
+  maintenance:
+    uploadpurging:
+      enabled: false
+  tag:
+    concurrencylimit: 8
+  s3:
+    rootdirectory: "/registry"

@@ -108,6 +108,53 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
+  - path: /etc/distribution/config.yml
+    permissions: 0644
+    owner: root
+    content: |
+      ${indent(6, registry_config)}
+
+  - path: /etc/distribution/.env
+    permissions: 0600
+    owner: root
+    content: |
+      ${indent(6, registry_env)}
+
+  - path: /etc/systemd/system/registry.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Run Regostry in Docker
+      After=docker.service
+      Requires=docker.service
+      After=tailscale.service
+      Requires=tailscale.service
+
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStop=/usr/bin/docker stop %n
+      ExecStopPost=/usr/bin/docker rm --force %n
+      ExecStartPre=-/usr/bin/docker rm --force %n
+      ExecStartPre=/usr/bin/env sh -c '\
+        while true; do \
+          IP=$(docker exec tailscale.service tailscale ip 2>/dev/null); \
+          case "$IP" in \
+            "") echo "Waiting for tailscale to report an IP..."; sleep 1 ;; \
+            *)  echo "Tailscale IP: $IP. Waiting extra 5 seconds..."; sleep 5; break ;; \
+          esac; \
+        done'
+      ExecStart=/usr/bin/docker run --name=%n \
+        --network=container:tailscale.service \
+        --env-file=/etc/distribution/.env \
+        --volume=/etc/distribution/config.yaml:/etc/distribution/config.yaml:ro \
+        registry:${registry_version} \
+          --config=/etc/distribution/config.yml
+
+      [Install]
+      WantedBy=multi-user.target
+
   - path: /etc/service-init.sh
     permissions: 0755
     owner: root
@@ -122,6 +169,7 @@ write_files:
         docker-status.service
         otel-collector.service
       )
+      # TODO: registry.service
 
       LOG_FILE="/var/log/service-init.log"
       DISCORD_WEBHOOK="${discord_webhook}"

@@ -10,6 +10,7 @@ module "gcloud_vm" {
   instance_name             = "micro"
   instance_shape            = "e2-micro"
   otel_collector_config_url = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/otel/otelcol-docker.yaml"
+  registry_config_url       = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/registry/config.yml"
 
   region                    = var.region
   discord_webhook           = var.discord_webhook
