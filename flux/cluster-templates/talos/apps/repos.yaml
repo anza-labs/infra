@@ -38,6 +38,24 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: code-forgejo-org-forgejo-helm-forgejo
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/repos/code.forgejo.org_forgejo-helm_forgejo"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: open-telemetry-github-io-opentelemetry-helm-charts
+  labels:
+    override-target-namespace: 'true'
+spec:
+  path: "./flux/repos/open-telemetry.github.io_opentelemetry-helm-charts"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: jaegertracing-github-io-helm-charts
   labels:
     override-target-namespace: 'true'

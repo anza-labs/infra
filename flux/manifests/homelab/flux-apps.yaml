@@ -233,6 +233,96 @@ kind: Kustomization
 metadata:
   labels:
     override-target-namespace: "true"
+  name: code-forgejo-org-forgejo-helm-forgejo
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/repos/code.forgejo.org_forgejo-helm_forgejo
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    override-target-namespace: "true"
+  name: forgejo-app
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/apps/infra/forgejo/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    override-target-namespace: "true"
   name: jaegertracing-github-io-helm-charts
   namespace: flux-apps
 spec:
@@ -411,6 +501,51 @@ spec:
       labelSelector: source=oci
       version: v2
   path: ./flux/apps/platform/longhorn/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: apps
+    namespace: flux-apps
+  targetNamespace: flux-apps
+  timeout: 10m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  labels:
+    override-target-namespace: "true"
+  name: open-telemetry-github-io-opentelemetry-helm-charts
+  namespace: flux-apps
+spec:
+  interval: 30m
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: Kustomization
+      version: v1
+  - patch: |
+      - op: replace
+        path: /spec/chart/spec/sourceRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=helm
+      version: v2
+  - patch: |
+      - op: replace
+        path: /spec/chartRef/namespace
+        value: flux-apps
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      labelSelector: source=oci
+      version: v2
+  path: ./flux/repos/open-telemetry.github.io_opentelemetry-helm-charts
   prune: true
   sourceRef:
     kind: GitRepository

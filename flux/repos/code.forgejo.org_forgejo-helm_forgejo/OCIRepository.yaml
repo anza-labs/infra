@@ -1,0 +1,14 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: code-forgejo-org-forgejo-helm-forgejo
+  namespace: placeholder
+spec:
+  interval: 5m0s
+  url: oci://code.forgejo.org/forgejo-helm/forgejo
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  ref:
+    semver: "14.0.3"

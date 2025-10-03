@@ -2,4 +2,4 @@
   path: /spec/eventMetadata
   value:
     env: "homelab"
-    cluster: k3sup
+    cluster: labstack
