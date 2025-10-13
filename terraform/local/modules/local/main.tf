@@ -97,7 +97,7 @@ data "kubernetes_nodes" "nodes" {
 
 locals {
   # renovate: datasource=docker depName=registry.k8s.io/cloud-provider-kind/cloud-controller-manager
-  cloud_provider_kind_version = "v0.7.0"
+  cloud_provider_kind_version = "v0.8.0"
 }
 
 resource "docker_image" "cloud_provider_kind" {
