@@ -78,7 +78,7 @@ variable "tailscale_version" {
   description = "Tailscale Version"
 
   # renovate: datasource=docker depName=tailscale/tailscale
-  default = "v1.88.3"
+  default = "v1.88.4"
 }
 
 variable "otel_collector_config_url" {
