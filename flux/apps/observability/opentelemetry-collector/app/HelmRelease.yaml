@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: open-telemetry-github-io-opentelemetry-helm-charts
         namespace: placeholder
-      version: "0.137.0"
+      version: "0.138.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: opentelemetry-collector
