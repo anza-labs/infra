@@ -47,6 +47,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -92,6 +93,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -137,6 +139,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -182,6 +185,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -227,6 +231,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -272,6 +277,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -317,6 +323,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -364,6 +371,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -409,6 +417,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -465,6 +474,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -510,6 +520,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -555,6 +566,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -600,6 +612,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -647,6 +660,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -694,6 +708,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -739,6 +754,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -784,6 +800,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -840,6 +857,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -885,6 +903,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -930,6 +949,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -975,6 +995,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -1022,6 +1043,7 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -1067,3 +1089,4 @@ spec:
     namespace: flux-apps
   targetNamespace: flux-apps
   timeout: 10m
+  wait: true

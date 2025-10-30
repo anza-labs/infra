@@ -2,6 +2,9 @@
   path: /spec/prune
   value: true
 - op: replace
+  path: /spec/wait
+  value: true
+- op: replace
   path: /spec/timeout
   value: 10m
 - op: replace
