@@ -1,6 +1,6 @@
 # Secrets
-*.Secret.yaml
-*.Secret.yml
+*.sops.yaml
+*.sops.yml
 
 # Env files
 *.env

@@ -1,0 +1,35 @@
+apiVersion: ENC[AES256_GCM,data:AQQ=,iv:r+RuZ/itppfgwEs9eGtPjyB6jx0+6mM8fasBSaUFlBI=,tag:KiB/yQv7ezI7jGtIXM8w+A==,type:str]
+kind: ENC[AES256_GCM,data:l8jikZek,iv:/hqDleVV2IwZ8QdipS6hnvwC1ZrqWyszYD2lQ72ua6w=,tag:Weg2V8fKjVDjwfNXnhiCNA==,type:str]
+metadata:
+    name: ENC[AES256_GCM,data:7h8vn3XQsmFNH1Vy5qpV,iv:3gpK8vOF13S4tAQKVScIlw3Mdxadh6SzgOBZPgTktGU=,tag:ExWsLVAOu/laUoMc8W/sTg==,type:str]
+    namespace: ENC[AES256_GCM,data:UfYrJv8MNtEW,iv:9k6ehJd1/4KSu8HXMXf0PZFmO0pamtPk3m4f8mm+8VE=,tag:lpmctcuN/voEEKItZXAYDA==,type:str]
+stringData:
+    clientId: ENC[AES256_GCM,data:wld8R/FT,iv:1xhFXG49xe8UB3GcK74Nq2B6AdDPSQ04cB6Wr6QX7qw=,tag:C1CAMgmC3tTuVl7IhfbsQg==,type:str]
+    clientSecret: ENC[AES256_GCM,data:FR2alqoD,iv:c0vnbf+02RrASTl2p9lQbYqbU+z7VxlzpM117A06NUg=,tag:RpPEhlPKYZmKqti45UOWqg==,type:str]
+sops:
+    lastmodified: "2025-10-30T20:24:17Z"
+    mac: ENC[AES256_GCM,data:RLcpWXmrGcSO8HHa7N4qqOZHsLlQ5skj34htA1R64jZEp9XT3eexjGuz7yyJHjqlXLDiEp8K7jCXdO3RlKCzmtZcSjDLGgpvKDH66iHdNI1HK0zuVunOPwEJMQRFFrbypYp4uDAsFCaCkkD5jxSLMRYR1HMZ2OZSeGXOc3xJcV8=,iv:Lajxjr5RXfFy2HmwEN9ssjVBwBNpB6aaP/tfRi0vU78=,tag:WVTzDGKxIImTcyas2z4pSQ==,type:str]
+    pgp:
+        - created_at: "2025-10-30T20:24:17Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA2aYMUUzTqIRARAA3cgLlesL73aKgcS6TeXsj3Xob4JKJ0O4KBFvN0DF6ReB
+            kaZZ1d8UInfUHyPsDYHrDe4nxKxGNr+tl763biqGHeJ24FYUKR2Do2a2YxVv21sV
+            GK94xbvMmv3w4uc1BZ4YCkBG/W3fQ6NEHearbqluDDBksh40k0O3dSqZtwpa9s6I
+            NfwHy3VRUIJgXHj4H7nHv3xLNvUuoUpvaue184GfLmDoY7lAuRMXwHrkLE6Grs2m
+            K4622b4eV7NjLwvcwJDbyN0GSibgMQO0HRwhAnkDBRGtHhhvTgoH8jCq6HG3e3IN
+            ZcDNPPRrRJhAjNgMT4ZT0Zy79iy7LTtOYCpAIwITVP02BpnsKBATOJrLBtS11jHx
+            B4DO7ZRUOc8Bz3L9gAM6tU4fTQYuQ8cpadsNWrI32rhD463GDVhJqasRCFpiQ4Et
+            ViAkosq2oBAzcaeSR65VHATXDgymELLHbKbNkB/ARly3GwYLYYtNFhqjFgr2xARv
+            LM7ZKaIC95O8wreVRZvPoSxhLjZcUdyTapathVfeeV9DUYk6QXy8OEhjSl8rJtiE
+            y52WsUaSn8WFRF/qwElTUecmOwmyW2GaxJ1cqu+GcX7nTIhFzeYI+a1fIpQVlO0C
+            YikPAg6kuFUJDH9qgdeoRxJhwEZNHlHDWN483NUhKkc8vTsOcIXc5Bn2FD7OdwvU
+            aAEJAhAsp2ZFhalKsluhyREPA9Eq1289syAFITqXzOIY3QFvxWciTruprSZbjOxB
+            lyCN/jcW//Agn7xoBzYi3CJmgKR774XAB0M9wTEhC2DL5hRZNoss8rKWc5X9oDxI
+            SaZtMxfkwxZa
+            =FmSD
+            -----END PGP MESSAGE-----
+          fp: 4C8C1857C468123F57E5C7E7A05D361B64156AA7
+    unencrypted_suffix: _unencrypted
+    version: 3.11.0

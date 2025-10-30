@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: perses
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: perses
+  namespace: perses
+spec:
+  interval: 5m0s
+  url: https://perses.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: perses
+  namespace: perses
+spec:
+  chart:
+    spec:
+      chart: perses
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: perses
+        namespace: perses
+      version: "0.17.1"
+  interval: 30m0s
+  timeout: 10m0s
+  releaseName: perses
+  test:
+    enable: true
+    ignoreFailures: false
+  driftDetection:
+    mode: enabled
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      remediateLastFailure: true
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+      strategy: uninstall
+      remediateLastFailure: true
+  values:
+    config:
+      security:
+        enable_auth: true
+        secure: true
+        authentication:
+          providers:
+            oauth:
+              - slug_id: pocket-id
+                name: Pocket ID
+                scopes:
+                  - openid
+                  - profile
+                  - email
+                auth_url: https://pocket-id.tail4d421.ts.net/authorize
+                token_url: https://pocket-id.tail4d421.ts.net/api/oidc/token
+                redirect_uri: https://perses.tail4d421.ts.net/api/auth/providers/oauth-github/callback
+  valuesFrom:
+  - kind: Secret
+    name: perses-oauth-credentials
+    valuesKey: client_id
+    targetPath: config.security.authentication.providers.oauth[0].client_id
+  - kind: Secret
+    name: perses-oauth-credentials
+    valuesKey: client_secret
+    targetPath: config.security.authentication.providers.oauth[0].client_secret

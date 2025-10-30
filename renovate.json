@@ -19,7 +19,9 @@
     "managerFilePatterns": [
       "/^flux/apps/.+\\.yaml$/",
       "/^flux/clusters/.+\\.yaml$/",
-      "/^flux/repos/.+\\.yaml$/"
+      "/^flux/repos/.+\\.yaml$/",
+      "/^flux2/.+\\.yaml$/",
+      "/^flux2/.+\\.yml$/"
     ]
   },
   "customManagers": [
