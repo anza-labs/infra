@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: longhorn
         namespace: longhorn
-      version: "1.9.1"
+      version: "1.10.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: longhorn
