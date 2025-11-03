@@ -1,6 +1,7 @@
 # Secrets
 *.sops.yaml
 *.sops.yml
+clusterconfig/
 
 # Env files
 *.env

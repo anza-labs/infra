@@ -1,0 +1,14 @@
+---
+- name: Prepare NVMe drive, mount directories
+  hosts: solo
+  become: true
+  gather_facts: true
+
+  tasks:
+
+- name: Install Solokube
+  hosts: solo
+  become: true
+  gather_facts: true
+
+  tasks:

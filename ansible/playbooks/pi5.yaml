@@ -2,6 +2,8 @@
 - name: Prepare NVMe drive, mount directories, and disable snapd
   hosts: all
   become: true
+  gather_facts: true
+
   vars:
     nvme_device: /dev/nvme0n1
     mount_root: /mnt/nvme
@@ -9,6 +11,9 @@
       - { path: /opt, subdir: opt }
       - { path: /var/log, subdir: var_log }
       - { path: /var/lib, subdir: var_lib }
+
+  roles:
+    - geerlingguy.docker
 
   tasks:
 

@@ -29,6 +29,7 @@
       "customType": "regex",
       "managerFilePatterns": [
         "/main.tf$/",
+        "/talconfig.yaml$/",
         "/variables.tf$/"
       ],
       "matchStrings": [
