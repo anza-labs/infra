@@ -70,6 +70,13 @@ spec:
             bucket: backups
             endpoint: 556bb9fcc3f4395cafc528bad941b0b3.r2.cloudflarestorage.com
             forcePathStyle: true
+    config:
+      tracingEnabled: true
+      metricsEnabled: true
+      otel:
+        OTEL_METRICS_EXPORTER: otlp
+        OTEL_TRACES_EXPORTER: otlp
+        OTEL_EXPORTER_OTLP_ENDPOINT: http://otlp.tail4d421.ts.net:4317
   valuesFrom:
     - kind: Secret
       name: pocket-id-backup
@@ -79,3 +86,6 @@ spec:
       name: pocket-id-backup
       valuesKey: secret-key
       targetPath: backup.secret.secretKey
+    - kind: Secret
+      name: pocket-id-ldap-values
+      valuesKey: values

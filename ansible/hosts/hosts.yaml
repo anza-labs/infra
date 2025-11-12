@@ -1,63 +1,63 @@
 all:
     children:
-        #ENC[AES256_GCM,data:QLKwCbn67pQutFemdLdCsVd5xMQXVHLL9hTE3SSpEag5SigbNEhCI8xat5bWn00OG16V/T2BBujdh4Dw,iv:u3JHTkVJvt1zHYcI71ZL5R+HZ35yHA5/rQcDr5HFYI8=,tag:JcASfrmTl7q2qrSQzV1TbA==,type:comment]
+        #ENC[AES256_GCM,data:momAQwty6SwAcGwojzWkbRCg/W1I6ZVtyk4Gn+u4THR+vAyu9nPjQ+cT+NYztO2D6NDW9iRQR00XQ419,iv:7V5WzXZFU6hADH6TnCP1z9NIHSpRhlWVJ+x+LjFbG0Y=,tag:sd60YTUkqloRQpXAp917fA==,type:comment]
         #
-        #ENC[AES256_GCM,data:cVSqAHg4OlGrilnNJg==,iv:FwgHNPH/YC3/+sdWeTK3I/8t3CGjwy5n0sOTHCJx62s=,tag:Hp645lBhcRZwQyGidIJedQ==,type:comment]
+        #ENC[AES256_GCM,data:+tIR51Hgor9Hs9gQNQ==,iv:2i0dX5DFDlCHqzctBf+ge/zAH44ayEXmvf8lMhqpG9I=,tag:kE1M+D18UiwH0FNOkWth/Q==,type:comment]
         #
-        #ENC[AES256_GCM,data:2yW6FD2bKuEwDTbk0JUTshZ8LA+ZS+gviN9YSkiFdPeqeUdE7Up4afATKjJD8IP2jLsxEZ/AKO+JyroF,iv:BtXm+AE2pTuCRahw6zTd2d1Tv1Nh8A5nCd5Yxl56Xh4=,tag:1Z8zSzadyfa8FiYszZdnVg==,type:comment]
+        #ENC[AES256_GCM,data:jcpm6OS3ZQSpmQ6OZaXAhxuHBkhSVULie9mDFP6uGjwuoDE/hXoMKCuekmCICwgWI4V8w2XaLq4/jTt9,iv:quge0sLkLLiZc4rLTpf1YD0qfsxeFYs+NVQUCehjRWg=,tag:AlV+2GdVz85F1fPIG+9etA==,type:comment]
         builders:
             hosts:
                 builder1:
-                    ansible_host: ENC[AES256_GCM,data:ndJ5pNnYJe61oJUAIw==,iv:AJ6FWHn/cHoa4CkEcB34DVCxeBvHNvcE1Gih5DfZX5s=,tag:ZoeKITz55uIZrpLFOA1/Ow==,type:str]
-                    ansible_user: ENC[AES256_GCM,data:oPv3RKwBgfc=,iv:khbdUdazW4yHaoaBn8D9v3MuEvRZ5O8qZL2Obrr4Abg=,tag:dt5GiEQWYACcaM5dt24vqg==,type:str]
-                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:AtKj6OVANMr7pPy83r5s4tw=,iv:N5lD/ydHfHSQJDOBH8sBq0Ca5Ddaklo7H7eXJW7qzac=,tag:FIrLYvhiDit8Ym6iCLyA8Q==,type:str]
+                    ansible_host: ENC[AES256_GCM,data:2OBi+fzFatk/nOvsXA==,iv:ixOhbafYItkq8wLNprBsgr/6eycA90kTyhiuBJCXXlY=,tag:wZA8sTXakRxILkQE82Uzaw==,type:str]
+                    ansible_user: ENC[AES256_GCM,data:8whokNH+d2s=,iv:dBlxq43E4zhpjb9t45vWQ0fMW4CYYriLvREGpJ1LsdA=,tag:UvdYpDSL+o26wLihspc0ww==,type:str]
+                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:XtuIV7wa8hstaRYt1pGvkUk=,iv:3lQaw8VVUa343E41ZYinpDufYe5ujf1Z+o2dVx2mzbg=,tag:fO4IqE271PUFgMNOFy2Grg==,type:str]
         routers:
             hosts:
                 router:
-                    #ENC[AES256_GCM,data:5CS6+18=,iv:6FmZma1r4YLK6DpL1s5NRtVMcyCRTL1gh3h/6uKj+gk=,tag:+rUy2YvvjL6T/FNpRLFdyg==,type:comment]
-                    ansible_host: ENC[AES256_GCM,data:E4h0/WSPFBpN9bs20w==,iv:MNS7FM+EGocJp8GIQVi2mN/HkjYuhZf7c7ZzXljhfg4=,tag:KxjqQbm4vVefCbwCUtk8lg==,type:str]
-                    ansible_user: ENC[AES256_GCM,data:MBLB3lEE,iv:AhjkVm34GkPgSCbYrNgdvFhNgJGZH3aOQN4S/2uK4cg=,tag:8ZFnTz0wQ78p79cs6rGNXA==,type:str]
-                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:2vGwKJNrDy1ZmX0Npw==,iv:I/mHaPfD2YltVHREc4aMjsL+0sk/V0Krf0xHcoCZp6k=,tag:Hx11jnzOwpawTHIvSIKhMg==,type:str]
-        #ENC[AES256_GCM,data:a1wXZWbyMLEB4k00imeryacFifFoL9fnoS90z7ndp7mfSs6otL1XKlcHoZ64SJuPiFpqzXUsQEoHYS+y,iv:peSHkksmlN+64qgg8MoyNfJJ6D+ZlkBpPeJwUK5n1aw=,tag:6LOxr7ZAUFHmo6Im/kdXvA==,type:comment]
+                    #ENC[AES256_GCM,data:raw99sHwtePtgT2Nkz7rQDnYnPaGL3LCwQkX82bvYw==,iv:yh1YW073bY8B876jiJCnEni/oe0uiDRob43uKrdSUns=,tag:sol3d7mFl7YWmkiFMVRUww==,type:comment]
+                    ansible_host: ENC[AES256_GCM,data:4lUdonSIVmCjKXTDZg==,iv:7wqhUDZvLCYlludhE4enpy81GjTk5hCnPVL59LwepwA=,tag:LOeVjjgK924oItGT2UDekg==,type:str]
+                    ansible_user: ENC[AES256_GCM,data:NJShhEOU,iv:GuPSVNE8SIADuteeCFd/CksJCAUJJiqjtTF3dJGvrj8=,tag:bOIOpOb4RwzlLXi9RtC5pg==,type:str]
+                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:e9R+3w3WbEidm/7nfg==,iv:YlthL3uolG8GBhGk/hpUK1hm33mYEB/jCflpc4Jelik=,tag:c30teQckmK0WJ8HTeq85eQ==,type:str]
+        #ENC[AES256_GCM,data:Psv4h1vMEI7Vu8PtR6aV5TTlAqEezjvXo9/KnBD0JxvjviwpkYswoYXiNYwFXAVjo2vPaRx1Iw6mLB9H,iv:ypM1cXq6CFwous+V5ZlvNGI8khUeR578xJSne8ZAncA=,tag:lGXpVwUECrLOpsiePFJLLg==,type:comment]
         #
-        #ENC[AES256_GCM,data:OiWPM7q7m4jeJgydEy3i9cs=,iv:+BlcMpASZBz+FTQcLkwPht4xzANk28CJaOH0Hrwa2LM=,tag:EBR9sHWoS24JbYyDAI89oQ==,type:comment]
+        #ENC[AES256_GCM,data:2FQr0/d0Gv6Z/Me/whI+Pck=,iv:EIi7QPJ7/AqWHE3FnRvGgOBnSQelMPLfnxtP4DtSVJA=,tag:mTmLCqVnJ4rNN5zgx0O8NQ==,type:comment]
         #
-        #ENC[AES256_GCM,data:kYT3X6pU61uOuLW58m8eVoPt2r0nZa/xvDv/ZId9nNsWE80mvBHJAnssI3KdFjxyDY2Un0Acid4wpZ8a,iv:hsRSibrhD4iwHlPzMtqWRS77U4eHWW3pSSDx2xQbYfc=,tag:0MAMNjPWL+76xI55Y0yTzQ==,type:comment]
+        #ENC[AES256_GCM,data:FzZ+ZC0YfXWxMnbj8snn+uI9H6KxLHoDMic78hMgOksE0I2IfFCOENnruyJ1VlwyQ61sNbIVf051KAo6,iv:QsTZlMC7acoiSX/ViKEtw/3LY3FdhDY5INzq6MfOJLc=,tag:y65xVMpwnu9tb4y+qv4A6A==,type:comment]
         pi:
             hosts:
                 pi5:
-                    ansible_host: ENC[AES256_GCM,data:YExkAnS17WAY2DU=,iv:TXa/P+WRR5UXeElWwghYqZOyn4zMHqt7ZgEEaiNrcrY=,tag:hNYjja0wuc2y7Drn4HxNtw==,type:str]
-                    ansible_user: ENC[AES256_GCM,data:OXI9MZGt,iv:6VPF6CEtPNiEXJ1NBZSyh7v0YL6bTT/yh8ZlpqjAHVg=,tag:bHXB6O8CYtooaBD4WnWX9g==,type:str]
-                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:Ybg6DFa9i9OCGosxRQ==,iv:uEdBbKGk84EzXBiIxxywk4e7ZRPxrqg5d56FfA/7rDM=,tag:q1f4nMg0gCAT0lu8YpRErg==,type:str]
+                    ansible_host: ENC[AES256_GCM,data:k+Hgi9FWNCxJ3pk=,iv:uu3P1MSsA6hC4tCsWkxmwLsExMCXIt/wR3Ee2Vxq7hE=,tag:tF9myjDCab6eJpRT16NRaQ==,type:str]
+                    ansible_user: ENC[AES256_GCM,data:T1QUm4sA,iv:kdmWGov9ww9gSAoQjttkYYvxKfZCoMwx8lBmNiMqJlk=,tag:p1eLlfZvYG5oA1F5bChbxw==,type:str]
+                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:nGzP2JAbWgqFRkNaEg==,iv:UP5a9r2Qmco6YXoYGBFVvfDArl73EvjxbarwWBXHnZY=,tag:9miFBrz134eRFdQemBGn3A==,type:str]
         solo:
             hosts:
                 solo:
-                    ansible_host: ENC[AES256_GCM,data:rNXr0PKMc2DvUTE=,iv:UTxIyqz1tlt+WYzbUMldUymzSPJhVOUDzFviZcIJxGA=,tag:mXZoWNZp0ZBTMw06Qyq9dg==,type:str]
-                    ansible_user: ENC[AES256_GCM,data:eWAsK9hn,iv:gyPXoMcwLkt7dWpvrRqqD4woEmp96viiBGcATpO5OfY=,tag:O9OfUs9hhjgwcvk8Zp6iFQ==,type:str]
-                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:rhKeuqmIXivCOqxKBw==,iv:5BUKb7UFwybpUBtKxPkVBiR2wfr7aSsc/QCLGxmS++4=,tag:rk0MTC2pFLxMkQtZneuc9A==,type:str]
+                    ansible_host: ENC[AES256_GCM,data:Hgnp5jYGDwwqiUw=,iv:ZfAggeTCo8k/ZUVy5c5jrWYufQTUEOHpUnmnI/B0Lp4=,tag:QKX3r7un1UH2Wk+HC2z6Ng==,type:str]
+                    ansible_user: ENC[AES256_GCM,data:nCnEH+bp,iv:btDmrtz5LFz6BRd+L+sD2wcZ67GoGydYEYBqBVsewQE=,tag:luKApAtSPofcdY9uAlH02g==,type:str]
+                    ansible_ssh_private_key_file: ENC[AES256_GCM,data:4ADTIWyTjoYr6jfnsQ==,iv:5eQtnyRGHaC7bU9m5yv9qDprbdY6a8vcfScaOfFCso4=,tag:yi0voNYfl+XcLQ1Z9gpdag==,type:str]
 sops:
-    lastmodified: "2025-11-03T16:11:18Z"
-    mac: ENC[AES256_GCM,data:+XHlBQ+NZmh3Yj15clJ9PqY7IXyKc/9i7KlvVcob82kInGR30LzkVQ6OeeZ1Cezl11pRX0d+6wXvU3Wuy6aIEQ+5xK1r78BhCw1Xf9EGwoU5uIik8tVFAeMVpFK0pYouN4Pu0QU1Pcbr7zau3KBNnd+5uzc6v14ESPBkAWn5dvI=,iv:9gcX2kIbXa6wni55vwrHEEEJlCTjZ9Ym6Ie+tHxT6Hg=,tag:gqEelBGgLiyHMq80qQreYA==,type:str]
+    lastmodified: "2025-11-12T20:48:43Z"
+    mac: ENC[AES256_GCM,data:/YTKnvMKY+NszeQnuqhmupk5TYkLFmhTg/oSs5rFJUbgPvz4cJjlkQ2kNMsMtW+ZDsaMDpXFlLcpIl92TTbdl+v90huHs4TWV37CWWoaJ2/4v2qUeVcEkq2dMJuYgaPtB0Dt7D3pVq18j96yLhB6d2PgcMinFfFtDwQflIuFmEY=,iv:ib7YP4q1/+xM+Cnxorg4WbpSxxrqJCbMMlYFx/htyyc=,tag:IVEEUP/2Gv2dS/zaClbjSg==,type:str]
     pgp:
-        - created_at: "2025-11-03T16:11:18Z"
+        - created_at: "2025-11-12T20:48:43Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA2aYMUUzTqIRARAAmfuEB1jAZkvOFFAlg5xP9XOAp0436vlq+jdlZdnYLeF9
-            Xpbfw91aW/bxK43Y80Zgv3dTyAUefcnsQtiHE8PP8QyhVTWV5yyY56LtVutTJFsk
-            0RMHgt9e/fZm8oXAeV/JI7a2uFIwqF9n/Ewqie8WxqDfAlDP8HpBCYGX2IivXYls
-            3NVb7vR9+hPSzwN8gP8K2NU1a0NLHdQtgun2siClFv55mBtQzjzrPNEd8cePvpbI
-            DysA7hMv6LxjaUbGKWzcTD0jV2ITCVX0oRqE2dgB7XDnZ7p8tQbrLBLSiuT1X4J2
-            F54fCMwfojEivDQsUyqO9OfCpbyBZw7w6qz0qtKEO8egRQxE839EW399X/KsPFaH
-            53pwGifApXj442mjlTFPPPDSxZxbkGoDdToALjwYHWAGFLUwVtvE8IyUpXcUrUO0
-            ANR2srdPzTMY55ujwSkT/1pDA5G7wbhL2D2w+/8giF7FAr8BzUgdLi1R7K+4Wb9h
-            DulYnsrAoMs1f9EjVIm0e5ALz9kj4peutqrAxk8ZKDxq1OQIqGU1TSAQIDnWuYhN
-            fI85/OtXDuPuf9s2FxARIi6oElLYGyFXagbLVlBYeAewsTQYJ0ThVkV0e4/Eod/Q
-            Ig11JdWs9tQyp4kGVA77SWjKtEfMPBXiuDur69ABS2RmQVMGebtk8c9AprK7+R7U
-            aAEJAhCBuAAh9muu5TlQJnf2cvtIKRR+ZWRVmwmE9m7locWTRyeU42NSApCExlc7
-            VwPfvZxnRfNcOoik8PNkgOFTDj96ofNJLWmPPrO47MWiJ2JCzlI5v5/plpdTil12
-            kH6mrujWSFjy
-            =Npsu
+            hQIMA2aYMUUzTqIRAQ/5AcjhrY7ug7u/oult/JYqSflFNp+fTaAqJZ9eO8iN/FX0
+            e7mTSgcr3wU1zQG8NrW9HlGAODF+f3ve1NMZ8KJVh1ezjEniHiv85BSCOlJGX2eX
+            5/IrqqffsmRFquiABOqYe1f2Mu/TYJHwXHhTKFD+4RFv0OfJ09QP9yMo1YxsumRl
+            c6px3TBWm85B25YzCyE2sDTafXAPeP+4LtQtWwlvPuSENJMX7UPS9VcDW7OglYE6
+            +Ivsc7yGQWOjHCiJA6JjNsygmgU13s61/x7FAv22xlOMlrBhizjk1n7gZlOP18Pp
+            0XSUULUKZhTT42jTQDkauI4ox45KHYLfJ5zJ5nqTEi7jD9L0ZeqPWGrDegeYfpyt
+            DhIMI1eYEa480pNGhljUvxuQMmGDQgEPZ3yKLpVEZqmonsyFVp5mnzwApTYZCDKG
+            PKTOtNVfyuDFa1SbfmT18phRfDie8kk/BFcNeawVJvA3BFkY/wxqgZN1Go3QnA28
+            Th/1zZgqQqH5SIKdgB7B8/QxuYO6kx24W74HJx8y/AGNb6xkjTu49mtQHpjVI2fc
+            fmkiJH+NB4cEYqb2pbsV61BgU9bZNIJnWo5COOse7oLaHai93WBEEAW38ZILFh1C
+            oS7nHD7B+gdielbAyo71HtkDSMkHQQifwAu7Un4kw8EaH9Y438X+gJNJF/Wm33zU
+            aAEJAhAp7ftLweh3xuvcSTG74gumN2BtyJQ/z8u/i+cGOTd3Z2a2kVj5C4DvxtJt
+            fZfMSo+JvaO9U6p58UVSf1Ma+ldFOIM2Rwn6xZF41clRU5JfjszOuJVRDQkLIIji
+            QvBhRHyEhHvy
+            =KwHj
             -----END PGP MESSAGE-----
           fp: 4C8C1857C468123F57E5C7E7A05D361B64156AA7
     unencrypted_suffix: _unencrypted

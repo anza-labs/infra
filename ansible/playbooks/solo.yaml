@@ -4,11 +4,25 @@
   become: true
   gather_facts: true
 
-  tasks:
+  tasks: []
 
-- name: Install Solokube
+- name: Install KubeSolo
   hosts: solo
   become: true
   gather_facts: true
 
   tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install core packages
+      ansible.builtin.apt:
+        name:
+          - bash
+          - curl
+          - iptables
+          - libsqlite3-dev
+          - sudo
+        state: present
+

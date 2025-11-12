@@ -48,4 +48,7 @@ spec:
       retries: -1
       strategy: uninstall
       remediateLastFailure: true
-  values: {}
+  values:
+    secret:
+      create: false
+      name: glauth
