@@ -45,7 +45,7 @@ jobs:
   oci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: opentofu/setup-opentofu@v1
       - env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
@@ -101,7 +101,7 @@ jobs:
   gcloud:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: opentofu/setup-opentofu@v1
       - run: |
           echo '${{ secrets.GOOGLE_CREDENTIALS }}' > /dev/shm/credentials.json
@@ -156,7 +156,7 @@ jobs:
   shared:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: opentofu/setup-opentofu@v1
       - env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
