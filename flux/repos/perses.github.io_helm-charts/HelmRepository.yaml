@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: perses-github-io-helm-charts
-  namespace: placeholder
-spec:
-  interval: 5m0s
-  url: https://perses.github.io/helm-charts
