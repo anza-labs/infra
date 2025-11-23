@@ -15,7 +15,6 @@ cluster:
             warn-version: latest
           exemptions:
             namespaces:
-              - calico-system
               - kube-system
               - longhorn
             runtimeClasses: []

@@ -27,6 +27,7 @@ cniConfig:
   name: none
 
 patches:
+  - "@./patches/no-kubeporxy.yaml"
   - "@./patches/ephemeral.yaml"
 
 controlPlane:
