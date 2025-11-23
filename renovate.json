@@ -40,7 +40,8 @@
       "customType": "regex",
       "managerFilePatterns": [
         "/builder.yaml$/",
-        "/solo.yaml$/"
+        "/solo.yaml$/",
+        "/flux2/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)?( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+:\\s\"(?<currentValue>\\S+)\""
