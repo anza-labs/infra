@@ -45,7 +45,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-      strategy: uninstall
+      strategy: rollback
       remediateLastFailure: true
   values:
     host: pocket-id.tail4d421.ts.net

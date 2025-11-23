@@ -46,7 +46,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-      strategy: uninstall
+      strategy: rollback
       remediateLastFailure: true
   values:
     longhornUI:

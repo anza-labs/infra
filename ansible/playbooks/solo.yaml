@@ -11,6 +11,16 @@
   become: true
   gather_facts: true
 
+  vars:
+    # renovate: datasource=github-releases depName=portainer/kubesolo
+    version: "v0.2.1"
+
+    config_path: "/var/lib/kubesolo"
+    apiserver_extra_sans: ""
+    local_storage: false
+    debug: false
+    download_base_url: "https://github.com/portainer/kubesolo/releases/download"
+
   tasks:
     - name: Update apt cache
       ansible.builtin.apt:
@@ -26,3 +36,107 @@
           - sudo
         state: present
 
+    - name: Detect libc flavor
+      ansible.builtin.stat:
+        path: /lib/ld-musl-x86_64.so.1
+      register: musl_lib
+
+    - name: Set architecture facts
+      sansible.builtin.et_fact:
+        arch_map:
+          x86_64: amd64
+          aarch64: arm64
+          armv7l: arm
+          riscv64: riscv64
+        os_name: "{{ ansible_system | lower }}"
+        arch_name: "{{ arch_map[ansible_architecture] | default(ansible_architecture) }}"
+        libc_suffix: >-
+          {{ '-musl' if musl_lib.stat.exists and arch_name in ['amd64','arm64'] else '' }}
+
+    - name: Construct binary URL
+      ansible.builtin.set_fact:
+        kubesolo_url: >-
+          {{ download_base_url }}/{{ version }}/kubesolo-{{ version }}-{{ os_name }}-{{ arch_name }}{{ libc_suffix }}.tar.gz
+
+    - name: Check hostname RFC 1123 compliance
+      ansible.builtin.assert:
+        that:
+          - ansible_hostname is match("^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$")
+        fail_msg: "Hostname '{{ ansible_hostname }}' is not RFC1123 compliant (lowercase letters, digits, hyphens only)."
+
+    - name: Verify xt_comment kernel module
+      ansible.builtin.shell:
+        cmd: |
+          lsmod | grep -q xt_comment || modprobe xt_comment
+      register: modprobe_check
+      changed_when: false
+      failed_when: modprobe_check.rc != 0
+      ignore_errors: true
+
+    - name: Download KubeSolo archive
+      ansible.builtin.get_url:
+        url: "{{ kubesolo_url }}"
+        dest: "/tmp/kubesolo.tar.gz"
+        mode: '0644'
+        force: true
+
+    - name: Extract KubeSolo binary
+      ansible.builtin.unarchive:
+        src: "/tmp/kubesolo.tar.gz"
+        dest: "/usr/local/bin"
+        remote_src: true
+      notify: Restore SELinux context
+
+    - name: Ensure KubeSolo binary executable
+      ansible.builtin.file:
+        path: "/usr/local/bin/kubesolo"
+        mode: '0755'
+        state: file
+
+    - name: Generate KubeSolo command args
+      ansible.builtin.set_fact:
+        cmd_args: >-
+          --path={{ config_path }}
+          {% if apiserver_extra_sans %} --apiserver-extra-sans={{ apiserver_extra_sans }}{% endif %}
+          {% if local_storage|bool %} --local-storage=true{% endif %}
+          {% if debug|bool %} --debug=true{% endif %}
+
+    - name: Create systemd service
+      ansible.builtin.copy:
+        dest: "/etc/systemd/system/kubesolo.service"
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=KubeSolo single-node Kubernetes
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/kubesolo {{ cmd_args }}
+          Restart=always
+          RestartSec=3
+          OOMScoreAdjust=-500
+          LimitNOFILE=65535
+          StandardOutput=journal
+          StandardError=journal
+
+          [Install]
+          WantedBy=multi-user.target
+
+      notify:
+        - Reload systemd
+        - Enable and start kubesolo
+
+  handlers:
+    - name: Restore SELinux context
+      ansible.builtin.command:
+        cmd: restorecon -v /usr/local/bin/kubesolo
+      ignore_errors: true
+
+    - name: Reload systemd
+      ansible.builtin.command: systemctl daemon-reload
+
+    - name: Enable and start kubesolo
+      ansible.builtin.service:
+        name: "kubesolo"
+        state: started
+        enabled: true
