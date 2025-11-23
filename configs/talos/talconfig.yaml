@@ -3,7 +3,7 @@
 clusterName: mini
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/talos
-talosVersion: "v1.11.3"
+talosVersion: "v1.11.5"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: "v1.34.2"
