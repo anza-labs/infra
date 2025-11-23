@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
-export FILE="${1}"
+FILE="$1"
 
-sops -d "${FILE}" > "${FILE%.yaml}.sops.yaml"
+if [[ "$FILE" == *.* ]]; then
+    OUTPUT="${FILE%.*}.sops.${FILE##*.}"
+else
+    OUTPUT="${FILE}.sops"
+fi
+
+sops -d "$FILE" > "$OUTPUT"

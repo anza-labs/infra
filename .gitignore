@@ -1,10 +1,6 @@
 # Secrets
-*.sops.yaml
-*.sops.yml
+*.sops.*
 clusterconfig/
-
-# Env files
-*.env
 
 # MacOS attributes files
 .DS_Store
@@ -49,7 +45,6 @@ terraform.rc
 
 # Generated secrets
 *-kubeconfig.conf
-*.env
 
 # Ignore Bitwarden specific directories
 .bitwarden
