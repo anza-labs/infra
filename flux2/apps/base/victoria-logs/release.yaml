@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: vm
         namespace: victoria-logs
-      version: "0.11.17"
+      version: "0.11.18"
   interval: 30m0s
   timeout: 10m0s
   releaseName: victoria-logs
