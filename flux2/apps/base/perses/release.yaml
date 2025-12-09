@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: perses
         namespace: perses
-      version: "0.19.1"
+      version: "0.19.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: perses
