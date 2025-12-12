@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: opentelemetry
         namespace: opentelemetry-collector
-      version: "0.141.0"
+      version: "0.141.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: opentelemetry-collector
