@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: vm
         namespace: victoria-metrics
-      version: "0.26.0"
+      version: "0.27.0"
   interval: 30m0s
   timeout: 10m0s
   releaseName: victoria-metrics
