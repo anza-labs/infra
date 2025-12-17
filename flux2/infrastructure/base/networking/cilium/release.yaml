@@ -22,7 +22,7 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: kube-system
-      version: "1.18.4"
+      version: "1.18.5"
   interval: 30m0s
   timeout: 10m0s
   releaseName: cilium
