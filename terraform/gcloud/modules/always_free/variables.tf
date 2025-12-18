@@ -30,7 +30,7 @@ variable "tailscale_version" {
   description = "Tailscale Version"
 
   # renovate: datasource=docker depName=tailscale/tailscale
-  default = "v1.92.3"
+  default = "v1.92.4"
 }
 
 variable "discord_webhook" {
