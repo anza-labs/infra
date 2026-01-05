@@ -1,3 +1,7 @@
 #!/usr/bin/env ansible-galaxy install --force -r
-- name: geerlingguy.docker
-- name: geerlingguy.go
+roles:
+  - name: geerlingguy.docker
+  - name: geerlingguy.go
+
+collections:
+  - name: artis3n.tailscale
