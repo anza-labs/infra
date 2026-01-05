@@ -11,13 +11,13 @@
     packages:
       - name: prometheus-node-exporter
         # renovate: datasource=repology depName=ubuntu_24_04/prometheus-node-exporter versioning=loose
-        version: 1.7.0-1ubuntu0.3
+        version: "1.7.0-1ubuntu0.3"
       - name: prometheus-node-exporter-collectors
         # renovate: datasource=repology depName=ubuntu_24_04/prometheus-node-exporter-collectors versioning=loose
-        version: 0.0~git20231018.f5c56e7-1
+        version: "0.0~git20231018.f5c56e7-1"
       - name: net-tools
         # renovate: datasource=repology depName=ubuntu_24_04/net-tools versioning=loose
-        version: 2.10-0.1ubuntu4.4
+        version: "2.10-0.1ubuntu4.4"
 
   tasks:
 
