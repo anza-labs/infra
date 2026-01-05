@@ -1,0 +1,176 @@
+---
+- name: Flash Ubuntu Server to NVMe
+  hosts: installer
+  become: true
+  gather_facts: true
+
+  vars:
+    target_device: /dev/nvme0n1
+    ubuntu_version: 24.04.3
+
+    image_name: "ubuntu-{{ ubuntu_version }}-preinstalled-server-arm64+raspi.img"
+    image_archive: "{{ image_name }}.xz"
+    image_url: "https://cdimage.ubuntu.com/releases/{{ ubuntu_version }}/release/{{ image_archive }}"
+    image_dir: /opt/images/ubuntu
+    image_path: "{{ image_dir }}/{{ image_name }}"
+
+    boot_mount: /mnt/boot
+
+    fan_thresholds:
+      - temp: 50000
+        hyst: 4000
+        pct: 50
+      - temp: 60000
+        hyst: 4000
+        pct: 75
+      - temp: 65000
+        hyst: 4000
+        pct: 90
+      - temp: 70000
+        hyst: 5000
+        pct: 100
+    pwm_max: 255
+
+  tasks:
+
+    - name: Create working directory
+      ansible.builtin.file:
+        path: "{{ image_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Ubuntu LTS image
+      ansible.builtin.get_url:
+        url: "{{ image_url }}"
+        dest: "{{ image_dir }}/{{ image_archive }}"
+        mode: '0644'
+
+    - name: Unpack image
+      ansible.builtin.command:
+        cmd: >
+          xz -dk "{{ image_dir }}/{{ image_archive }}"
+      args:
+        creates: "{{ image_path }}"
+
+    - name: Flash image to target device
+      ansible.builtin.command:
+        cmd: "dd if={{ image_path }} of={{ target_device }} bs=4M status=progress conv=fsync"
+      async: 3600
+      poll: 10
+
+    - name: Ensure partition table is re-read
+      ansible.builtin.command: partprobe
+
+    - name: List partitions
+      ansible.builtin.command:
+        cmd: "lsblk {{ target_device }}"
+      register: lsblk_out
+
+    - name: Show partition layout
+      ansible.builtin.debug:
+        var: lsblk_out.stdout
+
+    # Assumption: partition 1 is FAT32 boot (true for Ubuntu preinstalled raspi images)
+    - name: Create boot mount directory
+      ansible.builtin.file:
+        path: "{{ boot_mount }}"
+        state: directory
+
+    - name: Mount boot partition
+      ansible.builtin.mount:
+        path: "{{ boot_mount }}"
+        src: "{{ target_device }}p1"
+        fstype: vfat
+        state: mounted
+
+    - name: Read boot config
+      ansible.builtin.slurp:
+        src: "{{ boot_mount }}/cmdline.txt"
+      register: boot_cfg
+
+    - name: Normalize boot config to single line
+      ansible.builtin.set_fact:
+        boot_cfg_line: >-
+          {{ boot_cfg.content
+            | b64decode
+            | replace('\n', ' ')
+            | regex_replace('\s+', ' ')
+            | trim }}
+
+    - name: Ensure dtoverlay=disable-wifi is present
+      ansible.builtin.copy:
+        dest: "{{ boot_mount }}/cmdline.txt"
+        content: |
+          {{ boot_cfg_line }}
+          {{ '' if 'dtoverlay=disable-wifi' in boot_cfg_line else ' dtoverlay=disable-wifi' }}
+        mode: '0644'
+      notify: Sync disks
+
+    - name: Initialize fan_settings
+      ansible.builtin.set_fact:
+        fan_settings: []
+
+    - name: Calculate PWM speeds from percentages
+      ansible.builtin.set_fact:
+        fan_settings: "{{ fan_settings + [ item | combine({'speed': (pwm_max * item.pct / 100) | int}) ] }}"
+      loop: "{{ fan_thresholds }}"
+
+    - name: Add fan_tempX to config.txt
+      ansible.builtin.lineinfile:
+        path: "{{ boot_mount }}/config.txt"
+        regexp: "^dtparam=fan_temp{{ idx }}_speed="
+        line: "dtparam=fan_temp{{ idx }}_speed={{ item.speed }}"
+        insertafter: '^\[all\]'
+      loop: "{{ fan_settings }}"
+      loop_control:
+        index_var: idx
+      notify: Sync disks
+
+    - name: Add fan_tempX_hyst to config.txt
+      ansible.builtin.lineinfile:
+        path: "{{ boot_mount }}/config.txt"
+        regexp: "^dtparam=fan_temp{{ idx }}_hyst="
+        line: "dtparam=fan_temp{{ idx }}_hyst={{ item.hyst }}"
+        insertafter: '^\[all\]'
+      loop: "{{ fan_settings }}"
+      loop_control:
+        index_var: idx
+      notify: Sync disks
+
+    - name: Add fan_tempX_speed to config.txt
+      ansible.builtin.lineinfile:
+        path: "{{ boot_mount }}/config.txt"
+        regexp: "^dtparam=fan_temp{{ idx }}="
+        line: "dtparam=fan_temp{{ idx }}={{ item.temp }}"
+        insertafter: '^\[all\]'
+      loop: "{{ fan_settings }}"
+      loop_control:
+        index_var: idx
+
+    - name: Ensure PCIe and fan settings are present in config.txt
+      ansible.builtin.lineinfile:
+        path: "{{ boot_mount }}/config.txt"
+        line: "{{ item }}"
+        insertafter: '^\[all\]'  # insert after the [all] line
+      loop:
+        - "dtparam=cooling_fan=on"
+        - "dtparam=pciex1_gen=3"
+      notify: Sync disks
+
+    - name: Copy files to boot
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../templates/rpi5/boot/"
+        dest: "{{ boot_mount }}/"
+        owner: root
+        group: root
+        mode: preserve
+      notify: Sync disks
+
+    - name: Unmount boot partition
+      ansible.builtin.mount:
+        path: "{{ boot_mount }}"
+        state: unmounted
+
+  handlers:
+    - name: Sync disks
+      ansible.builtin.command: sync

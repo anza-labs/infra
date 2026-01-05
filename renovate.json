@@ -1,19 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "automerge": true,
-  "labels": [
-    "area/dependency"
-  ],
+  "labels": ["area/dependency"],
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
-    "labels": [
-      "area/dependency",
-      "kind/security"
-    ]
+    "labels": ["area/dependency", "kind/security"]
   },
   "flux": {
     "managerFilePatterns": [
@@ -27,10 +20,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/main.tf$/",
-        "/variables.tf$/"
-      ],
+      "managerFilePatterns": ["/main.tf$/", "/variables.tf$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+\\s+=\\s\"(?<currentValue>\\S+)\""
       ]

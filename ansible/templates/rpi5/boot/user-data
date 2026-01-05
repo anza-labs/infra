@@ -1,0 +1,30 @@
+#cloud-config
+hostname: rpi
+timezone: Europe/Warsaw
+keyboard:
+  model: pc105
+  layout: "us"
+
+manage_etc_hosts: true
+manage_resolv_conf: false
+enable_ssh: true
+ssh_pwauth: false
+
+apt:
+  preserve_sources_list: true
+  conf: |
+    Acquire {
+      Check-Date "false";
+    };
+
+users:
+  - name: shanduur
+    groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK/Qi8kucqYTj214Qs32RzMPH7XBjteeEEDvknm2zLb5 shanduur@default"
+
+rpi:
+  interfaces:
+    serial: true
