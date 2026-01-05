@@ -1,11 +1,8 @@
 ---
-- name: Disable snapd and update packages
+- name: Disable snapd and install packages
   hosts: pi
   become: true
   gather_facts: true
-
-  roles:
-    - geerlingguy.docker
 
   vars:
     packages:
@@ -32,7 +29,7 @@
         name: "{{ item }}"
         enabled: false
         state: stopped
-        masked: yes
+        masked: true
       loop:
         - snapd
         - snapd.socket
@@ -44,3 +41,50 @@
         name: snapd
         state: absent
       when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install systemd services
+  hosts: pi
+  become: true
+  gather_facts: true
+
+  vars:
+    services:
+      - otel-collector
+
+    configs:
+      - src: otel/otelcol-docker.yaml
+        dest: /etc/otelcol/config.yaml
+
+    # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
+    otel_collector_version: "0.142.0"
+
+  roles:
+    - geerlingguy.docker
+
+  tasks:
+
+    - name: Create config files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../../configs/{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop: "{{ configs }}"
+
+    - name: Create service files
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/../templates/rpi5/services/{{ item }}.service.j2"
+        dest: "/etc/systemd/system/{{ item }}.service"
+        owner: root
+        group: root
+        mode: '0644'
+      loop: "{{ services }}"
+
+    - name: Enable and start services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+        masked: false
+      loop: "{{ services }}"

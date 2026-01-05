@@ -1,0 +1,16 @@
+[Unit]
+Description=Run OTel Collector in Docker
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=5
+ExecStop=/usr/bin/docker stop %n
+ExecStopPost=/usr/bin/docker rm --force %n
+ExecStartPre=-/usr/bin/docker rm --force %n
+ExecStart=/usr/bin/docker run --name=%n \
+    --volume=/:/hostfs:ro,rslave \
+    --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
+    otel/opentelemetry-collector-k8s:{{ otel_collector_version }} \
+        --config=/etc/otelcol/config.yaml
