@@ -127,7 +127,7 @@
         dest: /etc/distribution/config.proxy.yml
 
     # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
-    otel_collector_version: "0.142.0"
+    otel_collector_version: "0.143.0"
 
     # renovate: datasource=docker depName=registry
     registry_version: "3.0.0"
