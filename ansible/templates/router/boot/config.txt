@@ -1,0 +1,31 @@
+################################################################################
+# Bootloader configuration - config.txt
+################################################################################
+
+################################################################################
+# For overclocking and various other settings, see:
+# https://www.raspberrypi.com/documentation/computers/config_txt.html
+################################################################################
+
+# OpenWrt config
+include distroconfig.txt
+
+[all]
+# Place your custom settings here.
+dtparam=cooling_fan=on
+
+dtparam=fan_temp0=50000
+dtparam=fan_temp0_hyst=4000
+dtparam=fan_temp0_speed=76
+
+dtparam=fan_temp1=60000
+dtparam=fan_temp1_hyst=4000
+dtparam=fan_temp1_speed=153
+
+dtparam=fan_temp2=65000
+dtparam=fan_temp2_hyst=4000
+dtparam=fan_temp2_speed=204
+
+dtparam=fan_temp3=70000
+dtparam=fan_temp3_hyst=5000
+dtparam=fan_temp3_speed=255

@@ -1,0 +1,40 @@
+---
+- name: Install configs
+  hosts: routers
+  gather_facts: true
+
+  vars:
+    configs:
+      - name: boot/cmdline.txt
+        perm: '0755'
+      - name: boot/config.txt
+        perm: '0755'
+      - name: etc/config/dhcp
+        perm: '0600'
+      - name: etc/config/dropbear
+        perm: '0600'
+      - name: etc/config/firewall
+        perm: '0644'
+      - name: etc/config/luci
+        perm: '0644'
+      - name: etc/config/network
+        perm: '0600'
+      - name: etc/config/rpcd
+        perm: '0600'
+      - name: etc/config/system
+        perm: '0600'
+      - name: etc/config/uhttpd
+        perm: '0600'
+      - name: etc/config/wireless
+        perm: '0600'
+
+  tasks:
+
+    - name: Overwrite config files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../templates/router/{{ item.name }}"
+        dest: "/{{ item.name }}"
+        owner: root
+        group: root
+        mode: "{{ item.perm }}"
+      loop: "{{ configs }}"

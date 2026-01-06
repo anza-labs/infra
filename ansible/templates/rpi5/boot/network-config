@@ -2,6 +2,12 @@ network:
   version: 2
   ethernets:
     eth0:
-      dhcp4: true
-      dhcp6: true
-      optional: true
+      dhcp4: false
+      dhcp6: false
+      optional: false
+      addresses:
+        - 192.168.1.50/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 192.168.1.1
