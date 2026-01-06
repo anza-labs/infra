@@ -1,0 +1,181 @@
+# =======================================
+# RECEIVERS
+# These receive telemetry data from various sources
+# =======================================
+receivers:
+
+  # OTLP receiver (for traces, metrics, logs over gRPC/HTTP)
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317  # Default OTLP gRPC port
+      http:
+        endpoint: 0.0.0.0:4318  # Default OTLP HTTP port
+
+  # Filelog receiver (for Docker container logs)
+  filelog:
+    include:
+      - /hostfs/var/lib/docker/containers/*/*-json.log  # Docker logs
+    exclude_older_than: 60m  # Skip logs older than 60 minutes
+    start_at: end  # Start tailing from the end of the file
+    include_file_path: true
+    include_file_name: false
+    operators:
+      - type: container
+        format: docker  # Parse logs in Docker JSON format
+
+  # Host metrics receiver
+  hostmetrics:
+    root_path: /hostfs  # Needed when running in a container
+    collection_interval: 10s
+    scrapers:
+      cpu:
+      disk:
+      filesystem:
+      load:
+      memory:
+      network:
+      paging:
+      process:
+      processes:
+
+  # Prometheus receiver, scrapes:
+  # - Otel Collector internal metrics
+  # - Static endpoints
+  prometheus:
+    config:
+      scrape_configs:
+
+         # Collector metrics endpoint - self telemetry
+        - job_name: otel-collector
+          scrape_interval: 5s
+          static_configs:
+            - targets:
+                - 127.0.0.1:8888
+
+         # Hosts in the home networks
+        - job_name: hosts
+          scrape_interval: 10s
+          static_configs:
+            - targets:
+                - 172.17.0.1:9100 # self - docker0
+                - 172.18.0.1:9100 # self - docker_gwbridge
+                - 192.168.0.130:9100 # builder
+
+         # Smart devices
+        - job_name: tasmota
+          scrape_interval: 10s
+          static_configs:
+            - targets:
+                - 192.168.0.12:80
+                - 192.168.0.52:80
+                - 192.168.0.234:80
+
+# =======================================
+# PROCESSORS
+# Modify or batch telemetry data
+# =======================================
+processors:
+
+  # Batch processor improves performance by batching data
+  batch:
+
+  # Adds resource attributes from environment or system
+  resourcedetection:
+    detectors:
+      - env
+      - system
+    system:
+      hostname_sources:
+        - os
+    override: true  # Overwrite existing resource attributes
+
+  # Prevents out-of-memory crashes
+  memory_limiter:
+    check_interval: 5s
+    limit_mib: 225        # Soft memory limit
+    spike_limit_mib: 15   # Allowed spike before dropping data
+
+# =======================================
+# EXPORTERS
+# Send telemetry data to destination(s)
+# =======================================
+exporters:
+
+  # Export data via OTLP (to external collector/backend)
+  otlp:
+    endpoint: otlp.tail4d421.ts.net:4317
+
+  # Debug exporter (for development/testing)
+  debug:
+
+# =======================================
+# EXTENSIONS
+# Add non-pipeline features like health checks and zpages
+# =======================================
+extensions:
+
+  # Health check extension for readiness/liveness probes
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+  # ZPages (live debugging pages)
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+# =======================================
+# SERVICE
+# Pipeline configuration and overall service options
+# =======================================
+service:
+
+  extensions:
+    - health_check
+    - zpages
+
+  telemetry:
+    logs:
+      level: info  # Log verbosity level
+    metrics:
+      readers:
+        - pull:
+            exporter:
+              prometheus:
+                host: '0.0.0.0'
+                port: 8888  # Collector metrics exposed here
+
+  pipelines:
+
+    # Pipeline for traces
+    traces:
+      receivers:
+        - otlp
+      processors:
+        - memory_limiter
+        - batch
+        - resourcedetection
+      exporters:
+        - otlp
+
+    # Pipeline for metrics
+    metrics:
+      receivers:
+        - hostmetrics
+        - prometheus
+      processors:
+        - memory_limiter
+        - batch
+        - resourcedetection
+      exporters:
+        - otlp
+
+    # Pipeline for logs
+    logs:
+      receivers:
+        - filelog
+      processors:
+        - memory_limiter
+        - batch
+        - resourcedetection
+      exporters:
+        - otlp

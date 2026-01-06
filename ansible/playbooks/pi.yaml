@@ -126,7 +126,7 @@
           '15051': '5001'
 
     configs:
-      - src: otel/otelcol-docker.yaml
+      - src: otel/otelcol-docker.homelab.yaml
         dest: /etc/otelcol/config.yaml
       - src: registry/config.proxy.yml
         dest: /etc/distribution/config.proxy.yml

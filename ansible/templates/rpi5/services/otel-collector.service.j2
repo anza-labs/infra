@@ -6,10 +6,17 @@ Requires=docker.service
 [Service]
 Restart=always
 RestartSec=5
-ExecStop=/usr/bin/docker stop %n
-ExecStopPost=/usr/bin/docker rm --force %n
-ExecStartPre=-/usr/bin/docker rm --force %n
-ExecStart=/usr/bin/docker run --name=%n \
+ExecStop=/usr/bin/docker stop %N
+ExecStopPost=/usr/bin/docker rm --force %N
+ExecStartPre=-/usr/bin/docker rm --force %N
+ExecStart=/usr/bin/docker run --name=%N \
+{% for key, value in item.get('env', {}).items() %}
+    --env={{ key }}={{ value }} \
+{% endfor %}
+    --network=monitoring \
+{% for key, value in item.get('ports', {}).items() %}
+    --publish={{ key }}:{{ value }} \
+{% endfor %}
     --volume=/:/hostfs:ro,rslave \
     --volume=/etc/otelcol/config.yaml:/etc/otelcol/config.yaml:ro \
     otel/opentelemetry-collector-k8s:{{ otel_collector_version }} \

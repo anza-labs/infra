@@ -21,7 +21,7 @@ module "oci_amd" {
   instance_name             = "amd"
   instance_shape            = "VM.Standard.E2.1.Micro"
   subnet_id                 = module.oci_core.subnet_id
-  otel_collector_config_url = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/otel/otelcol-docker.yaml"
+  otel_collector_config_url = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/otel/otelcol-docker.cloud.yaml"
   registry_config_url       = "https://raw.githubusercontent.com/anza-labs/infra/refs/heads/main/configs/registry/config.yml"
 
   source_id                 = var.instance_source_id

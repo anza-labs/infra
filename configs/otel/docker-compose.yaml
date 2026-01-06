@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  otel:
+  otel-cloud:
     image: otel/opentelemetry-collector-k8s:0.143.1
     container_name: otel
     hostname: otel
@@ -13,6 +13,22 @@ services:
       - 55679:55679
     volumes:
       - /:/hostfs:ro,rslave
-      - ./otelcol-docker.yaml:/etc/otelcol/config.yaml:ro
+      - ./otelcol-docker.cloud.yaml:/etc/otelcol/config.yaml:ro
+    command:
+      - "--config=/etc/otelcol/config.yaml"
+
+  otel-homelab:
+    image: otel/opentelemetry-collector-k8s:0.143.1
+    container_name: otel
+    hostname: otel
+    ports:
+      - 4317:4317
+      - 4318:4318
+      - 8888:8888
+      - 13133:13133
+      - 55679:55679
+    volumes:
+      - /:/hostfs:ro,rslave
+      - ./otelcol-docker.homelab.yaml:/etc/otelcol/config.yaml:ro
     command:
       - "--config=/etc/otelcol/config.yaml"
