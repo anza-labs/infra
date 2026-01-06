@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - ../base/controllers
   - ../base/data/longhorn
-  - ../base/networking/cilium
   - ./tailscale.yaml

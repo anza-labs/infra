@@ -24,11 +24,11 @@ clusterSvcNets:
   - 10.96.0.0/12
 
 cniConfig:
-  name: none
+  name: flannel
 
 patches:
-  - "@./patches/no-kubeporxy.yaml"
   - "@./patches/ephemeral.yaml"
+  - "@./patches/registries.yaml"
 
 controlPlane:
   patches:
@@ -43,7 +43,7 @@ nodes:
   #
   #############################################################
   - hostname: radxa-rock5a-1
-    ipAddress: 192.168.10.11
+    ipAddress: 192.168.1.20
     controlPlane: true
     installDisk: /dev/nvme0
     schematic:
@@ -65,7 +65,7 @@ nodes:
   #
   #############################################################
   - hostname: radxa-x4-1
-    ipAddress: 192.168.10.21
+    ipAddress: 192.168.1.21
     controlPlane: false
     installDisk: /dev/nvme0
     patches:
@@ -78,7 +78,7 @@ nodes:
             - siderolabs/util-linux-tools
 
   - hostname: radxa-x4-2
-    ipAddress: 192.168.10.22
+    ipAddress: 192.168.1.22
     controlPlane: false
     installDisk: /dev/nvme0
     schematic:
@@ -96,7 +96,7 @@ nodes:
   #
   #############################################################
   - hostname: raspberry-pi4b-1
-    ipAddress: 192.168.10.31
+    ipAddress: 192.168.1.23
     controlPlane: false
     installDisk: /dev/sda
     schematic:
@@ -111,7 +111,7 @@ nodes:
     patches: []
 
   - hostname: raspberry-pi4b-2
-    ipAddress: 192.168.10.32
+    ipAddress: 192.168.1.24
     controlPlane: false
     installDisk: /dev/sda
     schematic:
