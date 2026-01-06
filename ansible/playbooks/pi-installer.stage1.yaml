@@ -1,6 +1,6 @@
 ---
 - name: Flash Ubuntu Server to NVMe
-  hosts: installer
+  hosts: installer-stage1
   become: true
   gather_facts: true
 

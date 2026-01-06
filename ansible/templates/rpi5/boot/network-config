@@ -6,7 +6,7 @@ network:
       dhcp6: false
       optional: false
       addresses:
-        - 192.168.1.50/24
+        - 192.168.1.10/24
       gateway4: 192.168.1.1
       nameservers:
         addresses:

@@ -4,9 +4,6 @@
   become: true
   gather_facts: true
 
-  roles:
-    - artis3n.tailscale.machine
-
   vars:
     packages:
       - name: prometheus-node-exporter

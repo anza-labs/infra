@@ -1,0 +1,8 @@
+---
+- name: Disable snapd and install packages
+  hosts: installer-stage2
+  become: true
+  gather_facts: true
+
+  roles:
+    - artis3n.tailscale.machine
