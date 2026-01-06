@@ -14,7 +14,7 @@ spec:
   url: oci://ghcr.io/rancher/local-path-provisioner/charts/local-path-provisioner
   ref:
     # renovate: datasource=docker depName=ghcr.io/rancher/local-path-provisioner/charts/local-path-provisioner
-    semver: "0.0.33"
+    semver: "0.0.34"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
