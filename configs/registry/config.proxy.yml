@@ -23,7 +23,9 @@ storage:
   cache:
     blobdescriptor: inmemory
   delete:
-    enabled: false
+    enabled: true
+  filesystem:
+    rootdirectory: /var/lib/registry
   maintenance:
     uploadpurging:
       enabled: false

@@ -1,0 +1,30 @@
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: docker.io
+endpoints:
+    - url: https://192.168.1.10:15010
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: gcr.io
+endpoints:
+    - url: https://192.168.1.10:15020
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: ghcr.io
+endpoints:
+    - url: https://192.168.1.10:15030
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: quay.io
+endpoints:
+    - url: https://192.168.1.10:15040
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: registry.k8s.io
+endpoints:
+    - url: https://192.168.1.10:15050

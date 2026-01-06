@@ -86,41 +86,49 @@
           '4318': '4318'
 
       - name: registry-proxy
-        suffix: docker.io
+        suffix: docker-io
         env:
-          REGISTRY_PROXY_REMOTEURL: https://docker.io
+          REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
         ports:
-          '35010': '5000'
-          '35011': '5001'
+          '15010': '5000'
+          '15011': '5001'
 
       - name: registry-proxy
-        suffix: ghcr.io
+        suffix: gcr-io
+        env:
+          REGISTRY_PROXY_REMOTEURL: https://gcr.io
+        ports:
+          '15020': '5000'
+          '15021': '5001'
+
+      - name: registry-proxy
+        suffix: ghcr-io
         env:
           REGISTRY_PROXY_REMOTEURL: https://ghcr.io
         ports:
-          '35020': '5000'
-          '35021': '5001'
+          '15030': '5000'
+          '15031': '5001'
 
       - name: registry-proxy
-        suffix: quay.io
+        suffix: quay-io
         env:
           REGISTRY_PROXY_REMOTEURL: https://quay.io
         ports:
-          '35030': '5000'
-          '35031': '5001'
+          '15040': '5000'
+          '15041': '5001'
 
       - name: registry-proxy
-        suffix: registry.k8s.io
+        suffix: registry-k8s-io
         env:
           REGISTRY_PROXY_REMOTEURL: https://registry.k8s.io
         ports:
-          '35040': '5000'
-          '35041': '5001'
+          '15050': '5000'
+          '15051': '5001'
 
     configs:
       - src: otel/otelcol-docker.yaml
         dest: /etc/otelcol/config.yaml
-      - src: registry/config.proxy.yaml
+      - src: registry/config.proxy.yml
         dest: /etc/distribution/config.proxy.yml
 
     # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
@@ -134,6 +142,16 @@
 
   tasks:
 
+    - name: Ensure destination directories exist
+      ansible.builtin.file:
+        path: "{{ item.dest | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+        recurse: yes
+      loop: "{{ configs }}"
+
     - name: Create config files
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/../../configs/{{ item.src }}"
@@ -141,21 +159,64 @@
         owner: root
         group: root
         mode: '0644'
+        force: true
       loop: "{{ configs }}"
 
     - name: Create service files
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/../templates/rpi5/services/{{ item }}.service.j2"
-        dest: "/etc/systemd/system/{{ item.name ~ ('-' + item.get('suffix') if item.get('suffix') else '' }}.service"
+        src: "{{ playbook_dir }}/../templates/rpi5/services/{{ item.name }}.service.j2"
+        dest: "/etc/systemd/system/{{ item.name ~ ('-' + item.get('suffix') if item.get('suffix') else '') }}.service"
         owner: root
         group: root
         mode: '0644'
+        force: true
       loop: "{{ services }}"
 
     - name: Enable and start services
       ansible.builtin.systemd_service:
-        name: "{{ item.name }}"
-        enabled: true
+        name: "{{ item.name ~ ('-' + item.get('suffix') if item.get('suffix') else '') }}.service"
         state: restarted
+        enabled: true
         masked: false
+        daemon_reload: true
       loop: "{{ services }}"
+
+    - name: Weekly Docker volume prune with logging
+      ansible.builtin.cron:
+        name: "Weekly Docker volume prune"
+        user: root
+        weekday: "0"            # Sunday
+        hour: "3"               # 3:30 AM
+        minute: "30"
+        job: "/usr/bin/docker volume prune --all --force >> /var/log/docker-prune.log 2>&1"
+        state: present
+
+    - name: Weekly Docker system prune with logging
+      ansible.builtin.cron:
+        name: "Weekly Docker system prune"
+        user: root
+        weekday: "0"            # Sunday
+        hour: "3"               # 3:00 AM
+        minute: "0"
+        job: "/usr/bin/docker system prune --all --volumes --force >> /var/log/docker-prune.log 2>&1"
+        state: present
+
+    - name: Ensure logrotate configuration for Docker prune exists
+      ansible.builtin.copy:
+        dest: /etc/logrotate.d/docker-prune
+        content: |
+          /var/log/docker-prune.log {
+              weekly
+              rotate 4
+              compress
+              missingok
+              notifempty
+              create 0640 root root
+              postrotate
+                  # Optional: reload rsyslog if needed
+                  # systemctl reload rsyslog >/dev/null 2>&1 || true
+              endscript
+          }
+        owner: root
+        group: root
+        mode: '0644'

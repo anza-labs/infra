@@ -1,5 +1,5 @@
 [Unit]
-Description=Run Registry Proxy{{ ' (' + item.get('suffix') + ')' if item.get('suffix') else '' }} in Docker
+Description=Run Registry Proxy for {{ item.suffix }} in Docker
 After=docker.service
 Requires=docker.service
 
@@ -11,11 +11,12 @@ ExecStopPost=/usr/bin/docker rm --force %n
 ExecStartPre=-/usr/bin/docker rm --force %n
 ExecStart=/usr/bin/docker run --name=%n \
     --env=OTEL_TRACES_EXPORTER=none \
-{%- for key, value in item.get('env', {}).items() %}
+{% for key, value in item.get('env', {}).items() %}
     --env={{ key }}={{ value }} \
-{%- endfor %}
-{%- for key, value in item.get('ports', {}).items() %}
-    --env={{ key }}={{ value }} \
-{%- endfor %}
+{% endfor %}
+{% for key, value in item.get('ports', {}).items() %}
+    --publish={{ key }}:{{ value }} \
+{% endfor %}
+    --volume={{ item.suffix }}:/var/lib/registry \
     --volume=/etc/distribution/config.proxy.yml:/etc/distribution/config.yml:ro \
     registry:{{ registry_version }}

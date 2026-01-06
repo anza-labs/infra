@@ -33,6 +33,12 @@
 
   tasks:
 
+    - name: Ensure parted is installed
+      ansible.builtin.apt:
+        name: parted
+        state: present
+        update_cache: true
+
     - name: Create working directory
       ansible.builtin.file:
         path: "{{ image_dir }}"
@@ -52,6 +58,18 @@
       args:
         creates: "{{ image_path }}"
 
+    # NOTE: in case something is not working, manually use parted
+    # to drop partitions from target_device
+    - name: Remove all partitions from target device
+      community.general.parted:
+        device: "{{ target_device }}"
+        label: none
+
+    - name: Inform kernel of partition table changes
+      ansible.builtin.command:
+        cmd: "partprobe {{ target_device }}"
+      ignore_errors: true
+
     - name: Flash image to target device
       ansible.builtin.command:
         cmd: "dd if={{ image_path }} of={{ target_device }} bs=4M status=progress conv=fsync"
@@ -70,7 +88,6 @@
       ansible.builtin.debug:
         var: lsblk_out.stdout
 
-    # Assumption: partition 1 is FAT32 boot (true for Ubuntu preinstalled raspi images)
     - name: Create boot mount directory
       ansible.builtin.file:
         path: "{{ boot_mount }}"
