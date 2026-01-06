@@ -1,16 +1,77 @@
 version: '3.8'
 
 services:
-  registry:
+
+  registry-s3:
     image: registry:3.0.0
     container_name: registry
     hostname: registry
     environment:
       OTEL_TRACES_EXPORTER: none
     env_file:
-      - .env
+      - .sops.env
     ports:
-      - 5000:5000
-      - 5001:5001
+      - 30000:5000
+      - 30001:5001
     volumes:
-      - ./config.yml:/etc/distribution/config.yml:ro
+      - ./config.s3.yml:/etc/distribution/config.yml:ro
+
+  registry-ghcr.io:
+    image: registry:3.0.0
+    container_name: registry
+    hostname: registry
+    environment:
+      OTEL_TRACES_EXPORTER: none
+      REGISTRY_PROXY_REMOTEURL: https://ghcr.io
+    env_file:
+      - .sops.env
+    ports:
+      - 30600:5000
+      - 30601:5001
+    volumes:
+      - ./config.proxy.yml:/etc/distribution/config.yml:ro
+
+  registry-docker.io:
+    image: registry:3.0.0
+    container_name: registry
+    hostname: registry
+    environment:
+      OTEL_TRACES_EXPORTER: none
+      REGISTRY_PROXY_REMOTEURL: https://docker.io
+    env_file:
+      - .sops.env
+    ports:
+      - 30700:5000
+      - 30701:5001
+    volumes:
+      - ./config.proxy.yml:/etc/distribution/config.yml:ro
+
+  registry-registry.k8s.io:
+    image: registry:3.0.0
+    container_name: registry
+    hostname: registry
+    environment:
+      OTEL_TRACES_EXPORTER: none
+      REGISTRY_PROXY_REMOTEURL: https://docker.io
+    env_file:
+      - .sops.env
+    ports:
+      - 30800:5000
+      - 30801:5001
+    volumes:
+      - ./config.proxy.yml:/etc/distribution/config.yml:ro
+
+  registry-quay.io:
+    image: registry:3.0.0
+    container_name: registry
+    hostname: registry
+    environment:
+      OTEL_TRACES_EXPORTER: none
+      REGISTRY_PROXY_REMOTEURL: https://quay.io
+    env_file:
+      - .sops.env
+    ports:
+      - 30900:5000
+      - 30901:5001
+    volumes:
+      - ./config.proxy.yml:/etc/distribution/config.yml:ro

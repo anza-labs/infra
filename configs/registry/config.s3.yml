@@ -23,10 +23,10 @@ storage:
   cache:
     blobdescriptor: inmemory
   delete:
-    enabled: false
+    enabled: true
   maintenance:
     uploadpurging:
-      enabled: false
+      enabled: true
   tag:
     concurrencylimit: 8
   s3:

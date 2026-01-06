@@ -1,0 +1,21 @@
+[Unit]
+Description=Run Registry Proxy{{ ' (' + item.get('suffix') + ')' if item.get('suffix') else '' }} in Docker
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=5
+ExecStop=/usr/bin/docker stop %n
+ExecStopPost=/usr/bin/docker rm --force %n
+ExecStartPre=-/usr/bin/docker rm --force %n
+ExecStart=/usr/bin/docker run --name=%n \
+    --env=OTEL_TRACES_EXPORTER=none \
+{%- for key, value in item.get('env', {}).items() %}
+    --env={{ key }}={{ value }} \
+{%- endfor %}
+{%- for key, value in item.get('ports', {}).items() %}
+    --env={{ key }}={{ value }} \
+{%- endfor %}
+    --volume=/etc/distribution/config.proxy.yml:/etc/distribution/config.yml:ro \
+    registry:{{ registry_version }}

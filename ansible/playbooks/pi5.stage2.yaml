@@ -18,6 +18,12 @@
       - name: net-tools
         # renovate: datasource=repology depName=ubuntu_24_04/net-tools versioning=loose
         version: "2.10-0.1ubuntu4.4"
+      - name: unattended-upgrades
+        # renovate: datasource=repology depName=ubuntu_24_04/unattended-upgrades versioning=loose
+        version: "2.9.1+nmu4ubuntu1"
+      - name: apt-listchanges
+        # renovate: datasource=repology depName=ubuntu_24_04/apt-listchanges versioning=loose
+        version: "3.27"
 
   tasks:
 
@@ -28,7 +34,7 @@
       loop: "{{ packages }}"
 
     - name: Disable snapd services
-      ansible.builtin.systemd:
+      ansible.builtin.systemd_service:
         name: "{{ item }}"
         enabled: false
         state: stopped
@@ -43,7 +49,32 @@
       ansible.builtin.apt:
         name: snapd
         state: absent
-      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Configure periodic APT updates
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Unattended-Upgrade "1";
+
+          Unattended-Upgrade::Allowed-Origins {
+              "${distro_id}:${distro_codename}";
+              "${distro_id}:${distro_codename}-security";
+              "${distro_id}:${distro_codename}-updates";
+          //  "${distro_id}:${distro_codename}-proposed";
+          //  "${distro_id}:${distro_codename}-backports";
+              "${distro_id}ESMApps:${distro_codename}-apps-security";
+              "${distro_id}ESM:${distro_codename}-infra-security";
+          };
+
+    - name: Ensure unattended-upgrades service is enabled and running
+      ansible.builtin.systemd_service:
+        name: apt-daily-upgrade.timer
+        enabled: true
+        state: restarted
 
 - name: Install systemd services
   hosts: pi
@@ -52,14 +83,54 @@
 
   vars:
     services:
-      - otel-collector
+      - name: otel-collector
+        ports:
+          '4317': '4317'
+          '4318': '4318'
+
+      - name: registry-proxy
+        suffix: docker.io
+        env:
+          REGISTRY_PROXY_REMOTEURL: https://docker.io
+        ports:
+          '35010': '5000'
+          '35011': '5001'
+
+      - name: registry-proxy
+        suffix: ghcr.io
+        env:
+          REGISTRY_PROXY_REMOTEURL: https://ghcr.io
+        ports:
+          '35020': '5000'
+          '35021': '5001'
+
+      - name: registry-proxy
+        suffix: quay.io
+        env:
+          REGISTRY_PROXY_REMOTEURL: https://quay.io
+        ports:
+          '35030': '5000'
+          '35031': '5001'
+
+      - name: registry-proxy
+        suffix: registry.k8s.io
+        env:
+          REGISTRY_PROXY_REMOTEURL: https://registry.k8s.io
+        ports:
+          '35040': '5000'
+          '35041': '5001'
 
     configs:
       - src: otel/otelcol-docker.yaml
         dest: /etc/otelcol/config.yaml
+      - src: registry/config.proxy.yaml
+        dest: /etc/distribution/config.proxy.yml
 
     # renovate: datasource=docker depName=otel/opentelemetry-collector-k8s
     otel_collector_version: "0.142.0"
+
+    # renovate: datasource=docker depName=registry
+    registry_version: "3.0.0"
 
   roles:
     - geerlingguy.docker
@@ -78,16 +149,16 @@
     - name: Create service files
       ansible.builtin.template:
         src: "{{ playbook_dir }}/../templates/rpi5/services/{{ item }}.service.j2"
-        dest: "/etc/systemd/system/{{ item }}.service"
+        dest: "/etc/systemd/system/{{ item.name ~ ('-' + item.get('suffix') if item.get('suffix') else '' }}.service"
         owner: root
         group: root
         mode: '0644'
       loop: "{{ services }}"
 
     - name: Enable and start services
-      ansible.builtin.systemd:
-        name: "{{ item }}"
+      ansible.builtin.systemd_service:
+        name: "{{ item.name }}"
         enabled: true
-        state: started
+        state: restarted
         masked: false
       loop: "{{ services }}"
