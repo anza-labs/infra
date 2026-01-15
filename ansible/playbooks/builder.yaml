@@ -6,7 +6,7 @@
 
   vars:
     # renovate: datasource=golang-version depName=golang
-    go_version: "1.25.5"
+    go_version: "1.25.6"
     go_base_url: "https://go.dev/dl"
 
   pre_tasks:
