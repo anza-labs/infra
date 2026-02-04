@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: flannel
         namespace: kube-flannel
-      version: "v0.28.0"
+      version: "v0.28.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: flannel
