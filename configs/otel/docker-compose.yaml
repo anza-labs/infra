@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   otel-cloud:
-    image: otel/opentelemetry-collector-k8s:0.144.0
+    image: otel/opentelemetry-collector-k8s:0.145.0
     container_name: otel
     hostname: otel
     ports:
@@ -18,7 +18,7 @@ services:
       - "--config=/etc/otelcol/config.yaml"
 
   otel-homelab:
-    image: otel/opentelemetry-collector-k8s:0.144.0
+    image: otel/opentelemetry-collector-k8s:0.145.0
     container_name: otel
     hostname: otel
     ports:
