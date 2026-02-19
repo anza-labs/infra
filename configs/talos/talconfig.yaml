@@ -42,16 +42,11 @@ nodes:
   # Control-Plane Nodes
   #
   #############################################################
-  - hostname: radxa-rock5a-1
+  - hostname: radxa-x4m16-1
     ipAddress: 192.168.1.20
-    controlPlane: true
+    controlPlane: false
     installDisk: /dev/nvme0
     schematic:
-      overlay: {} # TODO: Raspberry Pi5B or Radxa Rock Pi5A?
-        # name: rock5a
-        # image: siderolabs/sbc-rockchip
-        # name: rpi_generic
-        # image: siderolabs/sbc-raspberrypi
       customization:
         systemExtensions:
           officialExtensions:
@@ -61,23 +56,23 @@ nodes:
 
   #############################################################
   #
-  # Storage Nodes
+  # Worker Nodes (amd64)
   #
   #############################################################
-  - hostname: radxa-x4-1
+  - hostname: radxa-x4m12-1
     ipAddress: 192.168.1.21
     controlPlane: false
     installDisk: /dev/nvme0
-    patches:
-      - "@./patches/storage/node.yaml"
     schematic:
       customization:
         systemExtensions:
           officialExtensions:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
+    patches:
+      - "@./patches/storage/node.yaml"
 
-  - hostname: radxa-x4-2
+  - hostname: radxa-x4m12-2
     ipAddress: 192.168.1.22
     controlPlane: false
     installDisk: /dev/nvme0
@@ -92,7 +87,7 @@ nodes:
 
   #############################################################
   #
-  # Mini-Worker Nodes
+  # Worker Nodes (aarch64)
   #
   #############################################################
   - hostname: raspberry-pi4b-1
@@ -108,6 +103,7 @@ nodes:
           officialExtensions:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
+            - siderolabs/wasmedge
     patches: []
 
   - hostname: raspberry-pi4b-2
@@ -123,4 +119,23 @@ nodes:
           officialExtensions:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
+            - siderolabs/wasmedge
     patches: []
+
+  #############################################################
+  #
+  # Worker Nodes (riscv64)
+  #
+  #############################################################
+  # - hostname: milkv-mars-cm-lite-1
+  #   ipAddress: 192.168.1.25
+  #   controlPlane: false
+  #   installDisk: /dev/nvme0
+  #   schematic:
+  #     overlay:
+  #       name: milkv-mars
+  #       image: siderolabs/sbc-starfive
+  #     customization:
+  #       systemExtensions:
+  #         officialExtensions: []
+  #   patches: []

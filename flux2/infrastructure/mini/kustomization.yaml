@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - ../base/controllers
   - ../base/data/longhorn
+  - ./runtimeclass.yaml
   - ./tailscale.yaml
