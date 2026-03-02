@@ -1,0 +1,72 @@
+---
+- name: Install Cloudflared
+  hosts: frog
+  become: true
+  gather_facts: true
+
+  vars:
+    # renovate: datasource=github-releases depName=cloudflare/cloudflared
+    cloudflared_version: "2025.2.1"
+    cloudflared_bin_path: /usr/local/bin/cloudflared
+
+  tasks:
+    - name: Ensure libc6-compat is installed (Alpine compatibility)
+      community.general.apk:
+        name: libc6-compat
+        state: present
+      when: ansible_facts['os_family'] == 'Alpine'
+
+    - name: Map architecture to cloudflared naming
+      ansible.builtin.set_fact:
+        cloudflared_arch: >-
+          {{
+            'amd64' if ansible_facts['architecture'] == 'x86_64' else
+            'arm64' if ansible_facts['architecture'] == 'aarch64' else
+            'arm' if ansible_facts['architecture'] == 'armv7l' else
+            '386' if ansible_facts['architecture'] == 'i386' else
+            ansible_facts['architecture']
+          }}
+
+    - name: Download cloudflared binary
+      ansible.builtin.get_url:
+        url: "https://github.com/cloudflare/cloudflared/releases/download/{{ cloudflared_version }}/cloudflared-linux-{{ cloudflared_arch }}"
+        dest: "{{ cloudflared_bin_path }}"
+        mode: '0755'
+        owner: root
+        group: root
+      notify: Restart cloudflared
+
+    - name: Determine service file path
+      ansible.builtin.set_fact:
+        cloudflared_service_path: "{{ '/etc/init.d/cloudflared' if ansible_facts['service_mgr'] == 'openrc' else '/etc/systemd/system/cloudflared.service' }}"
+      when: ansible_facts['service_mgr'] in ['openrc', 'systemd']
+
+    - name: Check if cloudflared service is installed
+      ansible.builtin.stat:
+        path: "{{ cloudflared_service_path }}"
+      register: cloudflared_service_stat
+      when: cloudflared_service_path is defined
+
+    - name: Install cloudflared service
+      ansible.builtin.command:
+        cmd: "{{ cloudflared_bin_path }} service install {{ cloudflared_token }}"
+      when:
+        - cloudflared_service_stat is defined
+        - not cloudflared_service_stat.stat.exists
+        - cloudflared_token is defined
+      notify: Restart cloudflared
+
+    - name: Fail if token is missing for new installation
+      ansible.builtin.fail:
+        msg: "cloudflared_token must be defined to install the service."
+      when:
+        - cloudflared_service_stat is defined
+        - not cloudflared_service_stat.stat.exists
+        - cloudflared_token is not defined
+
+  handlers:
+    - name: Restart cloudflared
+      ansible.builtin.service:
+        name: cloudflared
+        state: restarted
+        enabled: true
