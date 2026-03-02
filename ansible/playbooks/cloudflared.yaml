@@ -6,7 +6,7 @@
 
   vars:
     # renovate: datasource=github-releases depName=cloudflare/cloudflared
-    cloudflared_version: "2025.11.1"
+    cloudflared_version: "2026.2.0"
     cloudflared_bin_path: /usr/local/bin/cloudflared
 
   tasks:
