@@ -9,8 +9,6 @@
     cloudflared_version: "2026.2.0"
     cloudflared_bin_path: /usr/local/bin/cloudflared
     podman_user: "frog"
-    subid_start: 100000
-    subid_count: 65536
 
   tasks:
     - name: Ensure proper Alpine repositories are selected
