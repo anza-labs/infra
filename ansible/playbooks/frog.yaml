@@ -1,5 +1,5 @@
 ---
-- name: Install Cloudflared
+- name: Set up Frog cloud VM
   hosts: frog
   become: true
   gather_facts: true
@@ -8,13 +8,72 @@
     # renovate: datasource=github-releases depName=cloudflare/cloudflared
     cloudflared_version: "2026.2.0"
     cloudflared_bin_path: /usr/local/bin/cloudflared
+    podman_user: "frog"
+    subid_start: 100000
+    subid_count: 65536
 
   tasks:
-    - name: Ensure libc6-compat is installed (Alpine compatibility)
-      community.general.apk:
-        name: libc6-compat
+    - name: Ensure proper Alpine repositories are selected
+      ansible.builtin.copy:
+        dest: /etc/apk/repositories
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          https://dl-cdn.alpinelinux.org/alpine/edge/main
+          https://dl-cdn.alpinelinux.org/alpine/edge/community
+          https://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+    - name: Update Alpine package index
+      ansible.builtin.apk:
+        update_cache: yes
+
+    - name: Upgrade all installed packages
+      ansible.builtin.apk:
+        upgrade: yes
+
+    - name: Install required packages
+      ansible.builtin.apk:
+        name:
+          - libc6-compat
+          - shadow
+          - podman
+          - fuse-overlayfs
+          - slirp4netns
         state: present
-      when: ansible_facts['os_family'] == 'Alpine'
+        update_cache: yes
+
+    - name: Remove /tmp/storage-run-* if exists
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_fileglob:
+        - /tmp/storage-run-*
+      ignore_errors: yes
+
+    - name: Find podman binary
+      ansible.builtin.command:
+        cmd: "which podman"
+      register: podman_path
+      changed_when: false
+      failed_when: podman_path.rc != 0
+
+    - name: Restrict Podman binary to root only
+      ansible.builtin.file:
+        path: "{{ podman_path.stdout }}"
+        owner: root
+        group: root
+        mode: '0750'
+      when: podman_path.stdout != ''
+
+    - name: Verify Podman works (info)
+      ansible.builtin.command:
+        cmd: podman info
+      register: podman_info
+      changed_when: false
+
+    - ansible.builtin.debug:
+        var: podman_info.stdout
 
     - name: Map architecture to cloudflared naming
       ansible.builtin.set_fact:
