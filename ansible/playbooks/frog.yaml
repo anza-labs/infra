@@ -8,7 +8,6 @@
     # renovate: datasource=github-releases depName=cloudflare/cloudflared
     cloudflared_version: "2026.2.0"
     cloudflared_bin_path: /usr/local/bin/cloudflared
-    podman_user: "frog"
 
   tasks:
     - name: Ensure proper Alpine repositories are selected
@@ -34,44 +33,9 @@
       ansible.builtin.apk:
         name:
           - libc6-compat
-          - shadow
           - podman
-          - fuse-overlayfs
-          - slirp4netns
         state: present
         update_cache: yes
-
-    - name: Remove /tmp/storage-run-* if exists
-      ansible.builtin.file:
-        path: "{{ item }}"
-        state: absent
-      with_fileglob:
-        - /tmp/storage-run-*
-      ignore_errors: yes
-
-    - name: Find podman binary
-      ansible.builtin.command:
-        cmd: "which podman"
-      register: podman_path
-      changed_when: false
-      failed_when: podman_path.rc != 0
-
-    - name: Restrict Podman binary to root only
-      ansible.builtin.file:
-        path: "{{ podman_path.stdout }}"
-        owner: root
-        group: root
-        mode: '0750'
-      when: podman_path.stdout != ''
-
-    - name: Verify Podman works (info)
-      ansible.builtin.command:
-        cmd: podman info
-      register: podman_info
-      changed_when: false
-
-    - ansible.builtin.debug:
-        var: podman_info.stdout
 
     - name: Map architecture to cloudflared naming
       ansible.builtin.set_fact:
