@@ -30,7 +30,8 @@
       "managerFilePatterns": [
         "/^ansible/playbooks/.*\\.yaml$/",
         "/^configs/.*\\.yaml$/",
-        "/^flux2/.*\\.yaml$/"
+        "/^flux2/.*\\.yaml$/",
+        "/^\\.github/workflows/.*\\.ya?ml$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)?( versioning=(?<versioning>.*?))?\\s+[A-Za-z0-9_]+:\\s\"(?<currentValue>\\S+)\""
