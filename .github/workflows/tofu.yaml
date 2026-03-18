@@ -31,6 +31,11 @@ on:
           Extra flags for the shared Tofu apply/plan
         required: false
         default: ""
+      extra_args_cloudflare:
+        description: |-
+          Extra flags for the Cloudflare Tofu apply/plan
+        required: false
+        default: ""
   schedule:
     - cron: "0 4 * * *"
 
@@ -185,5 +190,40 @@ jobs:
           ARGS="${{ github.event.inputs.extra_args_shared }}"
           source ./hack/actions.sh
           retry 2 tofu -chdir=./terraform/shared \
+            apply -auto-approve -input=false -lock=true -no-color \
+            ${ARGS:+$ARGS}
+
+  cloudflare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: opentofu/setup-opentofu@v1
+      - env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/cloudflare init -upgrade
+      - if: github.event_name == 'pull_request'
+        id: plan
+        env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ARGS="${{ github.event.inputs.extra_args_cloudflare }}"
+          source ./hack/actions.sh
+          retry 1 tofu -chdir=./terraform/cloudflare plan -input=false -no-color \
+            ${ARGS:+$ARGS}
+      - if: github.event_name != 'pull_request'
+        env:
+          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          TF_VAR_cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
+          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ARGS="${{ github.event.inputs.extra_args_cloudflare }}"
+          source ./hack/actions.sh
+          retry 2 tofu -chdir=./terraform/cloudflare \
             apply -auto-approve -input=false -lock=true -no-color \
             ${ARGS:+$ARGS}
