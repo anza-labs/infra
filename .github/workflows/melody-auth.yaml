@@ -43,38 +43,32 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: melody-auth/server
-          command: d1 migrations apply --config deploy.wrangler.toml --remote
-      - uses: cloudflare/wrangler-action@v3.14.1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: melody-auth/server
-          command: deploy --config deploy.wrangler.toml
+      - run: |
+          cd melody-auth/server
 
-  admin-panel:
-    needs: [server]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/checkout@v6
-        with:
-          repository: ValueMelody/melody-auth
-          ref: ${{ env.MELODY_AUTH_VERSION }}
-          path: melody-auth
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: melody-auth/admin-panel/package-lock.json
-      - run: cp ${{ github.workspace }}/configs/melody-auth/admin-panel.env melody-auth/admin-panel/.env.production
-      - run: npm ci
-        working-directory: melody-auth/admin-panel
-      - run: npm run cf:build
-        working-directory: melody-auth/admin-panel
-      - uses: cloudflare/wrangler-action@v3.14.1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: melody-auth/admin-panel
-          command: deploy
+  # admin-panel:
+  #   needs: [server]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v6
+  #     - uses: actions/checkout@v6
+  #       with:
+  #         repository: ValueMelody/melody-auth
+  #         ref: ${{ env.MELODY_AUTH_VERSION }}
+  #         path: melody-auth
+  #     - uses: actions/setup-node@v6
+  #       with:
+  #         node-version: "22"
+  #         cache: npm
+  #         cache-dependency-path: melody-auth/admin-panel/package-lock.json
+  #     - run: cp ${{ github.workspace }}/configs/melody-auth/admin-panel.env melody-auth/admin-panel/.env.production
+  #     - run: npm ci
+  #       working-directory: melody-auth/admin-panel
+  #     - run: npm run cf:build
+  #       working-directory: melody-auth/admin-panel
+  #     - uses: cloudflare/wrangler-action@v3.14.1
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #         workingDirectory: melody-auth/admin-panel
+  #         command: deploy
