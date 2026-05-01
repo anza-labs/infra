@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: cert-manager
-      version: "v1.20.1"
+      version: "v1.20.2"
   interval: 30m0s
   timeout: 10m0s
   releaseName: cert-manager
