@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: anza-labs
         namespace: pocket-id
-      version: "2.0.0"
+      version: "2.1.1"
   interval: 30m0s
   timeout: 10m0s
   releaseName: pocket-id
