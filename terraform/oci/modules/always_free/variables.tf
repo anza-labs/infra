@@ -105,5 +105,5 @@ variable "registry_version" {
   description = "Registry Version"
 
   # renovate: datasource=docker depName=registry
-  default = "3.0.0"
+  default = "3.1.0"
 }

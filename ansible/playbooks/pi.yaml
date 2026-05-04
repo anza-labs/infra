@@ -135,7 +135,7 @@
     otel_collector_version: "0.149.0"
 
     # renovate: datasource=docker depName=registry
-    registry_version: "3.0.0"
+    registry_version: "3.1.0"
 
   roles:
     - geerlingguy.docker

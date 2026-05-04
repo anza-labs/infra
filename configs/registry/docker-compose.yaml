@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   registry-s3:
-    image: registry:3.0.0
+    image: registry:3.1.0
     container_name: registry
     hostname: registry
     environment:
@@ -17,7 +17,7 @@ services:
       - ./config.s3.yml:/etc/distribution/config.yml:ro
 
   registry-ghcr.io:
-    image: registry:3.0.0
+    image: registry:3.1.0
     container_name: registry
     hostname: registry
     environment:
@@ -32,7 +32,7 @@ services:
       - ./config.proxy.yml:/etc/distribution/config.yml:ro
 
   registry-docker.io:
-    image: registry:3.0.0
+    image: registry:3.1.0
     container_name: registry
     hostname: registry
     environment:
@@ -47,7 +47,7 @@ services:
       - ./config.proxy.yml:/etc/distribution/config.yml:ro
 
   registry-registry.k8s.io:
-    image: registry:3.0.0
+    image: registry:3.1.0
     container_name: registry
     hostname: registry
     environment:
@@ -62,7 +62,7 @@ services:
       - ./config.proxy.yml:/etc/distribution/config.yml:ro
 
   registry-quay.io:
-    image: registry:3.0.0
+    image: registry:3.1.0
     container_name: registry
     hostname: registry
     environment:
