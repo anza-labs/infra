@@ -62,9 +62,9 @@ spec:
                   - openid
                   - profile
                   - email
-                auth_url: https://pocket-id.tail4d421.ts.net/authorize
-                token_url: https://pocket-id.tail4d421.ts.net/api/oidc/token
-                redirect_uri: https://perses.tail4d421.ts.net/api/auth/providers/oauth-github/callback
+                auth_url: https://pocket-id.cat-gacrux.ts.net/authorize
+                token_url: https://pocket-id.cat-gacrux.ts.net/api/oidc/token
+                redirect_uri: https://perses.cat-gacrux.ts.net/api/auth/providers/oauth-github/callback
   valuesFrom:
   - kind: Secret
     name: perses-oauth-credentials

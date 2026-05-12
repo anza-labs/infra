@@ -104,7 +104,7 @@ exporters:
 
   # Export data via OTLP (to external collector/backend)
   otlp:
-    endpoint: otlp.tail4d421.ts.net:4317
+    endpoint: otlp.cat-gacrux.ts.net:4317
 
   # Debug exporter (for development/testing)
   debug:

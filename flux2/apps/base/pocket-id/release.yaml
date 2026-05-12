@@ -48,7 +48,7 @@ spec:
       strategy: rollback
       remediateLastFailure: true
   values:
-    host: pocket-id.tail4d421.ts.net
+    host: pocket-id.cat-gacrux.ts.net
     ingress:
       enabled: true
       className: tailscale
@@ -76,7 +76,7 @@ spec:
       otel:
         OTEL_METRICS_EXPORTER: otlp
         OTEL_TRACES_EXPORTER: otlp
-        OTEL_EXPORTER_OTLP_ENDPOINT: http://otlp.tail4d421.ts.net:4317
+        OTEL_EXPORTER_OTLP_ENDPOINT: http://otlp.cat-gacrux.ts.net:4317
   valuesFrom:
     - kind: Secret
       name: pocket-id-backup
