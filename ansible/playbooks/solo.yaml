@@ -13,7 +13,7 @@
 
   vars:
     # renovate: datasource=github-releases depName=portainer/kubesolo
-    version: "v1.1.5"
+    version: "v1.1.6"
 
     config_path: "/var/lib/kubesolo"
     apiserver_extra_sans: ""
