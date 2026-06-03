@@ -27,7 +27,7 @@ spec:
         kind: HelmRepository
         name: tailscale
         namespace: tailscale
-      version: "1.98.3"
+      version: "1.98.4"
   interval: 30m0s
   timeout: 10m0s
   releaseName: tailscale-operator
