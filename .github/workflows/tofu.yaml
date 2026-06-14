@@ -9,15 +9,6 @@ on:
       - "main"
   workflow_dispatch:
     inputs:
-      extra_args_oci:
-        description: |-
-          Extra flags for the OCI Tofu apply/plan
-
-          Often used:
-          -replace=module.oci_amd.oci_core_instance.instance[0]
-          -replace=module.oci_amd.oci_core_instance.instance[1]
-        required: false
-        default: ""
       extra_args_gcloud:
         description: |-
           Extra flags for the GCloud Tofu apply/plan
@@ -47,62 +38,6 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  oci:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: opentofu/setup-opentofu@v2
-      - env:
-          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-          TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
-          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
-          TF_VAR_tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
-          TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
-          TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
-          TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
-          TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
-          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
-        run: |
-          source ./hack/actions.sh
-          retry 1 tofu -chdir=./terraform/oci init -upgrade
-      - if: github.event_name == 'pull_request'
-        id: plan
-        env:
-          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-          TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
-          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
-          TF_VAR_tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
-          TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
-          TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
-          TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
-          TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
-          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
-        run: |
-          ARGS="${{ github.event.inputs.extra_args_oci }}"
-          source ./hack/actions.sh
-          retry 1 tofu -chdir=./terraform/oci plan -input=false -no-color \
-            ${ARGS:+$ARGS}
-      - if: github.event_name != 'pull_request'
-        env:
-          PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
-          TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-          TF_VAR_private_key: ${{ secrets.OCI_PEM_PRV }}
-          TF_VAR_ssh_public_keys: ${{ secrets.SSH_PUB_KEY }}
-          TF_VAR_tailscale_oauth_client_id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
-          TF_VAR_tailscale_oauth_secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
-          TF_VAR_tailscale_tailnet: ${{ secrets.TAILSCALE_TAILNET }}
-          TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
-          TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
-          TF_VAR_discord_webhook: ${{ secrets.DISCORD_WEBHOOK_SYSTEMS }}
-        run: |
-          ARGS="${{ github.event.inputs.extra_args_oci }}"
-          source ./hack/actions.sh
-          retry 2 tofu -chdir=./terraform/oci \
-            apply -auto-approve -input=false -lock=true -no-color \
-            ${ARGS:+$ARGS}
-
   gcloud:
     runs-on: ubuntu-latest
     steps:
