@@ -81,5 +81,5 @@ variable "registry_version" {
   description = "OTel Collector Version"
 
   # renovate: datasource=docker depName=registry
-  default = "3.1.1"
+  default = "3.1.2"
 }
